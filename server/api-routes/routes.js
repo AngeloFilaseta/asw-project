@@ -1,6 +1,5 @@
 const express = require('express');
-const mongoose = require("mongoose");
-const models = require('../models/models')(mongoose);
+const Kitty = require("../models/kitty");
 const router = express.Router();
 
 //Middle ware that is specific to this router
@@ -10,7 +9,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.post('/save-kitty', (req, res) => {
-    let kitty = new models.Kitty({'name': req.body.name});
+    let kitty = new Kitty({'name': req.body.name});
     kitty.save(function (err, k) {
         if (err) return console.error(err);
         k.meow();
