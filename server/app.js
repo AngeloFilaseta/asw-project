@@ -1,11 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const sockjs_echo = require("./controller/sockJSController");
 const app = express()
 const port = 3000
 const mongodbPort = 27017
 const dbName = "guessr"
-const bodyParser = require('body-parser');
 
+//attach sockJS to the app
+sockjs_echo.installHandlers(app, {prefix:'/eventbus'});
+
+//decode every request body to json
 app.use(bodyParser.json());
 
 //import the api-routes
