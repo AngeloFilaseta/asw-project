@@ -1,3 +1,10 @@
+export const setLanguages = (languages) => {
+    return {
+        type: "SET_LANGUAGES",
+        payload: languages
+    }
+}
+
 export const setEventbus = (eventbus) => {
     return {
         type: "SET_EVENTBUS",
