@@ -1,64 +1,83 @@
 const express = require('express');
-const Kitty = require("../models/kitty");
-const User = require("../models/user");
 const router = express.Router();
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
+const jsonwt = require("jsonwebtoken");
+const key = require("../conf/db");
+const auth = require("../middleware/auth");
+const logger = require("../middleware/log");
+const Responses = require("../middleware/response");
+const Errors = require("../middleware/errors");
 
-//Middleware example, time is printed when an api is called
-router.use(function timeLog(req, res, next) {
-    console.log('Time: ', Date.now());
-    next();
-});
-
-router.post('/save-kitty', (req, res) => {
-    let kitty = new Kitty({'name': req.body.name});
-    kitty.save(function (err, k) {
-        if (err) return console.error(err);
-        k.meow();
-    });
-    res.send("Kitty added:" + kitty)
-})
-
-router.get('/test', (req, res) => {
-    res.send('Hello Test!')
-})
+router.use(logger)
 
 router.post("/auth/signup", async (req, res) => {
     let newUser = new User({
-        name: req.body.name,
+        username: req.body.username,
         password: req.body.password
     });
 
-    await User.findOne({ name: newUser.name }).then(async profile => {
+    await User.findOne({ username: newUser.username }).then(async profile => {
             if (!profile) {
-                await newUser.save()
-                    .then(() => {
-                        res.status(200).send(newUser);
-                    })
-                    .catch(err => {
-                        console.log("Error is ", err.message);
+                newUser.save().then(() => {
+                        Responses.OKResponse(res, newUser);
+                    }).catch(err => {
+                        Errors.ServerError(res, err);
                     });
             } else {
-                res.send("User already exists...");
+                Errors.ConflictError(res,{message: "User already exists, use another username."});
             }
-        }).catch(err => {console.log("Error is", err.message);});
-})
+        }).catch(err => {
+            Errors.ServerError(res, err);
+        });
+});
 
-router.post("auth/login", async (req, res) => {
+router.post("/auth/login", async (req, res) => {
     let newUser = {};
-    newUser.name = req.body.name;
+    newUser.username = req.body.username;
     newUser.password = req.body.password;
 
-    await User.findOne({ name: newUser.name }).then(profile => {
+    await User.findOne({ username: newUser.username }).then(profile => {
             if (!profile) {
-                res.send("User not exist");
+                Errors.NotFoundError(res, {message: "User not found."});
             } else {
-                if (profile.password === newUser.password) {
-                    res.send("User authenticated");
-                } else {
-                    res.send("User Unauthorized Access");
-                }
+                console.log(newUser.password + " " + profile.password);
+                bcrypt.compare(
+                    newUser.password,
+                    profile.password,
+                    async (err, result) => {
+                        if (err) {
+                            Errors.ServerError(res, err);
+                        } else if (result === true) {
+                            const payload = {
+                                id: profile.id,
+                                username: profile.username
+                            };
+                            jsonwt.sign(
+                                payload,
+                                key.secret,
+                                { expiresIn: 3600 },
+                                (err, token) => {
+                                    if (err) {
+                                        Errors.ServerError(res, err);
+                                    }
+                                    Responses.OKResponse(res,{success: true, token: "Bearer " + token})
+                                }
+                            );
+                        } else {
+                            Errors.UnauthorizedError(res,{message: "Unauthorized."})
+                        }
+                    }
+                );
             }
-        }).catch(err => {console.log("Error is ", err.message);});
+        })
+        .catch(err => {
+            console.log("Error is ", err.message);
+        });
+});
+
+router.get("/profile", auth, (req, res) => {
+    Responses.OKResponse(res, {id: req.user.id, username: req.user.username});
 });
 
 module.exports = router;

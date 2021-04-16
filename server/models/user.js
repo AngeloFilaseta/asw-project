@@ -1,35 +1,46 @@
-const mongoose = require("mongoose"),
-    Schema = mongoose.Schema,
-    bcrypt = require("bcrypt"),
-    SALT_WORK_FACTOR = 10;
-
-const UserSchema = new Schema({
-    username: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true }
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const UserSchema = mongoose.Schema({
+    username: {
+        type: String,
+        require: true
+    },
+    password: {
+        type: String,
+        require: true
+    }
 });
 
-UserSchema.pre('save', function(next) {
-    var user = this;
-    // only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) return next();
-    // generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if (err) return next(err);
-        // hash the password using our new salt
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            if (err) return next(err);
-            // override the cleartext password with the hashed one
-            user.password = hash;
-            next();
+//authenticate input against database
+UserSchema.statics.authenticate = function(name, password, callback) {
+    User.findOne({ username: name }).exec(function(err, user) {
+        if (err) {
+            return callback(err);
+        } else if (!user) {
+            var err = new Error("User not found.");
+            err.status = 401;
+            return callback(err);
+        }
+        bcrypt.compare(password, user.password, function(err, result) {
+            if (result === true) {
+                return callback(null, user);
+            } else {
+                return callback();
+            }
         });
-    });
-});
-
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
     });
 };
 
-module.exports = mongoose.model("User", UserSchema);
+//hashing a password before saving it to the database
+UserSchema.pre("save", function(next) {
+    let user = this;
+    bcrypt.hash(user.password, 10, function(err, hash) {
+        if (err) {
+            return next(err);
+        }
+        user.password = hash;
+        next();
+    });
+});
+
+module.exports = User = mongoose.model("User", UserSchema);
