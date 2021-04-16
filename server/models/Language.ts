@@ -1,7 +1,7 @@
 /**
  * Languages of the game, Karen included.
  */
-enum Languages {
+export const enum Languages {
     ACHOLI,
     AFRIKAANS,
     AKAN,
@@ -192,3 +192,4 @@ enum Languages {
     YORUBA,
     YUPIK   
 }
+
