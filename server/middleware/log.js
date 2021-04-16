@@ -5,7 +5,7 @@ const logger = function (req, res, next) {
         + (currentDate.getMonth()+1)  + "/"
         + currentDate.getFullYear() + " - "
         + currentDate.getHours() + ":"
-        + ((currentDate.getMinutes() % 10) > 1 ? "0" : "")+ currentDate.getMinutes() + ":"
+        + currentDate.getMinutes() + ":"
         + currentDate.getSeconds());
     console.log("Request Header:" +  JSON.stringify(req.headers));
     console.log("Query Params:" +  JSON.stringify(req.params));
