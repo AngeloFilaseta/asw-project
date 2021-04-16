@@ -35,6 +35,18 @@ export function RedirectAuthentication(){
     return <Link to="/"><Redirect to="/" /></Link>
 }
 
+export function RedirectLobbyCreation(){
+    return <Link to="/lobbyCreation"><Redirect to="/lobbyCreation" /></Link>
+}
+
+export function RedirectLobby(){
+    return <Link to="/lobby"><Redirect to="/lobby" /></Link>
+}
+
+export function RedirectPreviousReports(){
+    return <Link to="/previousReports"><Redirect to="/previousReports" /></Link>
+}
+
 function resetUserInfo(dispatch){
     dispatch(setUsername(null))
     dispatch(setId(null))
