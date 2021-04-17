@@ -1,8 +1,7 @@
 import { NotificationManager } from "react-notifications"
-import { setIsLoading } from "../../redux/util/actions"
+import {setIsLoading, setLanguages} from "../../redux/util/actions"
 import {setUsername, setId, setToken} from "../../redux/userInfo/actions"
 import $ from 'jquery';
-
 import { 
     SERVER_ADDRESS, 
     USERNAME_LENGHT_MIN 
@@ -15,28 +14,21 @@ $.ajaxSetup({
 export function login(inputUsername, inputPassword, dispatch) {
     if(isUsernameValid(inputUsername, "Login failed") /*check password*/){
         dispatch(setIsLoading(true))
-        setTimeout(function () {
-            dispatch(setIsLoading(false))
-            $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
-                .done(function (result) {
-                    dispatch(setToken(result.token))
-                    $.ajax({
-                        url: SERVER_ADDRESS + "/profile",
-                        type: 'GET',
-                        headers: {"Authorization": result.token}
-                    }).done(function (result) {
-                        dispatch(setId(result.id));
-                        dispatch(setUsername(result.username));
-                    });
-                })
-                .fail(function (result) {
-                    NotificationManager.error(result.responseJSON.message, 'Error', 3000);
-                })
-                .always(function () {
-                    dispatch(setIsLoading(false));
-                });
-        }, 1000)
+        $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
+            .done(function (result) {
+                let token = result.token;
+                dispatch(setToken(token))
+                loadUserIDAndUsernameFromToken(dispatch, token);
+                loadLanguages(dispatch, token);
+            })
+            .fail(function (result) {
+                NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+            })
+            .always(function () {
+                dispatch(setIsLoading(false));
+            });
     }
+
 }
 
 export function signup(inputUsername, inputPassword, dispatch) {
@@ -73,5 +65,27 @@ function isStringLongEnough(str, len, notificationTitle, notificationText){
         return false
     }
     return true
+}
+
+
+function loadUserIDAndUsernameFromToken(dispatch, token){
+    $.ajax({
+        url: SERVER_ADDRESS + "/profile",
+        type: 'GET',
+        headers: {"Authorization": token}
+    }).done(function (result) {
+        dispatch(setId(result.id));
+        dispatch(setUsername(result.username));
+    });
+}
+
+function loadLanguages(dispatch, token){
+    $.ajax({
+        url: SERVER_ADDRESS + "/languages",
+        type: 'GET',
+        headers: {"Authorization": token}
+    }).done(function (result) {
+        dispatch(setLanguages(result));
+    });
 }
 
