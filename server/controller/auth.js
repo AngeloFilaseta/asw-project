@@ -3,7 +3,7 @@ const Errors = require("../middleware/errors");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jsonwt = require("jsonwebtoken");
-const key = require("../conf/db");
+const key = require("../conf/conf");
 
 async function signup(req, res) {
     let newUser = new User({

@@ -5,7 +5,7 @@ const sockjs_echo = require("./controller/sockjs/sockjsEcho");
 const passport = require("passport");
 const app = express()
 const port = 3000
-const dbUrl = require("./conf/db").url;
+const dbUrl = require("./conf/conf").url;
 
 //decode every request body to json format
 app.use(bodyParser.json());
