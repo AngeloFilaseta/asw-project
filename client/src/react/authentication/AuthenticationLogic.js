@@ -8,6 +8,10 @@ import {
     USERNAME_LENGHT_MIN 
 } from "../../util/global"
 
+$.ajaxSetup({
+    contentType: "application/json; charset=utf-8"
+});
+
 export function login(inputUsername, inputPassword, dispatch) {
     if(isUsernameValid(inputUsername, "Login failed") /*check password*/){
         dispatch(setIsLoading(true))
@@ -38,13 +42,9 @@ export function login(inputUsername, inputPassword, dispatch) {
 export function signup(inputUsername, inputPassword, dispatch) {
     if(isUsernameValid(inputUsername, "Signup failed") /*check password*/){
         dispatch(setIsLoading(true));
-        $.ajaxSetup({
-            contentType: "application/json; charset=utf-8"
-        });
         $.post(SERVER_ADDRESS + "/auth/signup", createUserObj(inputUsername.trim(), inputPassword.trim()))
-            .done(function (result) {
-                dispatch(setId(result._id));
-                dispatch(setUsername(result.username));
+            .done(function () {
+                login(inputUsername,inputPassword, dispatch);
             })
             .fail(function (result) {
                 NotificationManager.error(result.responseJSON.message, 'Error', 3000);
@@ -54,7 +54,6 @@ export function signup(inputUsername, inputPassword, dispatch) {
             });
     }
 }
-
 
 function createUserObj(inputUsername, inputPassword) {
     return JSON.stringify({

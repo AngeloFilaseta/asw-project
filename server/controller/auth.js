@@ -32,7 +32,7 @@ async function login(req, res) {
 
     await User.findOne({ username: newUser.username }).then(profile => {
         if (!profile) {
-            Errors.NotFoundError(res, {message: "Wrong credential inserted."});
+            Errors.NotFoundError(res, {message: "Wrong credentials inserted."});
         } else {
             console.log(newUser.password + " " + profile.password);
             bcrypt.compare(
@@ -58,7 +58,7 @@ async function login(req, res) {
                             }
                         );
                     } else {
-                        Errors.UnauthorizedError(res,{message: "Unauthorized."})
+                        Errors.UnauthorizedError(res,{message: "Wrong credentials inserted."})
                     }
                 }
             );
