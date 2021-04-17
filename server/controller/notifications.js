@@ -15,12 +15,22 @@ function createNotification(req, res) {
     });
 }
 
-function getNotifications(req, res) {
-    Errors.ServerError(res, {message: "Not Implemented"});
+async function getNotifications(req, res) {
+    await Notification.find({'id_user' : req.user.id}, function(err, notifications) {
+        if (err) {
+            Errors.ServerError(res, err.message);
+        }
+        Responses.OKResponse(res, notifications);
+    });
 }
 
-function deleteNotification(req, res) {
-    Errors.ServerError(res, {message: "Not Implemented"});
+async function deleteNotification(req, res) {
+    await Notification.deleteOne({ _id:  req.query["id_notification"]}, function (err) {
+        if (err) {
+            Errors.ServerError(res, err.message);
+        }
+        Responses.AcceptedResponse(res, {message: "Notification deleted."})
+    });
 }
 
 module.exports = {

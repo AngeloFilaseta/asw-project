@@ -2,10 +2,7 @@ import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
 import {setUsername, setId, setToken} from "../../redux/userInfo/actions"
 import $ from 'jquery';
-import { 
-    SERVER_ADDRESS, 
-    USERNAME_LENGHT_MIN 
-} from "../../util/global"
+import { SERVER_ADDRESS, USERNAME_LENGHT_MIN } from "../../util/global"
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
@@ -54,7 +51,6 @@ function createUserObj(inputUsername, inputPassword) {
     });
 }
 
-
 function isUsernameValid(username, notificationTitle){
     return isStringLongEnough(username, USERNAME_LENGHT_MIN, notificationTitle, "Username must be at least " + USERNAME_LENGHT_MIN + " characters long")
 }
@@ -66,7 +62,6 @@ function isStringLongEnough(str, len, notificationTitle, notificationText){
     }
     return true
 }
-
 
 function loadUserIDAndUsernameFromToken(dispatch, token){
     $.ajax({

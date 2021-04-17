@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 
 app.use(require('./routes/auth'));
 app.use(require('./routes/resources'));
+app.use(require('./routes/notifications'));
 
 require("./conf/strategies/jsonwtStrategy")(passport); //Config for JWT strategy
 app.use(passport.initialize()); // Passport service used to generate JWT for the auth routes.

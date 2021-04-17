@@ -7,6 +7,6 @@ router.get("/notification", auth, (req, res) => NotificationController.getNotifi
 
 router.post("/notification", auth, (req, res) => NotificationController.createNotification(req, res));
 
-router.delete("/notification", (req, res) => NotificationController.deleteNotification(req, res));
+router.delete("/notification", auth, (req, res) => NotificationController.deleteNotification(req, res));
 
 module.exports = router;
