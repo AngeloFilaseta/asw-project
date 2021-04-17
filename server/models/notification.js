@@ -10,7 +10,7 @@ let NotificationSchema = new Schema({
         type: String,
         require: true
     },
-    user_id: {
+    id_user: {
         type: Schema.Types.ObjectId,
         ref: "User"
     }

@@ -1,4 +1,4 @@
-export const SERVER_ADDRESS = "localhost"
+export const SERVER_ADDRESS = "http://localhost:3000"
 
 export const USERNAME_LENGHT_MIN = 4
 

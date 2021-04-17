@@ -5,7 +5,8 @@ const Notification = require("../models/notification");
 function createNotification(req, res) {
     let newNotification = new Notification({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        id_user: req.body.id_user
     });
     newNotification.save().then(() => {
         Responses.OKResponse(res, newNotification);

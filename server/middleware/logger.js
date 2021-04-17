@@ -5,7 +5,7 @@ const logger = function (req, res, next) {
     console.log("Request Header:" +  JSON.stringify(req.headers));
     console.log("Query Params:" +  JSON.stringify(req.params));
     console.log("Request Body:" +  JSON.stringify(req.body));
-    next()
+    next();
 }
 
 module.exports = logger;

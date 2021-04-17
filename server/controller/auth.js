@@ -10,7 +10,6 @@ async function signup(req, res) {
         username: req.body.username,
         password: req.body.password
     });
-
     await User.findOne({ username: newUser.username }).then(async profile => {
         if (!profile) {
             newUser.save().then(() => {
@@ -33,7 +32,7 @@ async function login(req, res) {
 
     await User.findOne({ username: newUser.username }).then(profile => {
         if (!profile) {
-            Errors.NotFoundError(res, {message: "User not found."});
+            Errors.NotFoundError(res, {message: "Wrong credential inserted."});
         } else {
             console.log(newUser.password + " " + profile.password);
             bcrypt.compare(
