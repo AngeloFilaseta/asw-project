@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const UserSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+let UserSchema = new Schema({
     username: {
         type: String,
         require: true
@@ -8,7 +10,11 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
-    }
+    },
+    notifications: [{
+        type: Schema.Types.ObjectId,
+        ref:"Notification"
+    }]
 });
 
 //authenticate input against database
@@ -17,7 +23,7 @@ UserSchema.statics.authenticate = function(name, password, callback) {
         if (err) {
             return callback(err);
         } else if (!user) {
-            var err = new Error("User not found.");
+            let err = new Error("User not found.");
             err.status = 401;
             return callback(err);
         }

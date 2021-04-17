@@ -1,8 +1,17 @@
 const Responses = require("../middleware/response");
 const Errors = require("../middleware/errors");
+const Notification = require("../models/notification");
 
 function createNotification(req, res) {
-    Errors.ServerError(res, {message: "Not Implemented"});
+    let newNotification = new Notification({
+        title: req.body.title,
+        description: req.body.description
+    });
+    newNotification.save().then(() => {
+        Responses.OKResponse(res, newNotification);
+    }).catch(err => {
+        Errors.ServerError(res, {message: err.message});
+    });
 }
 
 function getNotifications(req, res) {
