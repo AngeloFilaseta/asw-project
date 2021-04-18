@@ -10,8 +10,9 @@ export default function GuessrNotification() {
 
 function bellButton(){
     return (
-        <Button>
+        <Button >
             <img alt="Alerts" style={{ width: "30px", height: "30px" }} src={bellIcon} />
+            <span className="badge badge-danger">4</span>
         </Button>
     )
 }

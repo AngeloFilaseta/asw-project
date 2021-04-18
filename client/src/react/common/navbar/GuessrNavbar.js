@@ -25,12 +25,8 @@ export default function GuessrNavbar(props) {
             </Col>
             <Col className="col-4 col-sm-3 d-flex justify-content-end">
                 <Nav>
-                    <Col className="col-4">
-                        <GuessrNotification/>
-                    </Col>
-                    <Col>
-                        <GuessrLogout/>
-                    </Col>
+                   <GuessrNotification/>
+                   <GuessrLogout/>
                 </Nav>
             </Col>
         </Navbar>
