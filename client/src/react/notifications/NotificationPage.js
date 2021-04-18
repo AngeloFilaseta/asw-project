@@ -1,23 +1,19 @@
 import React from 'react';
 
-import GuessrNavbar from '../components/GuessrNavbar';
-import ReportCard from './ReportCard';
 import { Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import { serverUrl } from '../util/util';
 import { useSelector } from 'react-redux';
-import BackToLogin from '../components/BackToLogin';
-import BackButton from '../components/BackButton';
 import { NotificationContainer } from 'react-notifications';
 import NotificationCard from "./NotificationCard";
+import GuessrNavbar from "../common/navbar/GuessrNavbar";
 
 function ReportPage(props) {
 
-    var username = useSelector(state => state.username);
-    var notificationList = useSelector(state => state.previousReports); //TODO: creare previousNotification
+    let username = useSelector(state => state.userInfo.username);
+    let notificationList = useSelector(state => state.userInfo.notifications);
 
     if (username === null) {
-        return (<BackToLogin />);
+        return null; //TODO add redirect to login page
     } else {
         return (
             <>
@@ -25,7 +21,7 @@ function ReportPage(props) {
                 <GuessrNavbar title={"Notification center"} />
                 <div align="center">
                     <div className="col-lg-2  col-6 my-3">
-                        <BackButton handleFunction={() => null} route={"/home"} buttonName={"Go back"} />
+                        {/* <BackButton handleFunction={() => null} route={"/home"} buttonName={"Go back"} />  //TODO add redirect to login page */}
                     </div>
                 </div>
                 <Container fluid >
@@ -41,14 +37,14 @@ function ReportPage(props) {
 export default ReportPage;
 
 function updateList(notificationList) {
-    var i = 0;
+    let i = 0;
     return (
         <>
-            {notificationList.map(listitem => (
+            {notificationList.map(item => (
                 <NotificationCard
-                    title={listitem.map.title}
-                    description={listitem.map.description}
-                    date={listitem.map.date}
+                    title={item.title}
+                    description={item.description}
+                    date={"DATE"} //TODO add date
                     key={"notification " + i++}
                 />
             ))}

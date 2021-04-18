@@ -47,6 +47,10 @@ export function RedirectPreviousReports(){
     return <Link to="/previousReports"><Redirect to="/previousReports" /></Link>
 }
 
+export function RedirectNotifications(){
+    return <Link to="/notifications"><Redirect to="/notifications" /></Link>
+}
+
 function resetUserInfo(dispatch){
     dispatch(setUsername(null))
     dispatch(setId(null))

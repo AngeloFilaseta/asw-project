@@ -7,6 +7,7 @@ import {
 import Authentication from "../authentication/Authentication"
 import HomePage from "../homepage/HomePage"
 import Lobby from "../lobby/Lobby"
+import NotificationPage from "../notifications/NotificationPage";
 
 //import LobbyCreation from "../lobbycreation/LobbyCreation"
 //import Template from "../lobby/Template"
@@ -19,6 +20,7 @@ export default function GuessrRouter() {
         <Route exact path="/" component={Authentication} />
         <Route path="/home" component={HomePage} />
         <Route path="/lobby" component={Lobby} />
+        <Route path="/notifications" component={NotificationPage} />
       </Switch>
     </Router>
   );

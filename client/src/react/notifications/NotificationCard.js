@@ -19,7 +19,7 @@ function NotificationCard(props) {
                             {props.description}
                         </div>
                         <div>
-                            {props.now}
+                            {props.date}
                         </div>
                     </Card.Body>
                 </Card>
