@@ -4,7 +4,7 @@ const Notification = require("../models/notification");
 const NotificationFactory = require("../models/factory/notification");
 
 function createNotification(req, res) {
-    let newNotification = NotificationFactory.createNotification(req.body.title, req.body.description, req.body.id_user);
+    let newNotification = NotificationFactory.createNotification(req.body.title, req.body.description, new Date(), req.body.id_user);
     newNotification.save().then(() => {
         Responses.OKResponse(res, newNotification);
     }).catch(err => {
