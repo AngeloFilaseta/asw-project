@@ -1,6 +1,6 @@
 import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
-import {setUsername, setId, setToken} from "../../redux/userInfo/actions"
+import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
 import { SERVER_ADDRESS, USERNAME_LENGHT_MIN } from "../../util/global"
 
@@ -17,6 +17,7 @@ export function login(inputUsername, inputPassword, dispatch) {
                 dispatch(setToken(token))
                 loadUserIDAndUsernameFromToken(dispatch, token);
                 loadLanguages(dispatch, token);
+                loadNotifications(dispatch, token);
             })
             .fail(function (result) {
                 NotificationManager.error(result.responseJSON.message, 'Error', 3000);
@@ -25,7 +26,6 @@ export function login(inputUsername, inputPassword, dispatch) {
                 dispatch(setIsLoading(false));
             });
     }
-
 }
 
 export function signup(inputUsername, inputPassword, dispatch) {
@@ -81,6 +81,16 @@ function loadLanguages(dispatch, token){
         headers: {"Authorization": token}
     }).done(function (result) {
         dispatch(setLanguages(result));
+    });
+}
+
+function loadNotifications(dispatch, token){
+    $.ajax({
+        url: SERVER_ADDRESS + "/notification",
+        type: 'GET',
+        headers: {"Authorization": token}
+    }).done(function (notifications) {
+        dispatch(setNotifications(notifications));
     });
 }
 
