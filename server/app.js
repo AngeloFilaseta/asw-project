@@ -20,7 +20,6 @@ app.use(logger);
 app.use(require('./routes/auth'));
 app.use(require('./routes/resources'));
 app.use(require('./routes/notifications'));
-app.use(require('./routes/game'));
 
 //Config for JWT strategy
 require("./conf/strategies/jsonwtStrategy")(passport);

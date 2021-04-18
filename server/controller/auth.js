@@ -3,12 +3,12 @@ const Errors = require("../middleware/errors");
 const UserFactory = require("../models/factory/user");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-const jsonwt = require("jsonwebtoken");
+const jsonwebtoken = require("jsonwebtoken");
 const key = require("../conf/conf");
 
 async function signup(req, res) {
     let newUser = UserFactory.createUser(req.body.username, req.body.password);
-    await User.findOne({ username: newUser.username }).then(async profile => {
+    await User.findOne({ username: newUser["username"] }).then(async profile => {
         if (!profile) {
             newUser.save().then(() => {
                 Responses.OKResponse(res, newUser);
@@ -26,13 +26,13 @@ async function signup(req, res) {
 async function login(req, res) {
     let newUser = UserFactory.createUser(req.body.username, req.body.password);
 
-    await User.findOne({ username: newUser.username }).then(profile => {
+    await User.findOne({ username: newUser["username"] }).then(profile => {
         if (!profile) {
             Errors.NotFoundError(res, {message: "Wrong credentials inserted."});
         } else {
-            console.log(newUser.password + " " + profile.password);
+            console.log(newUser["password"] + " " + profile.password);
             bcrypt.compare(
-                newUser.password,
+                newUser["password"],
                 profile.password,
                 async (err, result) => {
                     if (err) {
@@ -42,7 +42,7 @@ async function login(req, res) {
                             id: profile.id,
                             username: profile.username
                         };
-                        jsonwt.sign(
+                        jsonwebtoken.sign(
                             payload,
                             key.secret,
                             { expiresIn: 3600 },
