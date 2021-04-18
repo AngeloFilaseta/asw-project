@@ -31,11 +31,13 @@ function downloadReport(req, res) {
 }
 
 function storeReport(req, res) {
-    console.log(req.body.sentences, req.body.drawings, req.body.owner);
-    let fileName =  req.body.owner + " " + DateUtil.getDateAndTimeWellFormatted() + ".pdf"
+    console.log(req.body.sentences, req.body.drawings, req.body.id_user);
+    let owner = req.body.id_user; //TODO ... do I really nedd this?
+    let fileName =  owner + " " + DateUtil.getDateAndTimeWellFormatted() + ".pdf"
     let sentencesIter = Structures.iterator(req.body.sentences);
     let drawingsIter = Structures.iterator(req.body.drawings);
     generatePDF(fileName, sentencesIter, drawingsIter);
+
     Responses.CreatedResponse(res, {report: fileName})
 }
 

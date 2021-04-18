@@ -1,15 +1,13 @@
 const Responses = require("../middleware/response");
 const Errors = require("../middleware/errors");
+const UserFactory = require("../models/factory/user");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jsonwt = require("jsonwebtoken");
 const key = require("../conf/conf");
 
 async function signup(req, res) {
-    let newUser = new User({
-        username: req.body.username,
-        password: req.body.password
-    });
+    let newUser = UserFactory.createUser(req.body.username, req.body.password);
     await User.findOne({ username: newUser.username }).then(async profile => {
         if (!profile) {
             newUser.save().then(() => {
@@ -26,9 +24,7 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-    let newUser = {};
-    newUser.username = req.body.username;
-    newUser.password = req.body.password;
+    let newUser = UserFactory.createUser(req.body.username, req.body.password);
 
     await User.findOne({ username: newUser.username }).then(profile => {
         if (!profile) {

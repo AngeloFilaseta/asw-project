@@ -16,4 +16,4 @@ let NotificationSchema = new Schema({
     }
 });
 
-module.exports = User = mongoose.model("Notification", NotificationSchema);
+module.exports = mongoose.model("Notification", NotificationSchema);

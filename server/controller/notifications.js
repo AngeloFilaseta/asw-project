@@ -1,18 +1,15 @@
 const Responses = require("../middleware/response");
 const Errors = require("../middleware/errors");
 const Notification = require("../models/notification");
+const NotificationFactory = require("../models/factory/notification");
 
 function createNotification(req, res) {
-    let newNotification = new Notification({
-        title: req.body.title,
-        description: req.body.description,
-        id_user: req.body.id_user
-    });
-    newNotification.save().then(() => {
-        Responses.OKResponse(res, newNotification);
-    }).catch(err => {
-        Errors.ServerError(res, {message: err.message});
-    });
+    NotificationFactory.createNotification(req.body.title, req.body.description, req.body.id_user)
+        .save().then(() => {
+            Responses.OKResponse(res, newNotification);
+        }).catch(err => {
+            Errors.ServerError(res, {message: err.message});
+        });
 }
 
 async function getNotifications(req, res) {

@@ -14,6 +14,10 @@ let UserSchema = new Schema({
     notifications: [{
         type: Schema.Types.ObjectId,
         ref:"Notification"
+    }],
+    user_in_games: [{
+        type: Schema.Types.ObjectId,
+        ref:"UserInGame"
     }]
 });
 
@@ -49,4 +53,4 @@ UserSchema.pre("save", function(next) {
     });
 });
 
-module.exports = User = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
