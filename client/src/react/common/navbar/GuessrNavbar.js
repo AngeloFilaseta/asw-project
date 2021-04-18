@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar"
 import Nav from "react-bootstrap/Nav"
 
 import GuessrLogout from "./GuessrLogout"
+import GuessrNotification from "./GuessrNotification";
 
 export default function GuessrNavbar(props) {
     return (
@@ -24,7 +25,12 @@ export default function GuessrNavbar(props) {
             </Col>
             <Col className="col-4 col-sm-3 d-flex justify-content-end">
                 <Nav>
-                    <GuessrLogout />
+                    <Col className="col-4">
+                        <GuessrNotification/>
+                    </Col>
+                    <Col>
+                        <GuessrLogout/>
+                    </Col>
                 </Nav>
             </Col>
         </Navbar>

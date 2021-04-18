@@ -7,6 +7,4 @@ router.get("/languages", auth, (req, res) => ResourceController.getLanguages(req
 
 router.get("/dw/report", auth, (req, res) => ResourceController.downloadReport(req, res));
 
-router.post("/store/report", (req, res) => ResourceController.storeReport(req, res));
-
 module.exports = router;

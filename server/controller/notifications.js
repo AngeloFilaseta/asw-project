@@ -4,12 +4,12 @@ const Notification = require("../models/notification");
 const NotificationFactory = require("../models/factory/notification");
 
 function createNotification(req, res) {
-    NotificationFactory.createNotification(req.body.title, req.body.description, req.body.id_user)
-        .save().then(() => {
-            Responses.OKResponse(res, newNotification);
-        }).catch(err => {
-            Errors.ServerError(res, {message: err.message});
-        });
+    let newNotification = NotificationFactory.createNotification(req.body.title, req.body.description, req.body.id_user);
+    newNotification.save().then(() => {
+        Responses.OKResponse(res, newNotification);
+    }).catch(err => {
+        Errors.ServerError(res, {message: err.message});
+    });
 }
 
 async function getNotifications(req, res) {
