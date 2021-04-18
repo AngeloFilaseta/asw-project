@@ -44,8 +44,9 @@ function updateList(notificationList) {
                 <NotificationCard
                     title={item.title}
                     description={item.description}
-                    date={"DATE"} //TODO add date
-                    key={"notification " + i++}
+                    date={item.date}
+                    id={item._id}
+                    key={item._id}
                 />
             ))}
         </>
