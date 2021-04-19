@@ -12,23 +12,18 @@ export function loadPreviousReports(dispatch, token){
     });
 }
 
-
-export function downloadFile(id) {
-    /**
-       var req = new XMLHttpRequest();
-        req.open("GET", SERVER_ADDRESS + "/dw/report", true);
-        req.responseType = "blob";
-        req.onload = function (event) {
-            var blob = req.response;
-            var fileName = "report";
-            if (req.getAllResponseHeaders().indexOf("Fake-Header") >= 0) {
-                fileName = req.getResponseHeader("fileName");
-            }
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = fileName;
-            link.click();
-        };
-        req.send();
-     */
+export function downloadFile(id, fileName, token) {
+    let req = new XMLHttpRequest();
+    req.open("GET", SERVER_ADDRESS + "/dw/report?id_report="+ id, true);
+    req.withCredentials = true;
+    req.setRequestHeader("Authorization", token);
+    req.responseType = "blob";
+    req.onload = function (event) {
+        let blob = req.response;
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+    };
+    req.send();
 }

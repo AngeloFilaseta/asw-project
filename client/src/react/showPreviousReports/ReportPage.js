@@ -33,21 +33,21 @@ export default function ReportPage() {
             </div>
             <Container fluid >
                 <Row>
-                    {updateList(reportList)}
+                    {updateList(reportList, token)}
                 </Row>
             </Container>
         </>
     )
 }
 
-function updateList(reportList) {
+function updateList(reportList, token) {
     return (
         <>
             {reportList.map(item => (
                 <ReportCard
                     title={item.report_name}
-                    handler={() => downloadFile(item.id)}
-                    key={item.id}
+                    handler={() => downloadFile(item._id, item.report_name, token)}
+                    key={item._id}
                 />
             ))}
         </>

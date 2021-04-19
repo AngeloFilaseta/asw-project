@@ -9,7 +9,7 @@ const DateUtil = require('../util/DateUtil')
 const Structures = require("../util/Structures");
 const PDFDocument = require('pdfkit');
 const SVGtoPDF = require('svg-to-pdfkit');
-const documentFolder = require("../conf/conf").documentFolder;
+const DOCUMENT_FOLDER = require("../conf/conf").documentFolder;
 
 function getLanguages(req, res) {
     if(Languages !== undefined && Languages !== null && Languages !== []){
@@ -20,14 +20,12 @@ function getLanguages(req, res) {
 }
 
 async function getAllParticipatedGamesReport(req, res) {
-
     await UserInGame.find({ id_user: req.user.id})
         .then(async userInGames => {
             let participatedGamesId = userInGames.map(userInGame => (userInGame.id_game));
             await UserInGame.find({ id_game: { "$in" : participatedGamesId} })
                 .then(allParticipatedGames => {
-                    let reportsName = allParticipatedGames.map(allUserInGame => allUserInGame.report_name);
-                    Responses.OKResponse(res, reportsName);
+                    Responses.OKResponse(res, allParticipatedGames);
                 })
                 .catch(err => {
                     Errors.ServerError(res, err.message);
@@ -38,10 +36,11 @@ async function getAllParticipatedGamesReport(req, res) {
 }
 
 async function downloadReport(req, res) {
-    await UserInGame.findById(req.query["id_notification"], function(err, userInGame){
+    await UserInGame.findById(req.query["id_report"], function(err, userInGame){
         if(err){
             Errors.ServerError(res, err.message);
         }
+        let path = DOCUMENT_FOLDER + userInGame.report_name;
         fs.access(path, fs.F_OK, (err) => {
             if (err) {
                 Errors.NotFoundError(res, {message: err.message});
@@ -84,7 +83,7 @@ function storePDF(ownerUsername, sentences, drawings) {
 function generatePDF(fileName, sentenceIterator, drawingIterator){
     let nextSent;
     let doc = new PDFDocument();
-    doc.pipe(fs.createWriteStream(documentFolder + fileName));
+    doc.pipe(fs.createWriteStream(DOCUMENT_FOLDER + fileName));
     do {
         nextSent = sentenceIterator.next();
         doc.text(nextSent.value, 50, 100);
