@@ -1,15 +1,26 @@
+import {useEffect} from "react"
 import GuessrNavbar from "../common/navbar/GuessrNavbar"
 import ReportCard from "./ReportCard"
 import { Row } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
-import { useSelector } from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import BackButton from "../common/BackButton"
 import { NotificationContainer } from "react-notifications"
+import {downloadFile, loadPreviousReports} from "./ReportLogic"
+import {setIsLoading} from "../../redux/util/actions";
 
 export default function ReportPage() {
 
-    var username = useSelector(state => state.username);
-    var reportList = useSelector(state => state.previousReports);
+    const dispatch = useDispatch()
+    let token = useSelector(state => state.userInfo.token)
+    let reportList = useSelector(state => state.previousReports)
+
+    //TODO ADD ROTELLINA
+    useEffect(() => {
+        dispatch(setIsLoading(true))
+        loadPreviousReports(dispatch, token)
+        dispatch(setIsLoading(false))
+    }, []);
 
     return (
         <>
@@ -30,34 +41,16 @@ export default function ReportPage() {
 }
 
 function updateList(reportList) {
-    var i = 0
     return (
         <>
-            {reportList.map(listitem => (
+            {reportList.map(item => (
                 <ReportCard
-                    title={listitem.map.report_path}
-                    handler={() => downloadFile(listitem.map.id)}
-                    key={"report " + i++}
+                    title={item.report_name}
+                    handler={() => downloadFile(item.id)}
+                    key={item.id}
                 />
             ))}
         </>
     );
 }
 
-function downloadFile(id) {
-/*    var req = new XMLHttpRequest();
-    req.open("GET", serverUrl + "/api/dw/report/" + id, true);
-    req.responseType = "blob";
-    req.onload = function (event) {
-        var blob = req.response;
-        var fileName = "report";
-        if (req.getAllResponseHeaders().indexOf("Fake-Header") >= 0) {
-            fileName = req.getResponseHeader("fileName");
-        }
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = fileName;
-        link.click();
-    };
-    req.send();*/
-}

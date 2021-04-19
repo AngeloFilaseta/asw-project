@@ -86,16 +86,6 @@ function loadLanguages(dispatch, token){
     });
 }
 
-function loadPreviousReports(dispatch, token){
-    //TODO place this in the correct spot
-    $.ajax({
-        url: SERVER_ADDRESS + "/report",
-        type: 'GET',
-        headers: {"Authorization": token}
-    }).done(function (result) {
-        dispatch(setPreviousReports(result));
-    });
-}
 
 
 

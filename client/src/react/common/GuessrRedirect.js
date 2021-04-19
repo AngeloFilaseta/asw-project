@@ -49,7 +49,7 @@ export function RedirectLobby(){
 }
 
 export function RedirectPreviousReports(){
-    return RedirectTo("previous-reports");
+    return RedirectTo("show-previous-reports");
 }
 
 export function RedirectNotifications(){
