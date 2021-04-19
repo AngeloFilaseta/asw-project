@@ -20,12 +20,12 @@ function getLanguages(req, res) {
 }
 
 async function getAllParticipatedGamesReport(req, res) {
-    console.log(req.user.id);
+
     await UserInGame.find({ id_user: req.user.id})
         .then(async userInGames => {
             let participatedGamesId = userInGames.map(userInGame => (userInGame.id_game));
             await UserInGame.find({ id_game: { "$in" : participatedGamesId} })
-                .then(allParticipatedGames =>{
+                .then(allParticipatedGames => {
                     let reportsName = allParticipatedGames.map(allUserInGame => allUserInGame.report_name);
                     Responses.OKResponse(res, reportsName);
                 })
