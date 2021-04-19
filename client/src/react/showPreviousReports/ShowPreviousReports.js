@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 
 import { RedirectAuthentication } from "../common/GuessrRedirect"
-import ReportsPage from "./ReportsPage"
+import ReportPage from "./ReportPage"
 
 export default function ShowPreviousReports(){
-    return useSelector(state => state.userInfo.username) !== null ? <ReportsPage /> : <RedirectAuthentication/>
+    return useSelector(state => state.userInfo.username) !== null ? <ReportPage /> : <RedirectAuthentication/>
 }
