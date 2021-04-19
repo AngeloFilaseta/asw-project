@@ -9,8 +9,12 @@ const dbUrl = require("./conf/conf").url;
 const logger = require("./middleware/logger");
 const corsPolicyMiddleware = require("./middleware/cors");
 
+const cors = require('cors');
+
 //Setup the cors policy
 app.use(corsPolicyMiddleware);
+
+app.use(cors());
 
 //decode every request body to json format
 app.use(bodyParser.json());

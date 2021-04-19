@@ -35,6 +35,11 @@ export function RedirectAuthentication(){
     return <Link to="/"><Redirect to="/" /></Link>
 }
 
+
+export function RedirectTo(destination){
+    return <Link to={"/"+destination}><Redirect to={"/"+destination} /></Link>
+}
+
 export function RedirectLobbyCreation(){
     return <Link to="/lobbyCreation"><Redirect to="/lobbyCreation" /></Link>
 }

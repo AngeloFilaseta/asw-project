@@ -3,6 +3,7 @@ import {setIsLoading, setLanguages} from "../../redux/util/actions"
 import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
 import { SERVER_ADDRESS, USERNAME_LENGHT_MIN } from "../../util/global"
+import {loadNotifications} from "../notifications/NotificationLogic";
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
@@ -84,13 +85,5 @@ function loadLanguages(dispatch, token){
     });
 }
 
-function loadNotifications(dispatch, token){
-    $.ajax({
-        url: SERVER_ADDRESS + "/notification",
-        type: 'GET',
-        headers: {"Authorization": token}
-    }).done(function (notifications) {
-        dispatch(setNotifications(notifications));
-    });
-}
+
 
