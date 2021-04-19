@@ -2,8 +2,9 @@ import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
 import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
-import { SERVER_ADDRESS, USERNAME_LENGHT_MIN } from "../../util/global"
+import { SERVER_ADDRESS, USERNAME_LENGTH_MIN } from "../../util/global"
 import {loadNotifications} from "../notifications/NotificationLogic";
+import {setPreviousReports} from "../../redux/previousReports/actions";
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
@@ -53,7 +54,7 @@ function createUserObj(inputUsername, inputPassword) {
 }
 
 function isUsernameValid(username, notificationTitle){
-    return isStringLongEnough(username, USERNAME_LENGHT_MIN, notificationTitle, "Username must be at least " + USERNAME_LENGHT_MIN + " characters long")
+    return isStringLongEnough(username, USERNAME_LENGTH_MIN, notificationTitle, "Username must be at least " + USERNAME_LENGTH_MIN + " characters long")
 }
 
 function isStringLongEnough(str, len, notificationTitle, notificationText){
@@ -82,6 +83,17 @@ function loadLanguages(dispatch, token){
         headers: {"Authorization": token}
     }).done(function (result) {
         dispatch(setLanguages(result));
+    });
+}
+
+function loadPreviousReports(dispatch, token){
+    //TODO place this in the correct spot
+    $.ajax({
+        url: SERVER_ADDRESS + "/report",
+        type: 'GET',
+        headers: {"Authorization": token}
+    }).done(function (result) {
+        dispatch(setPreviousReports(result));
     });
 }
 

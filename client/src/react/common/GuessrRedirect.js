@@ -41,19 +41,19 @@ export function RedirectTo(destination){
 }
 
 export function RedirectLobbyCreation(){
-    return <Link to="/lobbyCreation"><Redirect to="/lobbyCreation" /></Link>
+    return RedirectTo("lobby-creation");
 }
 
 export function RedirectLobby(){
-    return <Link to="/lobby"><Redirect to="/lobby" /></Link>
+    return RedirectTo("lobby");
 }
 
 export function RedirectPreviousReports(){
-    return <Link to="/previousReports"><Redirect to="/previousReports" /></Link>
+    return RedirectTo("previous-reports");
 }
 
 export function RedirectNotifications(){
-    return <Link to="/notifications"><Redirect to="/notifications" /></Link>
+    return RedirectTo("notifications");
 }
 
 function resetUserInfo(dispatch){
