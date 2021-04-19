@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { NotificationContainer } from 'react-notifications';
 import NotificationCard from "./NotificationCard";
 import GuessrNavbar from "../common/navbar/GuessrNavbar";
+import BackButton from "../common/BackButton"
 
 function ReportPage(props) {
 
@@ -21,7 +22,7 @@ function ReportPage(props) {
                 <GuessrNavbar title={"Notification center"} />
                 <div align="center">
                     <div className="col-lg-2  col-6 my-3">
-                        {/* <BackButton handleFunction={() => null} route={"/home"} buttonName={"Go back"} />  //TODO add redirect to login page */}
+                        <BackButton destination={"home"} buttonName={"Go back"}/>
                     </div>
                 </div>
                 <Container fluid >
