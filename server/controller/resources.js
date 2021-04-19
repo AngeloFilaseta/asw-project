@@ -37,13 +37,17 @@ async function getAllParticipatedGamesReport(req, res) {
     });
 }
 
-function downloadReport(req, res) {
-    let path = documentFolder + req.body.report;
-    fs.access(path, fs.F_OK, (err) => {
-        if (err) {
-            Errors.NotFoundError(res, {message: err.message});
+async function downloadReport(req, res) {
+    await UserInGame.findById(req.query["id_notification"], function(err, userInGame){
+        if(err){
+            Errors.ServerError(res, err.message);
         }
-        Responses.DownloadResponse(res, path);
+        fs.access(path, fs.F_OK, (err) => {
+            if (err) {
+                Errors.NotFoundError(res, {message: err.message});
+            }
+            Responses.DownloadResponse(res, path);
+        })
     })
 }
 

@@ -4,14 +4,13 @@ import {setUsername, setId, setToken, setNotifications} from "../../redux/userIn
 import $ from 'jquery';
 import { SERVER_ADDRESS, USERNAME_LENGTH_MIN } from "../../util/global"
 import {loadNotifications} from "../notifications/NotificationLogic";
-import {setPreviousReports} from "../../redux/previousReports/actions";
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
 });
 
 export function login(inputUsername, inputPassword, dispatch) {
-    if(isUsernameValid(inputUsername, "Login failed") /*check password*/){
+        if(isUsernameValid(inputUsername, "Login failed")){
         dispatch(setIsLoading(true))
         $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
             .done(function (result) {

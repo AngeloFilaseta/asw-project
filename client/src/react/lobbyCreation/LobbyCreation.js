@@ -12,6 +12,8 @@ import LoadingOverlay from 'react-loading-overlay';
 import GuessrNavbar from "../common/navbar/GuessrNavbar";
 import {setLanguage, setNTurns} from "../../redux/lobby/actions";
 import {RedirectHome} from "../common/GuessrRedirect";
+import {io} from 'socket.io-client';
+import {SERVER_ADDRESS} from "../../util/global";
 
 export default function LobbyCreation() {
 
@@ -77,7 +79,18 @@ function createLobby(dispatch, isPublic, nTurns, language, username, id_user) {
     NotificationManager.error("Please insert the number of turns correctly!", 'Error', 3000);
   } else {
     return () => {
-      //TODO SOCK JS
+      const socket = io(SERVER_ADDRESS)
+
+      socket.on('connection', socket => {
+        console.log("connected");
+      });
+
+      socket.on("lobbyCode", (lobbyCode) => {
+        console.log("Connected to lobby " + lobbyCode);
+      });
+
+      socket.connect();
+      socket.emit("createLobby","");
     }
   }
 }

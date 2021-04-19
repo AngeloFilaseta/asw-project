@@ -1,5 +1,7 @@
 module.exports = {
-    url: 'mongodb://localhost:27017/guessr',
-    secret: 'zawarudomudamudamudamuda',
-    documentFolder: "./resources/pdf/"
+    clientAddress: 'http://localhost:3001',
+    dbAddress: 'mongodb://localhost:27017/guessr',
+    token_secret: 'zawarudomudamudamudamuda',
+    documentFolder: "./resources/pdf/",
+    port: 3000
 }

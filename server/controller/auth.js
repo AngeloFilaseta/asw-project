@@ -44,7 +44,7 @@ async function login(req, res) {
                         };
                         jsonwebtoken.sign(
                             payload,
-                            key.secret,
+                            key.token_secret,
                             { expiresIn: 3600 },
                             (err, token) => {
                                 if (err) {
