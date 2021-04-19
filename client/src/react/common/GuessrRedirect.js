@@ -49,7 +49,7 @@ export function RedirectLobby(){
 }
 
 export function RedirectPreviousReports(){
-    return <Link to="/previousReports"><Redirect to="/previousReports" /></Link>
+    return <Link to="/show-previous-reports"><Redirect to="/show-previous-reports" /></Link>
 }
 
 export function RedirectNotifications(){
