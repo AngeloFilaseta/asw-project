@@ -15,7 +15,7 @@ import {
 
 export default function GuessrButtonGroup() {
 
-    var isLoading = useSelector(state => state.util.isLoading)
+    let isLoading = useSelector(state => state.util.isLoading)
     const [showRandomLobbyModal, setShowRandomLobbyModal] = useState(false)
     const [showLobbyCodeModal, setShowLobbyCodeModal] = useState(false)
     const [goToLobby, setGoToLobby] = useState(false)
@@ -28,6 +28,8 @@ export default function GuessrButtonGroup() {
         return <RedirectPreviousReports />
     } else if (goToLobby){
         return <RedirectLobby />
+    } else if (goToLobbyCreation){
+        return <RedirectLobbyCreation />
     } else {
         return (
             <div>

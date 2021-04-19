@@ -3,6 +3,7 @@ const Languages = require("../models/enum/language")
 const Responses = require("../middleware/response");
 const Errors = require("../middleware/errors");
 const GameFactory = require("../models/factory/game");
+const UserInGame = require("../models/userInGame");
 const UserInGameFactory = require("../models/factory/userInGame")
 const DateUtil = require('../util/DateUtil')
 const Structures = require("../util/Structures");
@@ -16,6 +17,24 @@ function getLanguages(req, res) {
     } else {
         Errors.ServerError(res, {message: "A problem occurred, no languages found."})
     }
+}
+
+async function getAllParticipatedGamesReport(req, res) {
+    console.log(req.user.id);
+    await UserInGame.find({ id_user: req.user.id})
+        .then(async userInGames => {
+            let participatedGamesId = userInGames.map(userInGame => (userInGame.id_game));
+            await UserInGame.find({ id_game: { "$in" : participatedGamesId} })
+                .then(allParticipatedGames =>{
+                    let reportsName = allParticipatedGames.map(allUserInGame => allUserInGame.report_name);
+                    Responses.OKResponse(res, reportsName);
+                })
+                .catch(err => {
+                    Errors.ServerError(res, err.message);
+            });
+        }).catch(err => {
+        Errors.ServerError(res, err.message);
+    });
 }
 
 function downloadReport(req, res) {
@@ -76,5 +95,6 @@ function generatePDF(fileName, sentenceIterator, drawingIterator){
 module.exports = {
     getLanguages,
     downloadReport,
-    storeGame
+    storeGame,
+    getAllParticipatedGamesReport
 };

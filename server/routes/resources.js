@@ -9,4 +9,7 @@ router.post("/store/game", (req, res) => ResourceController.storeGame(req, res))
 
 router.get("/dw/report", auth, (req, res) => ResourceController.downloadReport(req, res));
 
+router.get("/report", auth, (req, res) => ResourceController.getAllParticipatedGamesReport(req, res));
+
+
 module.exports = router;
