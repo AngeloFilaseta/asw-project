@@ -5,10 +5,10 @@ export const setLanguages = (languages) => {
     }
 }
 
-export const setEventbus = (eventbus) => {
+export const setSocket = (socket) => {
     return {
-        type: "SET_EVENTBUS",
-        payload: eventbus
+        type: "SET_SOCKET",
+        payload: socket
     }
 }
 

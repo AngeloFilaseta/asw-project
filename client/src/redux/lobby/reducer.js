@@ -1,8 +1,10 @@
+import { DEFAULT_IS_PUBLIC, DEFAULT_N_TURNS, DEFAULT_LANGUAGE } from "../../util/global"
+
 var initialState = {
     settings: {
-        isPublic: false,
-        nTurns: null,
-        language: null
+        isPublic: DEFAULT_IS_PUBLIC,
+        nTurns: DEFAULT_N_TURNS,
+        language: DEFAULT_LANGUAGE
     },
     info: {
         code: null,
