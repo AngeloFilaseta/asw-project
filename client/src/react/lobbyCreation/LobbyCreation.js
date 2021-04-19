@@ -13,7 +13,7 @@ import GuessrNavbar from "../common/navbar/GuessrNavbar";
 import {setLanguage, setNTurns} from "../../redux/lobby/actions";
 import {RedirectHome} from "../common/GuessrRedirect";
 
-export function LobbyCreation() {
+export default function LobbyCreation() {
 
   const dispatch = useDispatch();
 
