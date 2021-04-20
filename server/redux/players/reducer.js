@@ -1,15 +1,15 @@
-const lobbiesReducer = (state = new Map(), action) => {
+const playersReducer = (state = new Map(), action) => {
     switch (action.type) {
-        case "PUT_LOBBIES" :
+        case "PUT_PLAYERS" :
             state.set(action.key, action.value);
             return state;
-        case "GET_LOBBIES" :
+        case "GET_PLAYERS" :
             state.get(action.key);
             return state;
-        case "CONTAINS_LOBBIES" :
+        case "CONTAINS_PLAYERS" :
             state.has(action.key);
             return state;
-        case "REMOVE_LOBBIES" :
+        case "REMOVE_PLAYERS" :
             state.delete(action.key);
             return state;
         default:
@@ -17,4 +17,4 @@ const lobbiesReducer = (state = new Map(), action) => {
     }
 }
 
-module.exports = lobbiesReducer;
+module.exports = playersReducer;

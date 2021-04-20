@@ -14,8 +14,8 @@ const CLIENT_ADDRESS = require("./conf/conf").clientAddress
 const ASCII_ART = require("./conf/conf").asciiArt
 const corsOptions = {origin: CLIENT_ADDRESS, credentials: true}
 const StoreSingleton = require("./redux/storeSingleton")
-const Actions = require("./redux/lobbies/actions")
-
+const LobbiesActions = require("./redux/lobbies/actions")
+const PlayersActions = require("./redux/players/actions")
 
 // add cors policy
 app.use(cors(corsOptions));
@@ -51,11 +51,6 @@ server.listen(3000, () => {
     console.log("Welcome to GuessR Node.js Server!");
     console.log(ASCII_ART);
     console.log("Listening on port:" + PORT);
-    /* TODO remove this
-    console.log(StoreSingleton.getInstance().getState().lobbies)
-    StoreSingleton.getInstance().dispatch(Actions.put("ZA", "WARUDO"));
-    console.log(StoreSingleton.getInstance().getState().lobbies)
-     */
 });
 
 
