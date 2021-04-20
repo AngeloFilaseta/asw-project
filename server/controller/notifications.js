@@ -1,7 +1,7 @@
 const Responses = require("../middleware/response");
 const Errors = require("../middleware/errors");
-const Notification = require("../models/notification");
-const NotificationFactory = require("../models/factory/notification");
+const Notification = require("../mongoose/model/notification");
+const NotificationFactory = require("../mongoose/model/factory/notification");
 
 function createNotification(req, res) {
     let newNotification = NotificationFactory.createNotification(req.body.title, req.body.description, new Date(), req.body.id_user);

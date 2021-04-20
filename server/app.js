@@ -1,18 +1,21 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 const cors = require('cors')
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const logger = require("./middleware/logger");
-const passport = require("passport");
-const server = require('http').createServer(app);
-const socketCorsPolicy = {cors: {origin: "*", methods: "*"}};
-const io = require('socket.io')(server, socketCorsPolicy);
+const bodyParser = require("body-parser")
+const mongoose = require("mongoose")
+const logger = require("./middleware/logger")
+const passport = require("passport")
+const server = require('http').createServer(app)
+const socketCorsPolicy = {cors: {origin: "*", methods: "*"}}
+const io = require('socket.io')(server, socketCorsPolicy)
 const DB_ADDRESS = require("./conf/conf").dbAddress
 const PORT = require("./conf/conf").port
 const CLIENT_ADDRESS = require("./conf/conf").clientAddress
 const ASCII_ART = require("./conf/conf").asciiArt
 const corsOptions = {origin: CLIENT_ADDRESS, credentials: true}
+const StoreSingleton = require("./redux/storeSingleton")
+const Actions = require("./redux/lobbies/actions")
+
 
 // add cors policy
 app.use(cors(corsOptions));
@@ -31,6 +34,7 @@ require("./conf/strategies/jsonwtStrategy")(passport);
 app.use(passport.initialize()); // Passport service used to generate JWT for the auth routes.
 require("./conf/strategies/jsonwtStrategy")
 
+
 //attach socket controller
 require("./socket/controller")(io);
 
@@ -45,8 +49,13 @@ mongoose.connect(DB_ADDRESS, {useNewUrlParser: true, useUnifiedTopology: true})
 
 server.listen(3000, () => {
     console.log("Welcome to GuessR Node.js Server!");
-    console.log(ASCII_ART)
-    console.log("Listening on port:" + PORT)
+    console.log(ASCII_ART);
+    console.log("Listening on port:" + PORT);
+    /* TODO remove this
+    console.log(StoreSingleton.getInstance().getState().lobbies)
+    StoreSingleton.getInstance().dispatch(Actions.put("ZA", "WARUDO"));
+    console.log(StoreSingleton.getInstance().getState().lobbies)
+     */
 });
 
 

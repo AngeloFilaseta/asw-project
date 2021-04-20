@@ -9,19 +9,16 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
     if (nTurns === null || Number.isNaN(nTurns) || nTurns <= 0) {
       NotificationManager.error("Please insert the number of turns correctly!", 'Error', 3000);
     } else {
-      return () => {
-        const socket = io(SERVER_ADDRESS)
-  
-        socket.on('connection', socket => {
-          console.log("connected");
-        });
-  
-        socket.on("lobbyCode", (lobbyCode) => {
-          console.log("Connected to lobby " + lobbyCode);
-        });
-  
-        socket.connect();
-        socket.emit("createLobby","");
-      }
-    }
+            const socket = io(SERVER_ADDRESS)
+            socket.on('connection', socket => {
+              console.log("connected");
+            });
+
+            socket.on("lobbyCode", (lobbyCode) => {
+              console.log("Connected to lobby " + lobbyCode);
+            });
+
+            socket.connect();
+            socket.emit("createLobby","");
+     }
   }
