@@ -1,3 +1,5 @@
+const PhaseTypes = require("../enum/phaseType");
+
 class Lobby {
     constructor(admin, nTurnsMax, language, isPublic){
         this.userMap = new Map();

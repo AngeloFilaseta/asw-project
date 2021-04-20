@@ -13,13 +13,6 @@ const get = (key) => {
     }
 }
 
-const contains = (key) => {
-    return {
-        type: "CONTAINS_PLAYERS",
-        key: key,
-    }
-}
-
 const remove = (key) => {
     return {
         type: "REMOVE_PLAYERS",

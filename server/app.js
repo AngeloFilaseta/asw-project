@@ -13,9 +13,6 @@ const PORT = require("./conf/conf").port
 const CLIENT_ADDRESS = require("./conf/conf").clientAddress
 const ASCII_ART = require("./conf/conf").asciiArt
 const corsOptions = {origin: CLIENT_ADDRESS, credentials: true}
-const StoreSingleton = require("./redux/storeSingleton")
-const LobbiesActions = require("./redux/lobbies/actions")
-const PlayersActions = require("./redux/players/actions")
 
 // add cors policy
 app.use(cors(corsOptions));

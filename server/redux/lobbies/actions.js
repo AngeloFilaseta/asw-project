@@ -13,13 +13,6 @@ const get = (key) => {
     }
 }
 
-const contains = (key) => {
-    return {
-        type: "CONTAINS_LOBBIES",
-        key: key,
-    }
-}
-
 const remove = (key) => {
     return {
         type: "REMOVE_LOBBIES",

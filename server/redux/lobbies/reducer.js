@@ -6,9 +6,6 @@ const lobbiesReducer = (state = new Map(), action) => {
         case "GET_LOBBIES" :
             state.get(action.key);
             return state;
-        case "CONTAINS_LOBBIES" :
-            state.has(action.key);
-            return state;
         case "REMOVE_LOBBIES" :
             state.delete(action.key);
             return state;

@@ -6,9 +6,6 @@ const playersReducer = (state = new Map(), action) => {
         case "GET_PLAYERS" :
             state.get(action.key);
             return state;
-        case "CONTAINS_PLAYERS" :
-            state.has(action.key);
-            return state;
         case "REMOVE_PLAYERS" :
             state.delete(action.key);
             return state;
