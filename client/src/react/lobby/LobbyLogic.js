@@ -11,3 +11,7 @@ export function sendMsg(dispatch, socket, username, lobbyCode, msg) {
     $("#chatSendButton").val('');
     eventbus.send('chat', msgBody);*/
 }
+
+export function beginGame(dispatch, socket, username, lobbyCode){
+    
+}

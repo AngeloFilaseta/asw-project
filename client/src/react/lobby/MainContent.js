@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 
 import { RedirectHome } from "../common/GuessrRedirect"
 import PhaseTypes from "../../util/phaseType"
+import InsideLobby from "./insideLobby/InsideLobby"
 
 export default function MainContent(){
 
@@ -9,15 +10,15 @@ export default function MainContent(){
 
     switch (status) {
         case PhaseTypes.SENTENCE:
-            return (<p>sentence</p>);
+            return <p>sentence</p>
         case PhaseTypes.DRAW:
-            return (<p>draw</p>);
+            return <p>draw</p>
         case PhaseTypes.INSIDE_LOBBY:
-            return (<p>inside lobby</p>);
+            return <InsideLobby />
         case PhaseTypes.SHOWING_REPORT:
-            return (<p>showing report</p>);
+            return <p>showing report</p>
         default:
-            return (<RedirectHome />);
+            return <RedirectHome />
     }
 
 }
