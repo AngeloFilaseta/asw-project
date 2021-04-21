@@ -4,7 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup"
 import Card from "react-bootstrap/Card"
 
 import UserEntry from "./UserEntry"
-import PlayerType from "../../util/playerType"
+import PlayerType from "../../../util/playerType"
 
 export default function UserList(props) {
     let users = useSelector(state => state.lobby.info.users)

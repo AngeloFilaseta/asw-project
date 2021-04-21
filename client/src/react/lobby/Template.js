@@ -4,7 +4,7 @@ import AdaptiveNavbar from "./AdaptiveNavbar"
 import MobileBar from "./MobileBar"
 import MainContent from "./MainContent"
 import Chat from "./Chat"
-import UserList from "./UserList"
+import UserList from "./userList/UserList"
 
 
 export default function Template() {
