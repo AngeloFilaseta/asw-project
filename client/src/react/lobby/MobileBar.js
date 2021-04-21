@@ -20,22 +20,22 @@ export default function MobileBar() {
                 <Col className={"col-sm-6"}>
                     <Button
                         block
-                        onClick={() => this.setState({ showChat: true })}>
-                        <img alt="Chat" style={{ width: "30px", height: "30px" }} src={chatIcon} />
+                        onClick={() => setShowchat(true)}>
+                       <img alt="Chat" style={{ width: "30px", height: "30px" }} src={chatIcon} />
                     </Button>
                 </Col>
                 <Col className="col-sm-6">
-                    <Button block onClick={() => this.setState({ showUsers: true })}>
+                    <Button block onClick={() => setShowUsers(true)}>
                         <img alt="Users" style={{ width: "30px", height: "30px" }} src={usersIcon} />
                     </Button>
                 </Col>
-                <Modal show={state.showChat} onHide={() => this.setState({ showChat: false })}>
+                <Modal show={showChat} onHide={() => setShowChat(false)}>
                     <Modal.Header closeButton />
                     <Modal.Body>
                         <Chat height={window.innerHeight * 0.82} />
                     </Modal.Body>
                 </Modal>
-                <Modal show={state.showUsers} onHide={() => this.setState({ showUsers: false })}>
+                <Modal show={showUsers} onHide={() => setShowUsers(false)}>
                     <Modal.Header closeButton />
                     <Modal.Body>
                         <UserList height={window.innerHeight * 0.82} />
