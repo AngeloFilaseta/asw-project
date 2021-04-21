@@ -3,6 +3,7 @@ import { io } from "socket.io-client"
 import { SERVER_ADDRESS } from "../../util/global"
 import { setSocket, setIsLoading } from "../../redux/util/actions"
 import { setLobbyCode, setMyRoleAdmin, setStatus, setUsers } from "../../redux/lobby/actions"
+import PlayerType from "../../util/playerType";
 
 export function createLobby(dispatch, isPublic, nTurns, language, username, id_user, token) {
     if (nTurns === null || Number.isNaN(nTurns) || nTurns <= 0) {
@@ -11,10 +12,10 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
             setIsLoading(true)
             const socket = io(SERVER_ADDRESS)
 
-            socket.on("lobbyCode", (lobbyCode) => {
+            socket.on("joined", (lobbyCode) => {
                 console.log("Connected to lobby " + lobbyCode)
                 dispatch(setMyRoleAdmin(true))
-                dispatch(setUsers([username]))
+                dispatch(setUsers([{id: id_user, username: username, type: PlayerType.ADMIN}]))
                 dispatch(setSocket(socket))
                 dispatch(setStatus("Inside Lobby"))
                 dispatch(setLobbyCode(lobbyCode))

@@ -24,11 +24,11 @@ function updateList(userList) {
     var i = 0
     return (
         <>
-            {userList.map(listitem => (
+            {userList.map(item => (
                 <UserEntry
-                    username={listitem}
+                    username={item["username"]}
                     key={"user " + i++}
-                    admin={listitem.type === PlayerType.ADMIN ? true : false}
+                    admin={item["type"] === PlayerType.ADMIN}
                 />
             ))}
         </>
