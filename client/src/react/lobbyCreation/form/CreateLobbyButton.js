@@ -8,13 +8,13 @@ import { createLobby } from "../LobbyCreationLogic"
 export default function CreateLobbyButton(){
 
     const dispatch = useDispatch()
-    var isLoading = useSelector(state => state.loading)
-    var isPublic = useSelector(state => state.lobby.isPublic)
-    var nTurns = useSelector(state => state.lobby.nTurns)
-    var language = useSelector(state => state.lobby.language)
-    var username = useSelector(state => state.userInfo.username)
-    var id = useSelector(state => state.userInfo.id)
-    var token = useSelector(state => state.userInfo.token)
+    let isLoading = useSelector(state => state.util.isLoading)
+    let isPublic = useSelector(state => state.lobby.settings.isPublic)
+    let nTurns = useSelector(state => state.lobby.settings.nTurns)
+    let language = useSelector(state => state.lobby.settings.language)
+    let username = useSelector(state => state.userInfo.username)
+    let id = useSelector(state => state.userInfo.id)
+    let token = useSelector(state => state.userInfo.token)
 
     if (isLoading === true) {
         return (

@@ -21,10 +21,22 @@ module.exports = function (io) {
             console.log(StoreSingleton.getInstance().getState().lobbies)
         });
 
-        socket.on('joinLobby', (lobbyCode) => {
-
-
+        socket.on('joinLobbyCode', (json) => {
+            if(StoreSingleton.getInstance().getState().lobbies.has(json.code)){
+                let player = PlayerFactory.createPlayer(json.idUser, json.username, PlayerTypes.USER)
+                StoreSingleton.getInstance().getState().lobbies.get(json.code).orderedUsers.push(player)
+                let jsonToEmit =  StoreSingleton.getInstance().getState().lobbies.get(json.code)
+                socket.emit("lobbyCode", jsonToEmit)
+            } else {
+                socket.emit("lobbyCode", {error: "No Lobby found"});
+            }
         });
+
+        socket.on('disconnect', function(){
+            console.log('user disconnected'); //TODO CHECKS
+        });
+
+        socket.on
     });
 };
 
