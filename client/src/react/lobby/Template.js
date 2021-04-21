@@ -1,9 +1,11 @@
-import { Row, Col } from 'react-bootstrap';
-import Sentence from './Sentence';
-import { useSelector, useDispatch } from 'react-redux';
-import GuessrNavbar from "../common/navbar/GuessrNavbar"
+import { useSelector, useDispatch } from "react-redux"
+
+import { Row, Col } from "react-bootstrap"
+
+import Sentence from "./Sentence"
 import { setWaitingAllSubmited } from "../../redux/lobby/actions"
 import AdaptiveNavbar from "./AdaptiveNavbar"
+import MainContent from "./MainContent"
 import Chat from "./Chat"
 import UserList from "./UserList"
 
@@ -31,7 +33,7 @@ export default function Template() {
                     </div>
                 </Col>
                 <Col className="col-md-6 mt-md-3">
-
+                    <MainContent />
                 </Col>
                 <Col className="d-none d-md-inline ">
                     <UserList height={'80vh'} />
