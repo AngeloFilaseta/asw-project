@@ -38,7 +38,7 @@ export default function Chat(props) {
                     </Form>
                 </Col>
                 <Col className="col-md-3 col-3">
-                    <Button block onClick={() => sendMsg(eventbus, username, lobbyCode, msg)}>&lt;</Button>
+                    <Button block onClick={() => sendMsg(socket, username, lobbyCode, msg)}>&lt;</Button>
                 </Col>
             </Row>
         </Card>
