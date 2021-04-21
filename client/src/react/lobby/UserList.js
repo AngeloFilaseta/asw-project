@@ -4,14 +4,16 @@ import ListGroup from "react-bootstrap/ListGroup"
 import Card from "react-bootstrap/Card"
 
 import UserEntry from "./UserEntry"
+import PlayerType from "../../util/playerType"
 
 export default function UserList(props) {
+    let users = useSelector(state => state.lobby.info.users)
     return (
         <Card style={{ overflow: "hidden", height: props.height }} className={"mt-3"}>
             <Card.Title className="pt-3 pl-3">Players</Card.Title>
             <Card.Body style={{ overflowY: "scroll", height: props.height }}>
                 <ListGroup>
-                    {updateList(useSelector(state => state.lobby.info.users))}
+                    {updateList(users)}
                 </ListGroup>
             </Card.Body>
         </Card>
@@ -24,9 +26,9 @@ function updateList(userList) {
         <>
             {userList.map(listitem => (
                 <UserEntry
-                    username={listitem.username}
+                    username={listitem}
                     key={"user " + i++}
-                    admin={listitem.type === "ADMIN" ? true : false}
+                    admin={listitem.type === PlayerType.ADMIN ? true : false}
                 />
             ))}
         </>

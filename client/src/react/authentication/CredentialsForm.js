@@ -26,11 +26,7 @@ export default function CredentialsForm(){
             <GuessrNavbar />
             <Row className="d-flex justify-content-center">
                 <div className="my-5 container col-lg-3 col-9 border border-primary rounded" style={{ position: "absolute", top: "30%" }}>
-                    <LoadingOverlay
-                        active={isLoading}
-                        spinner
-                        text='Loading...'
-                    >
+                    <LoadingOverlay active={isLoading} spinner text='Loading...'>
                         <Form className="mt-1 mb-3">
                             <UsernameInput username={inputUsername} password={inputPassword} onChange={input => setInputUsername(input)}/>
                             <PasswordInput username={inputUsername} password={inputPassword} onChange={input => setInputPassword(input)}/>
@@ -43,5 +39,5 @@ export default function CredentialsForm(){
                 </div>
             </Row>
         </div>
-    );
+    )
 }

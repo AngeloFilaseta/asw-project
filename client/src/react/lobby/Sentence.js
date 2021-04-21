@@ -13,10 +13,12 @@ export default function Sentence(props) {
     var waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
 
     return (
-        <LoadingOverlay
-            active={props.waitingAllSubmit}
-            spinner
-            text="Waiting for other users to submit their sentences...">
+        <>
+            <LoadingOverlay
+                active={props.waitingAllSubmit}
+                spinner
+                text="Waiting for other users to submit their sentences..."
+            />
             <div className="text-center">
                 {(props.receivedDraw === "" || props.receivedDraw === null || props.receivedDraw === undefined) ?
                     <h2>Write something! Be creative!</h2> :
@@ -47,7 +49,7 @@ export default function Sentence(props) {
                 </Button>
                 {props.isAdmin === true ? (<Button id="exitButton" className="mt-3 col-6" variant="secondary" size="lg" onClick={() => { exitButtonClick(props.eventbus, props.username, props.lobbyCode); }}>End game</Button>) : (<></>)}
             </div>
-        </ LoadingOverlay>
+        </>
     );
 
 }

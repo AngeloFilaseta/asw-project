@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import ListGroup from "react-bootstrap/ListGroup"
 import Form from "react-bootstrap/Form"
@@ -13,6 +13,7 @@ import { sendMsg } from "./LobbyLogic"
 
 export default function Chat(props) {
 
+    const dispatch = useDispatch()
     const [msg, setMsg] = useState("")
     var username = useSelector(state => state.userInfo.username)
     var socket = useSelector(state => state.util.socket)
@@ -27,7 +28,7 @@ export default function Chat(props) {
             </Card.Body>
             <Row className='mt-5 ml-md-3 ml-1'>
                 <Col className="col-8">
-                    <Form onSubmit={s => { s.preventDefault(); sendMsg(socket, username, lobbyCode, msg); }}>
+                    <Form onSubmit={s => { s.preventDefault(); sendMsg(dispatch, socket, username, lobbyCode, msg); }}>
                         <Form.Group>
                             <Form.Control
                                 id="chatSendButton"
@@ -38,7 +39,7 @@ export default function Chat(props) {
                     </Form>
                 </Col>
                 <Col className="col-md-3 col-3">
-                    <Button block onClick={() => sendMsg(socket, username, lobbyCode, msg)}>&lt;</Button>
+                    <Button block onClick={() => sendMsg(dispatch, socket, username, lobbyCode, msg)}>&lt;</Button>
                 </Col>
             </Row>
         </Card>
