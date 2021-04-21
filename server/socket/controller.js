@@ -1,13 +1,14 @@
-const PhaseTypes = require("../model/enum/phaseType");
-const LobbyCodeGenerator = require("../util/LobbyCodeGenerator");
+const PhaseTypes = require("../model/enum/phaseType")
+const LobbyCodeGenerator = require("../util/LobbyCodeGenerator")
 const StoreSingleton = require("../redux/storeSingleton")
 const LobbyFactory = require("../model/factory/lobby")
 const PlayerFactory = require("../model/factory/player")
 const PlayerTypes = require("../model/enum/playerType")
 const LobbiesAction = require("../redux/lobbies/actions")
 const ChatMessageFactory = require("../model/factory/chatMessage")
-const LobbiesUtil = require("./util/lobbiesUtil");
-const BroadCastUtil = require("./util/broadcastUtil");
+const LobbiesUtil = require("./util/lobbiesUtil")
+const BroadCastUtil = require("./util/broadcastUtil")
+const SocketUtil = require("./util/general")
 
 module.exports = function (io) {
     io.on('connection', (socket) => {
@@ -83,8 +84,8 @@ module.exports = function (io) {
             }
         });
 
-        socket.on('disconnect', function(){
-            console.log('user disconnected'); //TODO CHECKS
+        socket.on('disconnect', function() {
+            console.log(SocketUtil.getUserFromSocket(socket));
         });
 
         socket.on
