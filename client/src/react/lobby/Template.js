@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap"
 import Sentence from "./Sentence"
 import { setWaitingAllSubmited } from "../../redux/lobby/actions"
 import AdaptiveNavbar from "./AdaptiveNavbar"
+import MobileBar from "./MobileBar"
 import MainContent from "./MainContent"
 import Chat from "./Chat"
 import UserList from "./UserList"
@@ -26,6 +27,7 @@ export default function Template() {
     return (
         <div style={{ overflowX: "hidden" }}>
             <AdaptiveNavbar />
+            <MobileBar />
             <Row style={{ overflow: "hidden" }}>
                 <Col className="d-none d-md-inline">
                     <div className="mh-100">

@@ -1,4 +1,4 @@
-import React from "react"
+import { useState } from "react"
 
 import Button from "react-bootstrap/Button"
 import { Row, Col } from "react-bootstrap"
@@ -6,8 +6,8 @@ import Modal from "react-bootstrap/Modal"
 
 import Chat from "./Chat"
 import UserList from "./UserList"
-import chatIcon from "../img/chatIcon.png"
-import usersIcon from "../img/usersIcon.png"
+import chatIcon from "../../img/chatIcon.png"
+import usersIcon from "../../img/usersIcon.png"
 
 export default function MobileBar() {
 
@@ -20,7 +20,7 @@ export default function MobileBar() {
                 <Col className={"col-sm-6"}>
                     <Button
                         block
-                        onClick={() => setShowchat(true)}>
+                        onClick={() => setShowChat(true)}>
                        <img alt="Chat" style={{ width: "30px", height: "30px" }} src={chatIcon} />
                     </Button>
                 </Col>
@@ -43,6 +43,6 @@ export default function MobileBar() {
                 </Modal>
             </Row>
         </div>
-    );
+    )
 
 }
