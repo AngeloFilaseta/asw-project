@@ -5,6 +5,7 @@ import PhaseTypes from "../../util/phaseType"
 import Sentence from "./sentence/Sentence"
 import Draw from "./draw/Draw"
 import InsideLobby from "./insideLobby/InsideLobby"
+import ShowReports from "./showReports/ShowReports"
 
 export default function MainContent(){
 
@@ -17,7 +18,7 @@ export default function MainContent(){
         case PhaseTypes.INSIDE_LOBBY:
             return <InsideLobby />
         case PhaseTypes.SHOWING_REPORT:
-            return <p>showing report</p>
+            return <ShowReports />
         default:
             return <RedirectHome />
     }
