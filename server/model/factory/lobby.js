@@ -2,8 +2,7 @@ const PhaseTypes = require("../enum/phaseType");
 
 class Lobby {
     constructor(admin, nTurnsMax, language, isPublic){
-        this.userMap = new Map();
-        this.orderedUsers= [admin];
+        this.orderedUsers = [admin];
         this.chat = [];
         this.nTurnsMax = nTurnsMax;
         this.nTurns = 0;
