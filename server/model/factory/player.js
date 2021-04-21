@@ -6,13 +6,13 @@ class Player{
         this.socket = socket;
     }
 
-    get jsonToSend() {
+    jsonToSend() {
         return {
             id: this.id,
             username: this.username,
             type: this.type
         }
-      }
+    }
 }
 
 function createPlayer(id, username, type, socket){

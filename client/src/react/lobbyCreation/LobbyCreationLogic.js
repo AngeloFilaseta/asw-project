@@ -22,6 +22,10 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
                 dispatch(setIsLoading(false))
             })
 
+            socket.on("players", (players) => {
+                dispatch(setUsers(players))
+            })
+
             socket.connect();
             socket.emit("createLobby", {idUser: id_user,
                                                  username: username,
