@@ -15,3 +15,7 @@ export function sendMsg(dispatch, socket, username, lobbyCode, msg) {
 export function beginGame(dispatch, socket, username, lobbyCode){
     
 }
+
+export function submitDraw(dispatch, socket, username, lobbyCode, xml){
+
+}
