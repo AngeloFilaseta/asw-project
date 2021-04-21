@@ -14,7 +14,7 @@ import PasswordInput from "./credentialsFormComponents/input/PasswordInput"
 import LoginButton from "./credentialsFormComponents/buttons/LoginButton"
 import SignupButton from "./credentialsFormComponents/buttons/SignupButton"
 
-function CredentialsForm(){
+export default function CredentialsForm(){
     
     var isLoading = useSelector(state => state.util.isLoading)
     const [inputUsername, setInputUsername] = useState(undefined)
@@ -45,5 +45,3 @@ function CredentialsForm(){
         </div>
     );
 }
-
-export default CredentialsForm
