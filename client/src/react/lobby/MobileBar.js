@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 
 import Chat from "./Chat"
-import UserList from "./UserList"
+import UserList from "./userList/UserList"
 import chatIcon from "../../img/chatIcon.png"
 import usersIcon from "../../img/usersIcon.png"
 

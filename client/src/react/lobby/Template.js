@@ -1,28 +1,13 @@
-import { useSelector, useDispatch } from "react-redux"
-
 import { Row, Col } from "react-bootstrap"
 
-import Sentence from "./Sentence"
-import { setWaitingAllSubmited } from "../../redux/lobby/actions"
 import AdaptiveNavbar from "./AdaptiveNavbar"
 import MobileBar from "./MobileBar"
 import MainContent from "./MainContent"
 import Chat from "./Chat"
-import UserList from "./UserList"
+import UserList from "./userList/UserList"
 
 
 export default function Template() {
-
-    const dispatch = useDispatch()
-
-    var status = useSelector(state => state.lobby.status)
-    var socket = useSelector(state => state.util.socket)
-    var username = useSelector(state => state.userInfo.username)
-    var lobbyCode = useSelector(state => state.lobby.info.code)
-    var receivedData = useSelector(state => state.lobby.receivedData)
-    var isPublic = useSelector(state => state.lobby.settings.isPublic)
-    var waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
-    var isAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
 
     return (
         <div style={{ overflowX: "hidden" }}>
