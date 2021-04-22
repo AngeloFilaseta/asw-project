@@ -33,6 +33,11 @@ export default function searchLobbyByCode(dispatch, onSuccess, code, username, u
         }
     })
 
+    socket.on("players", (players) => {
+        console.log("players received:" + players)
+        dispatch(setUsers(players))
+    })
+
     socket.connect();
     socket.emit("joinLobbyCode", {idUser: userId,
                                        username: username,

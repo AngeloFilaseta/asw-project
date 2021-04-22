@@ -4,6 +4,7 @@ module.exports = {
     token_secret: 'zawarudomudamudamudamuda',
     documentFolder: "./resources/pdf/",
     port: 3000,
+    min_player: 3,
     asciiArt: "   _____                     _____  \n" +
         "  / ____|                   |  __ \\ \n" +
         " | |  __ _   _  ___  ___ ___| |__) |\n" +

@@ -26,6 +26,15 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
                 dispatch(setUsers(players))
             })
 
+        /*
+            socket.on("closeLobby", (json) => {
+                if(json.hasOwnProperty("error")){
+                    console.log(json.error)
+                    NotificationManager.error(json.error, 'Lobby has been closed', 3000);
+                }
+                socket.close();
+            })*/
+
             socket.connect();
             socket.emit("createLobby", {idUser: id_user,
                                                  username: username,

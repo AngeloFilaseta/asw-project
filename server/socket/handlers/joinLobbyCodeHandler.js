@@ -3,6 +3,7 @@ const PlayerFactory = require("../../model/factory/player");
 const StoreSingleton = require("../../redux/storeSingleton");
 const BroadCastUtil = require("../util/broadcastUtil");
 const PlayerTypes = require("../../model/enum/playerType");
+const {broadcastMessageOnLobbyPlayersChanged} = require("../util/broadcastUtil");
 
 function joinLobbyCodeHandler(socket, json) {
     if(LobbiesUtil.lobbyExists(json.code)){
@@ -16,11 +17,7 @@ function joinLobbyCodeHandler(socket, json) {
             isPublic: StoreSingleton.getInstance().getState().lobbies.get(json.code).isPublic
         }
         socket.emit("joined", jsonToEmit)
-        let lobby = StoreSingleton.getInstance().getState().lobbies.get(json.code);
-        BroadCastUtil.broadcastMessageOnLobby(
-            lobby,
-            "players",
-            lobby.orderedUsers.map(user => user.jsonToSend()));
+        broadcastMessageOnLobbyPlayersChanged(json.code)
         console.log(StoreSingleton.getInstance().getState().lobbies)
     } else {
         socket.emit("joined", {error: "No Lobby found"});

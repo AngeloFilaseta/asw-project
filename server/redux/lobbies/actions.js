@@ -6,13 +6,6 @@ const put = (key, value) => {
     }
 }
 
-const get = (key) => {
-    return {
-        type: "GET_LOBBIES",
-        key: key,
-    }
-}
-
 const remove = (key) => {
     return {
         type: "REMOVE_LOBBIES",
@@ -20,10 +13,5 @@ const remove = (key) => {
     }
 }
 
-const keys = () => {
-    return {
-        type: "KEYS_LOBBIES"
-    }
-}
 
-module.exports = {put};
+module.exports = {put, remove};

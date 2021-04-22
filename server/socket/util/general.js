@@ -1,21 +1,26 @@
 const StoreSingleton = require("../../redux/storeSingleton");
 
-function getUserFromSocket(socket){
+function getLobbyAndUserFromSocket(socket){
     let lobbies = StoreSingleton
         .getInstance()
         .getState()
-        .lobbies.values();
+        .lobbies.entries();
 
+    let lobbyCode;
     let nextLobby = lobbies.next();
     let userFilterPredicate = (u => u.socket === socket);
     do{
         if(!nextLobby.done){
-            if(nextLobby.value.orderedUsers.filter(userFilterPredicate).length > 0 ){
-                return nextLobby.value.orderedUsers.find(userFilterPredicate).jsonToSend()
+            lobbyCode = nextLobby.value[0]
+            if(nextLobby.value[1].orderedUsers.filter(userFilterPredicate).length > 0){
+                return {
+                    lobbyCode: lobbyCode,
+                    player: nextLobby.value[1].orderedUsers.find(userFilterPredicate).jsonToSend()
+                }
             }
             nextLobby = lobbies.next();
         }
     }while(!nextLobby.done)
 }
 
-module.exports = {getUserFromSocket}
+module.exports = {getUserFromSocket: getLobbyAndUserFromSocket}
