@@ -1,18 +1,7 @@
 import { NotificationManager } from "react-notifications"
 import { io } from "socket.io-client"
 import { SERVER_ADDRESS } from "../../util/global"
-import { setSocket, setIsLoading } from "../../redux/util/actions"
-import {
-    setIsPublic,
-    setLanguage,
-    setLobbyCode,
-    setMessages,
-    setMyRoleAdmin, setNTurns,
-    setStatus,
-    setUsers
-} from "../../redux/lobby/actions"
-import PlayerType from "../../util/playerType";
-import PhaseTypes from "../../util/phaseType";
+import { setIsLoading } from "../../redux/util/actions"
 import {assignHandlers} from "../../socket/handlers";
 
 export function createLobby(dispatch, isPublic, nTurns, language, username, id_user, token) {

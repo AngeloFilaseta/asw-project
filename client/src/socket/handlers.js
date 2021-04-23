@@ -25,8 +25,8 @@ export function assignHandlers(socket, dispatch){
             dispatch(setIsPublic(json.isPublic))
             dispatch(setMessages(json.messages))
             dispatch(setNTurns(json.nTurnsMax))
-            dispatch(setIsLoading(false))
         }
+        dispatch(setIsLoading(false))
     })
 
     socket.on("players", (players) => {

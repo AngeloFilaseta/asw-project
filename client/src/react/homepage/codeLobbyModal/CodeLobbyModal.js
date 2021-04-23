@@ -12,9 +12,9 @@ export default function CodeLobbyModal(props){
 
     const dispatch = useDispatch()
     const [code, setCode] = useState("")
-    var username = useSelector(state => state.userInfo.username)
-    var userId = useSelector(state => state.userInfo.id)
-    var isLoading = useSelector(state => state.util.isLoading)
+    let username = useSelector(state => state.userInfo.username)
+    let userId = useSelector(state => state.userInfo.id)
+    let isLoading = useSelector(state => state.util.isLoading)
 
     return (
         <Modal show={props.isShowing} onHide={props.onHide}>

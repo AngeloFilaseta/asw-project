@@ -1,4 +1,3 @@
-
 const ChatMessageFactory = require("../../model/factory/chatMessage");
 const StoreSingleton = require("../../redux/storeSingleton");
 const BroadCastUtil = require("../util/broadcastUtil");
@@ -6,8 +5,6 @@ const {lobbyExists} = require("../util/lobbiesUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 
 function chatHandler(socket, json){
-    console.log("CHAT MESSAGE:");
-    console.log(JSON.stringify(json));
     if(lobbyExists(json.lobbyCode)){
         let message = ChatMessageFactory.createChatMessage(json.username, json.message);
         StoreSingleton.getInstance()

@@ -28,7 +28,7 @@ export default function Sentence(props) {
 }
 
 function submitSentence(eventbus, username, lobbyCode, sentence) {
-    var msgBody = {
+    let msgBody = {
         username: username,
         code: lobbyCode,
         sentence: sentence
@@ -40,7 +40,7 @@ function submitSentence(eventbus, username, lobbyCode, sentence) {
 }
 
 function exitButtonClick(eventbus, username, lobbyCode) {
-    var msgBody = {
+    let msgBody = {
         username: username,
         code: lobbyCode,
         action: "end game"

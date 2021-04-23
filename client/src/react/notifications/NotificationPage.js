@@ -38,7 +38,6 @@ function ReportPage(props) {
 export default ReportPage;
 
 function updateList(notificationList) {
-    let i = 0;
     return (
         <>
             {notificationList.map(item => (

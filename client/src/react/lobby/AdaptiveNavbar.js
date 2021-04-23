@@ -5,9 +5,9 @@ import GuessrNavbar from  "../common/navbar/GuessrNavbar"
 
 export default function AdaptiveNavbar(){
 
-    var status = useSelector(state => state.lobby.status)
-    var isPublic = useSelector(state => state.lobby.settings.isPublic)
-    var lobbyCode = useSelector(state => state.lobby.info.code)
+    let status = useSelector(state => state.lobby.status)
+    let isPublic = useSelector(state => state.lobby.settings.isPublic)
+    let lobbyCode = useSelector(state => state.lobby.info.code)
 
     switch (status) {
         case PhaseTypes.SENTENCE:

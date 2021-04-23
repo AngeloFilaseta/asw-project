@@ -1,5 +1,5 @@
 import {useState} from "react"
-import  {useSelector, useDispatch } from "react-redux" 
+import  {useSelector} from "react-redux"
 
 import {RedirectTo} from "./GuessrRedirect"
 import Button from "react-bootstrap/Button"
