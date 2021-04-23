@@ -1,15 +1,13 @@
 import $ from "jquery"
-import { setMessages } from "../../redux/lobby/actions"
 
-export function sendMsg(dispatch, socket, username, lobbyCode, msg) {
-    dispatch(setMessages([{username: "dizi", msg: "KONO DIO DA"}]))
-    /*var msgBody = {
+export function sendMsg(dispatch, socket, username, lobbyCode, message) {
+    let msgBody = {
         username: username,
-        code: lobbyCode,
-        msg: msg
+        lobbyCode: lobbyCode,
+        message: message
     }
-    $("#chatSendButton").val('');
-    eventbus.send('chat', msgBody);*/
+    $("#chatSendButton").val(''); // reset buffer
+    socket.emit("chat", msgBody)
 }
 
 export function beginGame(dispatch, socket, username, lobbyCode){

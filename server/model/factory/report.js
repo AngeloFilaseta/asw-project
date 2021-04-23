@@ -6,7 +6,6 @@ class Report{
     }
 }
 
-
 function createReport(nextInputUser){
     return new Report(nextInputUser)
 }

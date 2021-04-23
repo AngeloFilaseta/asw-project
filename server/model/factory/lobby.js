@@ -1,8 +1,8 @@
 const PhaseTypes = require("../enum/phaseType");
 
 class Lobby {
-    constructor(admin, nTurnsMax, language, isPublic){
-        this.orderedUsers = [admin];
+    constructor(nTurnsMax, language, isPublic){
+        this.orderedUsers = [];
         this.chat = [];
         this.nTurnsMax = nTurnsMax;
         this.nTurns = 0;
@@ -13,8 +13,8 @@ class Lobby {
     }
 }
 
-function createLobby(player, nTurnsMax, language, isPublic){
-    return new Lobby(player, nTurnsMax, language, isPublic)
+function createLobby(nTurnsMax, language, isPublic){
+    return new Lobby(nTurnsMax, language, isPublic)
 }
 
 module.exports = {createLobby}

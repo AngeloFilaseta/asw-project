@@ -5,17 +5,19 @@ const PlayerFactory = require("../../model/factory/player");
 const LobbyFactory = require("../../model/factory/lobby");
 const LobbiesAction = require("../../redux/lobbies/actions");
 const PlayerTypes = require("../../model/enum/playerType");
+const joinLobbyHandler = require("./joinLobbyHandler");
 
 function createLobbyHandler(socket, json) {
-    let lobbyCode; //TODO CHECK CONCURRENCY
+    let lobbyCode;
     do{
         lobbyCode = LobbyCodeGenerator.generateRandomCode();
     }while(LobbiesUtil.lobbyExists(lobbyCode));
-    let newLobbyAdmin = PlayerFactory.createPlayer(json.idUser, json.username, PlayerTypes.ADMIN, socket)
-    let newLobby = LobbyFactory.createLobby(newLobbyAdmin, json.nTurnsMax, json.language, json.isPublic)
+    let newLobby = LobbyFactory.createLobby(json.nTurnsMax, json.language, json.isPublic)
     StoreSingleton.getInstance().dispatch(LobbiesAction.put(lobbyCode, newLobby));
-    socket.emit("joined", lobbyCode);
-    console.log(StoreSingleton.getInstance().getState().lobbies)
+    //Join The lobby created directly
+    joinLobbyHandler(socket,{idUser: json.idUser,
+                                  username: json.username,
+                                  code: lobbyCode})
 }
 
 module.exports = createLobbyHandler;

@@ -10,8 +10,6 @@ const MIN_PLAYERS = require("../../conf/conf").min_player;
 
 function disconnectHandler(socket) {
     let lobbyAndUser = SocketUtil.getUserFromSocket(socket);
-    console.log("A Player is disconnecting...");
-    console.log(lobbyAndUser);
     disconnectFromLobby(socket, lobbyAndUser)
 }
 

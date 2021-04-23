@@ -2,8 +2,18 @@ import { NotificationManager } from "react-notifications"
 import { io } from "socket.io-client"
 import { SERVER_ADDRESS } from "../../util/global"
 import { setSocket, setIsLoading } from "../../redux/util/actions"
-import { setLobbyCode, setMyRoleAdmin, setStatus, setUsers } from "../../redux/lobby/actions"
+import {
+    setIsPublic,
+    setLanguage,
+    setLobbyCode,
+    setMessages,
+    setMyRoleAdmin, setNTurns,
+    setStatus,
+    setUsers
+} from "../../redux/lobby/actions"
 import PlayerType from "../../util/playerType";
+import PhaseTypes from "../../util/phaseType";
+import {assignHandlers} from "../../socket/handlers";
 
 export function createLobby(dispatch, isPublic, nTurns, language, username, id_user, token) {
     if (nTurns === null || Number.isNaN(nTurns) || nTurns <= 0) {
@@ -11,30 +21,7 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
     } else {
             setIsLoading(true)
             const socket = io(SERVER_ADDRESS)
-
-            socket.on("joined", (lobbyCode) => {
-                console.log("Connected to lobby " + lobbyCode)
-                dispatch(setMyRoleAdmin(true))
-                dispatch(setUsers([{id: id_user, username: username, type: PlayerType.ADMIN}]))
-                dispatch(setSocket(socket))
-                dispatch(setStatus("Inside Lobby"))
-                dispatch(setLobbyCode(lobbyCode))
-                dispatch(setIsLoading(false))
-            })
-
-            socket.on("players", (players) => {
-                dispatch(setUsers(players))
-            })
-
-        /*
-            socket.on("closeLobby", (json) => {
-                if(json.hasOwnProperty("error")){
-                    console.log(json.error)
-                    NotificationManager.error(json.error, 'Lobby has been closed', 3000);
-                }
-                socket.close();
-            })*/
-
+            assignHandlers(socket, dispatch)
             socket.connect();
             socket.emit("createLobby", {idUser: id_user,
                                                  username: username,

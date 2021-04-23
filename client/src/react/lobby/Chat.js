@@ -14,11 +14,11 @@ import { sendMsg } from "./LobbyLogic"
 export default function Chat(props) {
 
     const dispatch = useDispatch()
-    const [msg, setMsg] = useState("")
-    var username = useSelector(state => state.userInfo.username)
-    var socket = useSelector(state => state.util.socket)
-    var messages = useSelector(state => state.lobby.messages)
-    var lobbyCode = useSelector(state => state.lobby.info.code)
+    let [msg, setMsg] = useState("")
+    let username = useSelector(state => state.userInfo.username)
+    let socket = useSelector(state => state.util.socket)
+    let messages = useSelector(state => state.lobby.messages)
+    let lobbyCode = useSelector(state => state.lobby.info.code)
 
     return (
         <Card style={{ overflow: "hidden", height: props.height }} className={"mt-3"}>
@@ -28,11 +28,11 @@ export default function Chat(props) {
             </Card.Body>
             <Row className='mt-5 ml-md-3 ml-1'>
                 <Col className="col-8">
-                    <Form onSubmit={s => { s.preventDefault(); sendMsg(dispatch, socket, username, lobbyCode, msg); }}>
+                    <Form onSubmit={s => {s.preventDefault()}}>
                         <Form.Group>
                             <Form.Control
                                 id="chatSendButton"
-                                onChange={e => setMsg(e)}
+                                onChange={e => setMsg(e.target.value)}
                                 placeholder="Type a message"
                             />
                         </Form.Group>
@@ -47,25 +47,25 @@ export default function Chat(props) {
 }
 
 function updateChat(messages, username) {
-    var i = 0
+    let i = 0
 
-    var result = (
+    let result = (
         <>
-            {messages.map(listitem => (
+            {messages.map(item => (
                 <MessageBox
                     className={"mt-1"}
                     key={"msg " + i++}
-                    title={listitem.username}
+                    title={item.username}
                     titleColor={"blue"}
                     date={null}
-                    text={listitem.msg}
-                    position={listitem.username === username ? "right" : "left"}
+                    text={item.message}
+                    position={item.username === username ? "right" : "left"}
                 />
             ))}
         </>
     )
 
-    var objDiv = document.getElementById("scroll")
+    let objDiv = document.getElementById("scroll")
     if (objDiv !== null) {
         objDiv.scrollTop = objDiv.scrollHeight
     }

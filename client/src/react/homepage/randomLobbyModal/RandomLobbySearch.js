@@ -1,16 +1,12 @@
-import { setIsLoading } from "../../../redux/util/actions"
-import { setLobbyCode } from "../../../redux/lobby/actions"
+import {assignHandlers} from "../../../socket/handlers";
+import {io} from "socket.io-client";
+import {SERVER_ADDRESS} from "../../../util/global";
 
 export default function searchRandomLobby(dispatch, onSuccess, language, username, userId){
-    dispatch(setIsLoading(true))
-        setTimeout(function () {
-            dispatch(setIsLoading(false))
-            //TODO try search random lobby
-            console.log(language)
-            console.log(username)
-            console.log(userId)
-            dispatch(setLobbyCode("CMSVAM"))
-            onSuccess()
-        }, 1000)
-    
+    const socket = io(SERVER_ADDRESS)
+    assignHandlers(socket, dispatch)
+    socket.connect();
+    socket.emit("joinLobby", {idUser: userId,
+        username: username,
+        language: language})
 }
