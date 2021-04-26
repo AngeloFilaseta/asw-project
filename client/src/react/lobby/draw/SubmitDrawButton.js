@@ -2,13 +2,13 @@ import { useSelector, useDispatch } from "react-redux"
 
 import { submitDraw } from "../LobbyLogic"
 import { Button } from "react-bootstrap"
-import { setWaitingAllSubmited } from "../../../redux/lobby/actions"
+import { setWaitingAllSubmitted } from "../../../redux/lobby/actions"
 
 export default function SubmitDrawButton(props){
 
     const dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
-    let username = useSelector(state => state.userInfo.username)
+    let id_user = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
 
     return(
@@ -16,8 +16,8 @@ export default function SubmitDrawButton(props){
             id="submitDraw"
             className="mx-3"
             onClick={() => {
-                dispatch(setWaitingAllSubmited(true)); 
-                submitDraw(dispatch, socket, username, lobbyCode, props.draw.getSvgXML()); 
+                dispatch(setWaitingAllSubmitted(true));
+                submitDraw(dispatch, socket, id_user, lobbyCode, props.draw.getSvgXML());
             }}>
             Submit
         </Button>

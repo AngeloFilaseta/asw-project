@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { Button } from "react-bootstrap"
 import { submitSentence } from "../LobbyLogic"
-import { setWaitingAllSubmited } from "../../../redux/lobby/actions"
+import { setWaitingAllSubmitted } from "../../../redux/lobby/actions"
 
 export default function SubmitSentenceButton(props){
 
     const dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
-    let username = useSelector(state => state.userInfo.username)
+    let id_username = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
 
     return(
@@ -17,8 +17,8 @@ export default function SubmitSentenceButton(props){
             className="mt-3 col-6"
             size="lg"
             onClick={() => {
-                dispatch(setWaitingAllSubmited(true))
-                submitSentence(dispatch, socket, username, lobbyCode, props.sentence)
+                dispatch(setWaitingAllSubmitted(true))
+                submitSentence(dispatch, socket, id_username, lobbyCode, props.sentence)
         }}>
             Submit
         </Button>

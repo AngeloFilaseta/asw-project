@@ -1,9 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-
 import LoadingOverlay from "react-loading-overlay"
-import $ from "jquery"
-
 import ReceivedDraw from "./ReceivedDraw"
 import SentenceInput from "./SentenceInput"
 import SentenceTimer from "./SentenceTimer"
@@ -25,25 +22,4 @@ export default function Sentence(props) {
         </LoadingOverlay>
     )
 
-}
-
-function submitSentence(eventbus, username, lobbyCode, sentence) {
-    let msgBody = {
-        username: username,
-        code: lobbyCode,
-        sentence: sentence
-    }
-    $("#submitSentence").prop("disabled", true)
-    $("#submittedSentence").append("You submitted your sentence. Wait for other players.")
-
-    eventbus.send("sentence", msgBody)
-}
-
-function exitButtonClick(eventbus, username, lobbyCode) {
-    let msgBody = {
-        username: username,
-        code: lobbyCode,
-        action: "end game"
-    }
-    eventbus.send("lobby", msgBody)
 }

@@ -68,7 +68,7 @@ export const setReceivedData = (receivedData) => {
     }
 }
 
-export const setWaitingAllSubmited = (allSubmitted) => {
+export const setWaitingAllSubmitted = (allSubmitted) => {
     return {
         type: "SET_WAITING_ALL_SUBMITTED",
         payload: allSubmitted

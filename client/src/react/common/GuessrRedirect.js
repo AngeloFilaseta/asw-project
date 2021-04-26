@@ -11,8 +11,8 @@ import {
     setStatus, 
     setUsers, 
     setMessages, 
-    setMyRoleAdmin, 
-    setWaitingAllSubmited, 
+    setMyRoleAdmin,
+    setWaitingAllSubmitted,
     setReceivedData, 
     setReports 
 } from "../../redux/lobby/actions"
@@ -76,7 +76,7 @@ function resetLobby(dispatch){
     dispatch(setUsers([]))
     dispatch(setMessages([]))
     dispatch(setMyRoleAdmin(null))
-    dispatch(setWaitingAllSubmited(false))
+    dispatch(setWaitingAllSubmitted(false))
     dispatch(setIsPublic(DEFAULT_IS_PUBLIC))
     dispatch(setNTurns(DEFAULT_N_TURNS))
     dispatch(setLanguage(DEFAULT_LANGUAGE))

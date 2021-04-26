@@ -1,4 +1,5 @@
 const ReportFactory = require("../../model/factory/report");
+const PhaseType = require("../../model/enum/phaseType");
 
 const {getLobby} = require("./lobbiesUtil");
 
@@ -19,8 +20,23 @@ function createInitialReport(orderedUsers){
     orderedUsers.forEach(u => u.report = ReportFactory.createReport(u.id))
 }
 
-function updateReports(orderedUsers){
-    let orderedNext = orderedUsers.map(u => u.report.nextInputUser)
+function findUserToUpdateReport(lobby, json){
+    let indexOfSender = lobby.orderedUsers.findIndex((user) => user.id === json.id_user)
+    let indexOfUserReportToUpdate = lobby.orderedUsers.findIndex((user) => user.report.nextInputUsers[indexOfNextInputUser(lobby)] === indexOfSender)
+    return lobby.orderedUsers[indexOfUserReportToUpdate]
 }
 
-module.exports = {initializeNextInputUsers}
+function indexOfNextInputUser(lobby){
+    return (lobby.nTurns * 2) + (lobby.phase === PhaseType.DRAW)
+}
+
+function resetSubmittedAndSwapPhase(lobby){
+    lobby.nSubmitted = 0
+    lobby.phase = lobby.phase === PhaseType.DRAW ? PhaseType.SENTENCE : PhaseType.DRAW
+}
+
+module.exports = {initializeNextInputUsers,
+                  createInitialReport,
+                  findUserToUpdateReport,
+                  indexOfNextInputUser,
+                  resetSubmittedAndSwapPhase}

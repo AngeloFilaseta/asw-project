@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { Form } from "react-bootstrap"
 
-import { setWaitingAllSubmited } from "../../../redux/lobby/actions"
+import { setWaitingAllSubmitted } from "../../../redux/lobby/actions"
 import { submitSentence } from "../LobbyLogic"
 
 export default function SentenceInput(props){
@@ -17,7 +17,7 @@ export default function SentenceInput(props){
             className="border border-primary rounded mx-3 mx-md-0 p-3" 
             onSubmit={s => { 
                 s.preventDefault()
-                dispatch(setWaitingAllSubmited(true)) 
+                dispatch(setWaitingAllSubmitted(true))
                 submitSentence(dispatch, socket, username, lobbyCode, props.sentence)
         }}>
             <h5 align="center">Write your sentence:</h5>

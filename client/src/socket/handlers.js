@@ -4,11 +4,12 @@ import {
     setLanguage,
     setLobbyCode,
     setMessages,
-    setMyRoleAdmin, setNTurns,
+    setMyRoleAdmin, setNTurns, setReceivedData, setReports,
     setStatus,
-    setUsers
+    setUsers, setWaitingAllSubmitted
 } from "../redux/lobby/actions";
 import {setIsLoading, setSocket} from "../redux/util/actions";
+import PhaseTypes from "../util/phaseType";
 
 export function assignHandlers(socket, dispatch){
     dispatch(setIsLoading(true))
@@ -35,6 +36,27 @@ export function assignHandlers(socket, dispatch){
 
     socket.on("chat", (messages) => {
         dispatch(setMessages(messages))
+    })
+
+    socket.on("sentence", (sentence) => {
+        dispatch(setReceivedData(sentence))
+        dispatch(setStatus(PhaseTypes.DRAW))
+        dispatch(setWaitingAllSubmitted(false))
+    })
+
+    socket.on("draw", (draw) => {
+        dispatch(setReceivedData(draw))
+        dispatch(setStatus(PhaseTypes.SENTENCE))
+        dispatch(setWaitingAllSubmitted(false))
+    })
+
+    socket.on("showReport", (reports) => {
+        dispatch(setStatus(PhaseTypes.SHOWING_REPORT))
+        dispatch(setReports(reports))
+    })
+
+    socket.on("backToLobby", (draw) => {
+        dispatch(setStatus(PhaseTypes.INSIDE_LOBBY))
     })
 
 }
