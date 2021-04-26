@@ -1,13 +1,13 @@
 class Report{
-    constructor(nextInputUser){
+    constructor(nextInputUsers){
         this.sentences = [];
         this.images = [];
-        this.nextInputUser = nextInputUser;
+        this.nextInputUsers = nextInputUsers;
     }
 }
 
-function createReport(nextInputUser){
-    return new Report(nextInputUser)
+function createReport(nextInputUsers){
+    return new Report(nextInputUsers)
 }
 
 module.exports = {createReport}

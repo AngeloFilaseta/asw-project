@@ -6,6 +6,7 @@ import { Col } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import { RedirectHome } from "../../common/GuessrRedirect"
 import { beginGame } from "../LobbyLogic"
+import UserTypes from "../../../util/playerType";
 
 export default function Controls(){
 
@@ -20,7 +21,7 @@ export default function Controls(){
 }
 
 function getControls(isMyRoleAdmin, setGoHomepage, dispatch, username, socket, lobbyCode){
-    if(isMyRoleAdmin){
+    if(isMyRoleAdmin === UserTypes.ADMIN){
         return(
             <>
                 <NotificationContainer />

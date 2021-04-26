@@ -11,7 +11,8 @@ export function sendMsg(dispatch, socket, username, lobbyCode, message) {
 }
 
 export function beginGame(dispatch, socket, username, lobbyCode){
-    
+    socket.emit("startGame", {lobbyCode: lobbyCode})
+    console.log("YOLO")
 }
 
 export function submitDraw(dispatch, socket, username, lobbyCode, xml){

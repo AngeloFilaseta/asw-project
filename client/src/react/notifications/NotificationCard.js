@@ -4,9 +4,7 @@ import { Card } from 'react-bootstrap'
 import { Col } from 'react-bootstrap';
 import DeleteButton from "./DeleteButton";
 
-
 function NotificationCard(props) {
-
     return (
         <>
             <Col className="col-lg-3 col-12 col-md-6 mt-3">
@@ -14,9 +12,7 @@ function NotificationCard(props) {
                     <Card.Header>
                         <Card.Title align="center">
                             {props.title}
-                            <DeleteButton
-                            idNotification={props.id}
-                            />
+                            <DeleteButton idNotification={props.id}/>
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>

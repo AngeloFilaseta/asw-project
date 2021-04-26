@@ -3,6 +3,7 @@ class Player{
         this.id = id;
         this.username = username;
         this.type = type;
+        this.report = {}
         this.socket = socket;
     }
 
