@@ -5,22 +5,22 @@ import { Button, Collapse } from "react-bootstrap"
 import $ from "jquery"
 
 import PlayerTypes from "../../../util/playerType"
-import { sendEndReport } from "../LobbyLogic"
+import {sendEndReport} from "../LobbyLogic"
 
 export default function ShowReports(){
     
     const dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
-    var username = useSelector(state => state.userInfo.username)
-    var lobbyCode = useSelector(state => state.lobby.info.code)
-    var reports = useSelector(state => state.lobby.reports)
-    var isAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
+    let id_user = useSelector(state => state.userInfo.id)
+    let lobbyCode = useSelector(state => state.lobby.info.code)
+    let reports = useSelector(state => state.lobby.reports)
+    let isAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
 
     if (isAdmin === PlayerTypes.ADMIN) {
         return (
             <div className="">
                 <div className="mx-3">
-                    <Button block className="mt-3" size="lg" onClick={() => sendEndReport(dispatch, socket, username, lobbyCode)} >Back to Lobby</Button>
+                    <Button block className="mt-3" size="lg" onClick={() => sendEndReport(dispatch, socket, id_user, lobbyCode)}>Back to Lobby</Button>
                 </div>
                 {reportShow(reports)}
             </div>
@@ -32,13 +32,12 @@ export default function ShowReports(){
             </div>
         )
     }
-
 }
 
 function reportShow(reports) {
 
-    var i = 0;
-    var j = 0;
+    let i = 0;
+    let j = 0;
 
     return (
         <>
@@ -53,7 +52,7 @@ function reportShow(reports) {
                     </Button>
                     <Collapse>
                         <div id={"collapse-div-" + index} className="border border-info rounded " align="center">
-                            {alternateListsElements(report.sentence, report.draw).map((entry, index) => (
+                            {alternateListsElements(report.sentences, report.draws).map((entry, index) => (
                                 index % 2 === 0 ? <h2 key={"entry " + j++}>"{entry}"</h2> : <SVG src={entry} key={"entry " + j++}/>
                             ))}
                         </div>
@@ -81,6 +80,6 @@ function alternateListsElements(sentence, draw) {
             first++;
         }
         run++;
-    };
+    }
     return newArr;
 }

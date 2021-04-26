@@ -1,8 +1,8 @@
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 
-function endGameCommandHandler(socket, json) {
-    let lobby = getLobby(json.lobbyCode)
+function endGameCommandHandler(socket, lobbyCode) {
+    let lobby = getLobby(lobbyCode)
     lobby.nTurns = 0
     broadcastMessageOnLobby(lobby, "backToLobby", undefined)
 }

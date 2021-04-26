@@ -1,4 +1,4 @@
-const {broadcastMessageOnLobbyPlayersChanged} = require("../util/broadcastUtil");
+const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 const {indexOfNextInputUser} = require("../util/gameLogicUtil");
 const {resetSubmittedAndSwapPhase} = require("../util/gameLogicUtil");
@@ -9,15 +9,16 @@ function drawHandler(socket, json){
     addDrawToReport(lobby, json)
     lobby.nSubmitted += 1
     if(lobby.nSubmitted === lobby.orderedUsers.length){
+        lobby.nTurns += 1
         if(lobby.nTurns === lobby.nTurnsMax){
-            broadcastMessageOnLobbyPlayersChanged(lobby, "showReport", createReportsToSend(lobby.orderedUsers))
+            broadcastMessageOnLobby(lobby, "showReport", createReportsToSend(lobby.orderedUsers))
         } else {
             resetSubmittedAndSwapPhase(lobby)
             lobby.orderedUsers.forEach((user) => {
                 let nextInputUserIndex = user.report.nextInputUsers[indexOfNextInputUser(lobby)]
                 lobby.orderedUsers[nextInputUserIndex].socket.emit("draw", user.report.images[user.report.images.length - 1])
             })
-            lobby.nTurns += 1
+
         }
     }
 }

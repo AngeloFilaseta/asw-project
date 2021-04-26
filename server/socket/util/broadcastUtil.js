@@ -10,8 +10,6 @@ function broadcastMessageOnLobby(lobby, channel, message){
 }
 
 function broadcastMessageOnLobbyPlayersChanged(code){
-    console.log("Change Players called");
-    console.log("sending:" + JSON.stringify(getLobby(code).orderedUsers.map(user => user.jsonToSend())));
     broadcastMessageOnLobby(
         getLobby(code),
         "players",

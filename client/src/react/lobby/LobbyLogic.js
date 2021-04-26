@@ -36,3 +36,9 @@ export function submitSentence(dispatch, socket, id_user, lobbyCode, sentence) {
     socket.emit("sentence", msgBody)
 }
 
+
+export function sendEndReport(dispatch, socket, id_user, lobbyCode) {
+    socket.emit("endGameCommand", lobbyCode)
+
+}
+

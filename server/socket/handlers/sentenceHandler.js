@@ -7,9 +7,7 @@ function sentenceHandler(socket, json){
     let lobby = getLobby(json.lobbyCode)
     addSentenceToReport(lobby, json)
     lobby.nSubmitted += 1
-    console.log(lobby.nSubmitted,lobby.orderedUsers.length )
     if(lobby.nSubmitted === lobby.orderedUsers.length){
-        console.log("SENTENCE PHASE OVER")
         resetSubmittedAndSwapPhase(lobby)
         lobby.orderedUsers.forEach((user) => {
             let nextInputUserIndex = user.report.nextInputUsers[indexOfNextInputUser(lobby)]
