@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import { RedirectHome } from "../../common/GuessrRedirect"
 import { beginGame } from "../LobbyLogic"
-import UserTypes from "../../../util/playerType";
+import UserTypes from "../../../util/playerType"
 
 export default function Controls(){
 

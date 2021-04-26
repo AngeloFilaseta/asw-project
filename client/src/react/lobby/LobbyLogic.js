@@ -22,3 +22,7 @@ export function submitDraw(dispatch, socket, username, lobbyCode, xml){
 export function submitSentence(dispatch, socket, username, lobbyCode, sentence){
     console.log(sentence)
 }
+
+export function sendEndReport(dispatch, socket, username, lobbyCode){
+
+}
