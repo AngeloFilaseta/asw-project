@@ -25,7 +25,7 @@ export function submitDraw(dispatch, socket, id_user, lobbyCode, svgString){
     socket.emit("draw", msgBody)
 }
 
-export function submitSentence(dispatch, socket, id_user, lobbyCode, sentence){
+export function submitSentence(dispatch, socket, id_user, lobbyCode, sentence) {
     let msgBody = {
         id_user: id_user,
         lobbyCode: lobbyCode,
@@ -35,3 +35,4 @@ export function submitSentence(dispatch, socket, id_user, lobbyCode, sentence){
     $("#submittedDraw").append("You submitted your Draw. Wait for other players.")
     socket.emit("sentence", msgBody)
 }
+
