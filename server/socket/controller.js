@@ -6,25 +6,26 @@ const startGameHandler = require("./handlers/startGameHandler");
 const sentenceHandler = require("./handlers/sentenceHandler");
 const drawHandler = require("./handlers/drawHandler");
 const endGameCommandHandler = require("./handlers/endGameCommandHandler");
+const Channels = require("./enum/channels");
 
 module.exports = function (io) {
     io.on('connection', (socket) => {
 
-        socket.on('createLobby', (json) => createLobbyHandler(socket, json));
+        socket.on(Channels.CREATE_LOBBY, (json) => createLobbyHandler(socket, json));
 
-        socket.on('joinLobby', (json) => joinLobbyHandler(socket, json));
+        socket.on(Channels.JOIN_LOBBY, (json) => joinLobbyHandler(socket, json));
 
-        socket.on('startGame', (json) => startGameHandler(socket, json));
+        socket.on(Channels.START_GAME, (json) => startGameHandler(socket, json));
 
-        socket.on('sentence', (json) => sentenceHandler(socket, json));
+        socket.on(Channels.SENTENCE, (json) => sentenceHandler(socket, json));
 
-        socket.on('draw', (json) => drawHandler(socket, json));
+        socket.on(Channels.DRAW, (json) => drawHandler(socket, json));
 
-        socket.on('chat', (json) => chatHandler(socket, json));
+        socket.on(Channels.CHAT, (json) => chatHandler(socket, json));
 
-        socket.on('endGameCommand', (json) => endGameCommandHandler(socket, json));
+        socket.on(Channels.END_GAME, (json) => endGameCommandHandler(socket, json));
 
-        socket.on('disconnect', () => disconnectHandler(socket));
+        socket.on(Channels.DISCONNECT, () => disconnectHandler(socket));
     });
 };
 

@@ -14,9 +14,10 @@ export default function RandomLobbyModal(props){
 
     const dispatch = useDispatch()
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE)
-    var username = useSelector(state => state.userInfo.username)
-    var userId = useSelector(state => state.userInfo.id)
-    var isLoading = useSelector(state => state.util.isLoading)
+    let username = useSelector(state => state.userInfo.username)
+    let token = useSelector(state => state.userInfo.token)
+    let userId = useSelector(state => state.userInfo.id)
+    let isLoading = useSelector(state => state.util.isLoading)
 
     return (
         <Modal show={props.isShowing} onHide={props.onHide}>
@@ -30,7 +31,7 @@ export default function RandomLobbyModal(props){
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => searchRandomLobby(dispatch, props.onSuccess, language, username, userId)}>
+                    <Button variant="primary" onClick={() => searchRandomLobby(dispatch, props.onSuccess, language, username, userId, token)}>
                         Search
                     </Button>
                 </Modal.Footer>

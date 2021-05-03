@@ -1,3 +1,4 @@
+const Channels = require("../enum/channels");
 const {getLobby} = require("./lobbiesUtil");
 
 function broadcastMessage(sockets, channel, message){
@@ -12,7 +13,7 @@ function broadcastMessageOnLobby(lobby, channel, message){
 function broadcastMessageOnLobbyPlayersChanged(code){
     broadcastMessageOnLobby(
         getLobby(code),
-        "players",
+        Channels.PLAYERS,
         getLobby(code).orderedUsers.map(user => user.jsonToSend()));
 }
 

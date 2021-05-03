@@ -1,10 +1,11 @@
+const Channels = require("../enum/channels");
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 
 function endGameCommandHandler(socket, lobbyCode) {
     let lobby = getLobby(lobbyCode)
     lobby.nTurns = 0
-    broadcastMessageOnLobby(lobby, "backToLobby", undefined)
+    broadcastMessageOnLobby(lobby, Channels.BACK_TO_LOBBY, undefined)
 }
 
 module.exports = endGameCommandHandler;

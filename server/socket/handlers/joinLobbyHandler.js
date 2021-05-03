@@ -2,6 +2,7 @@ const PlayerFactory = require("../../model/factory/player");
 const StoreSingleton = require("../../redux/storeSingleton");
 const PlayerTypes = require("../../model/enum/playerType");
 const PhaseTypes = require("../../model/enum/phaseType");
+const Channels = require("../enum/channels");
 const {lobbyExists} = require("../util/lobbiesUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 const {broadcastMessageOnLobbyPlayersChanged} = require("../util/broadcastUtil");
@@ -12,7 +13,7 @@ function joinLobbyHandler(socket, json) {
     } else if(json.hasOwnProperty("language")){
         joinByLanguage(socket, json)
     } else {
-        socket.emit("joined", {error: "Fatal Error on message format"});
+        socket.emit(Channels.JOINED, {error: "Fatal Error on message format"});
     }
 }
 
@@ -20,7 +21,7 @@ function joinByCode(socket, json){
     if(lobbyExists(json.code)){
         joinLobby(socket, json, json.code)
     } else {
-        socket.emit("joined", {error: "No Lobby found"});
+        socket.emit(Channels.JOINED, {error: "No Lobby found"});
     }
 }
 
@@ -40,7 +41,7 @@ function joinByLanguage(socket, json){
             nextLobby = lobbies.next();
         }
     }while(!nextLobby.done)
-    socket.emit("joined", {error: "No Lobby found"});
+    socket.emit(Channels.JOINED, {error: "No Lobby found"});
 }
 
 
@@ -57,7 +58,7 @@ function joinLobby(socket, json, code){
         messages: getLobby(code).chat,
         isPublic: getLobby(code).isPublic
     }
-    socket.emit("joined", jsonToEmit)
+    socket.emit(Channels.JOINED, jsonToEmit)
     broadcastMessageOnLobbyPlayersChanged(code)
 }
 

@@ -1,4 +1,5 @@
 const PhaseTypes = require("../../model/enum/phaseType");
+const Channels = require("../enum/channels");
 const {createInitialReport} = require("../util/gameLogicUtil");
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {getLobby} = require("../util/lobbiesUtil");
@@ -10,7 +11,7 @@ function startGameHandler(socket, json){
     initializeNextInputUsers(lobbyCode)
     let lobby = getLobby(lobbyCode)
     lobby.phase = PhaseTypes.SENTENCE
-    broadcastMessageOnLobby(lobby, "draw", "")
+    broadcastMessageOnLobby(lobby, Channels.DRAW, "")
 }
 
 module.exports = startGameHandler;

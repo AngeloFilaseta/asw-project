@@ -5,7 +5,6 @@ import LoadingOverlay from "react-loading-overlay"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
-
 import searchCodeLobby from "./CodeLobbySearch"
 
 export default function CodeLobbyModal(props){
@@ -13,6 +12,7 @@ export default function CodeLobbyModal(props){
     const dispatch = useDispatch()
     const [code, setCode] = useState("")
     let username = useSelector(state => state.userInfo.username)
+    let token = useSelector(state => state.userInfo.token)
     let userId = useSelector(state => state.userInfo.id)
     let isLoading = useSelector(state => state.util.isLoading)
 
@@ -34,7 +34,7 @@ export default function CodeLobbyModal(props){
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => searchCodeLobby(dispatch, props.onSuccess, code, username, userId)}>
+                    <Button variant="primary" onClick={() => searchCodeLobby(dispatch, props.onSuccess, code, username, userId, token)}>
                         Search
                     </Button>
                 </Modal.Footer>

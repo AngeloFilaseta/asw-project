@@ -5,8 +5,8 @@ import LobbyCreationForm from "./form/LobbyCreationForm"
 
 export default function LobbyCreation() {
 
-  var username = useSelector(state => state.userInfo.username)
-  var lobbyCode = useSelector(state => state.lobby.info.code)
+  let username = useSelector(state => state.userInfo.username)
+  let lobbyCode = useSelector(state => state.lobby.info.code)
 
   if(username === null){
     return <RedirectHome />

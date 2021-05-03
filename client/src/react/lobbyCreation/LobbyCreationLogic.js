@@ -10,7 +10,7 @@ export function createLobby(dispatch, isPublic, nTurns, language, username, id_u
     } else {
             setIsLoading(true)
             const socket = io(SERVER_ADDRESS)
-            assignHandlers(socket, dispatch)
+            assignHandlers(socket, dispatch, id_user, token)
             socket.connect();
             socket.emit("createLobby", {idUser: id_user,
                                                  username: username,

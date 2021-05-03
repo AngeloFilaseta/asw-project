@@ -1,3 +1,4 @@
+const Channels = require("../enum/channels");
 const {resetSubmittedAndSwapPhase} = require("../util/gameLogicUtil");
 const {indexOfNextInputUser} = require("../util/gameLogicUtil");
 const {findUserToUpdateReport} = require("../util/gameLogicUtil");
@@ -11,7 +12,7 @@ function sentenceHandler(socket, json){
         resetSubmittedAndSwapPhase(lobby)
         lobby.orderedUsers.forEach((user) => {
             let nextInputUserIndex = user.report.nextInputUsers[indexOfNextInputUser(lobby)]
-            lobby.orderedUsers[nextInputUserIndex].socket.emit("sentence", user.report.sentences[user.report.sentences.length - 1])
+            lobby.orderedUsers[nextInputUserIndex].socket.emit(Channels.SENTENCE, user.report.sentences[user.report.sentences.length - 1])
         })
     }
 }
