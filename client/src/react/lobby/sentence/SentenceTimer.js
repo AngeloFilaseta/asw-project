@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import Timer from "../../common/Timer"
 import { submitSentence } from "../LobbyLogic"
 import Audio from '../../../sound/King Crimson.mp3'
-import AudioPlay from "../../common/AudioPlay";
+import AudioWaiting from "../../../sound/waiting.mp3"
+import AudioPlay from "../../common/AudioPlay"
 
 export default function SentenceTimer(props){
 
@@ -23,7 +24,7 @@ export default function SentenceTimer(props){
                 <AudioPlay source={Audio}/>
             </>)
     } else {
-        return <></>
+        return <AudioPlay source={AudioWaiting}/>
     }
 
 }

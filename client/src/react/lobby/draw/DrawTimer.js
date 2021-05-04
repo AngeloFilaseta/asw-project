@@ -2,8 +2,9 @@ import { useSelector, useDispatch } from "react-redux"
 
 import Timer from "../../common/Timer"
 import { submitDraw } from "../LobbyLogic"
-import Audio from "../../../sound/avdol.mp3";
-import AudioPlay from "../../common/AudioPlay";
+import Audio from "../../../sound/avdol.mp3"
+import AudioWaiting from "../../../sound/waiting.mp3"
+import AudioPlay from "../../common/AudioPlay"
 
 export default function DrawTimer(props){
 
@@ -14,7 +15,7 @@ export default function DrawTimer(props){
     let waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
 
     if(waitingAllSubmit){
-        return <></>
+        return <AudioPlay source={AudioWaiting}/>
     } else {
         return(
             <>
