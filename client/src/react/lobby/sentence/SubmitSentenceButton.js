@@ -10,6 +10,7 @@ export default function SubmitSentenceButton(props){
     let socket = useSelector(state => state.util.socket)
     let id_username = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
+    let report_to_id = useSelector(state => state.lobby.receivedData)
 
     return(
         <Button
@@ -18,7 +19,7 @@ export default function SubmitSentenceButton(props){
             size="lg"
             onClick={() => {
                 dispatch(setWaitingAllSubmitted(true))
-                submitSentence(dispatch, socket, id_username, lobbyCode, props.sentence)
+                submitSentence(dispatch, socket, id_username, report_to_id, lobbyCode, props.sentence)
         }}>
             Submit
         </Button>

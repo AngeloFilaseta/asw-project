@@ -11,6 +11,7 @@ export default function SentenceInput(props){
     let socket = useSelector(state => state.util.socket)
     let username = useSelector(state => state.userInfo.username)
     let lobbyCode = useSelector(state => state.lobby.info.code)
+    let report_to_id = useSelector(state => state.lobby.receivedData)
 
     return(
         <Form 
@@ -18,7 +19,7 @@ export default function SentenceInput(props){
             onSubmit={s => { 
                 s.preventDefault()
                 dispatch(setWaitingAllSubmitted(true))
-                submitSentence(dispatch, socket, username, lobbyCode, props.sentence)
+                submitSentence(dispatch, socket, username, lobbyCode, report_to_id, props.sentence)
         }}>
             <h5 align="center">Write your sentence:</h5>
             <Form.Control type="text" placeholder="Sentence" onChange={props.onChange} />

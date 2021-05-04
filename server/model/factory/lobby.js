@@ -7,6 +7,7 @@ class Lobby {
         this.nTurnsMax = nTurnsMax;
         this.nTurns = 0;
         this.nSubmitted = 0;
+        this.nForwardAck = 0;
         this.phase = PhaseTypes.INSIDE_LOBBY;
         this.language = language;
         this.isPublic = isPublic;

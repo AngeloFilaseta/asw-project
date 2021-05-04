@@ -7,7 +7,17 @@ const {resetSubmittedAndSwapPhase} = require("../util/gameLogicUtil");
 const {findUserToUpdateReport} = require("../util/gameLogicUtil");
 
 function drawHandler(socket, json){
+
     let lobby = getLobby(json.lobbyCode)
+    addDrawToReport(lobby, json)
+    lobby.nSubmitted += 1
+    lobby.orderedUsers.forEach((user) => {
+        if(user.id !== json.id_user){
+            user.socket.emit(Channels.FORWARD_DATA, json)
+        }
+    })
+
+    /*let lobby = getLobby(json.lobbyCode)
     addDrawToReport(lobby, json)
     lobby.nSubmitted += 1
     if(lobby.nSubmitted === lobby.orderedUsers.length){
@@ -26,7 +36,7 @@ function drawHandler(socket, json){
             })
 
         }
-    }
+    }*/
 }
 
 function addDrawToReport(lobby, json) {

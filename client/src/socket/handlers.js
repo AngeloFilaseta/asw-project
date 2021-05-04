@@ -4,9 +4,15 @@ import {
     setLanguage,
     setLobbyCode,
     setMessages,
-    setMyRoleAdmin, setNTurns, setReceivedData, setReports,
+    setMyRoleAdmin, 
+    setNTurns, 
+    setReceivedData, 
+    setReports,
     setStatus,
-    setUsers, setWaitingAllSubmitted
+    setUsers, 
+    setWaitingAllSubmitted,
+    addSentence,
+    addDraw
 } from "../redux/lobby/actions";
 import {setIsLoading, setSocket} from "../redux/util/actions";
 import PhaseTypes from "../util/phaseType";
@@ -34,27 +40,47 @@ export function assignHandlers(socket, dispatch, id_user, token){
 
     socket.on(Channels.PLAYERS, (players) => {
         dispatch(setUsers(players))
+        let reportsArray = new Array()
+        players.forEach((player) => {
+            reportsArray.push(
+                {
+                    id: player.id,
+                    username: player.username,
+                    sentence: [],
+                    draw: []
+                }
+            )
+        })
+        dispatch(setReports(reportsArray))
     })
 
     socket.on(Channels.CHAT, (messages) => {
         dispatch(setMessages(messages))
     })
 
-    socket.on(Channels.SENTENCE, (sentence) => {
-        dispatch(setReceivedData(sentence))
+    socket.on(Channels.SENTENCE, (id_next_user) => {
+        dispatch(setReceivedData(id_next_user))
         dispatch(setStatus(PhaseTypes.DRAW))
         dispatch(setWaitingAllSubmitted(false))
     })
 
-    socket.on(Channels.DRAW, (draw) => {
-        dispatch(setReceivedData(draw))
+    socket.on(Channels.DRAW, (id_next_user) => {
+        dispatch(setReceivedData(id_next_user))
         dispatch(setStatus(PhaseTypes.SENTENCE))
         dispatch(setWaitingAllSubmitted(false))
     })
 
-    socket.on(Channels.SHOW_REPORT, (reports) => {
+    socket.on(Channels.FORWARD_DATA, (msg) => {
+        if(msg.sentence !== undefined){
+            dispatch(addSentence(msg))
+        } else {
+            dispatch(addDraw(msg))
+        }
+        socket.emit(Channels.FORWARD_DATA, msg.lobbyCode)
+    })
+
+    socket.on(Channels.SHOW_REPORT, () => {
         dispatch(setStatus(PhaseTypes.SHOWING_REPORT))
-        dispatch(setReports(reports))
         createNotificationRequest(dispatch, id_user, token,
                              "New reports are available!",
                         "Check the Previous report section.")

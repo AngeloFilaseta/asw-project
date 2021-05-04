@@ -32,6 +32,7 @@ function indexOfNextInputUser(lobby){
 
 function resetSubmittedAndSwapPhase(lobby){
     lobby.nSubmitted = 0
+    lobby.nForwardAck = 0
     lobby.phase = lobby.phase === PhaseType.DRAW ? PhaseType.SENTENCE : PhaseType.DRAW
 }
 

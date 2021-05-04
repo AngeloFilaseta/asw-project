@@ -5,6 +5,7 @@ const disconnectHandler = require("./handlers/disconnectHandler")
 const startGameHandler = require("./handlers/startGameHandler");
 const sentenceHandler = require("./handlers/sentenceHandler");
 const drawHandler = require("./handlers/drawHandler");
+const forwardDataHandler = require("./handlers/forwardDataHandler");
 const endGameCommandHandler = require("./handlers/endGameCommandHandler");
 const Channels = require("./enum/channels");
 
@@ -20,6 +21,8 @@ module.exports = function (io) {
         socket.on(Channels.SENTENCE, (json) => sentenceHandler(socket, json));
 
         socket.on(Channels.DRAW, (json) => drawHandler(socket, json));
+
+        socket.on(Channels.FORWARD_DATA, (json) => forwardDataHandler(socket, json));
 
         socket.on(Channels.CHAT, (json) => chatHandler(socket, json));
 

@@ -81,3 +81,17 @@ export const setReports = (reports) => {
         payload: reports
     }
 }
+
+export const addSentence = (report) => {
+    return {
+        type: "ADD_SENTENCE",
+        payload: report
+    }
+}
+
+export const addDraw = (report) => {
+    return {
+        type: "ADD_DRAW",
+        payload: report
+    }
+}
