@@ -8,7 +8,7 @@ export default function BackButton(props) {
 
     const [goBack, setGoBack] = useState(false)
 
-    var isLoading = useSelector(state => state.util.isLoading)
+    let isLoading = useSelector(state => state.util.isLoading)
         
     if(isLoading){
         return buttonIsLoading(props.buttonName)

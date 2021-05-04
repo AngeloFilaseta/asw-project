@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux"
 
 import Timer from "../../common/Timer"
 import { submitDraw } from "../LobbyLogic"
+import Audio from "../../../sound/avdol.mp3";
+import AudioPlay from "../../common/AudioPlay";
 
 export default function DrawTimer(props){
 
@@ -15,10 +17,13 @@ export default function DrawTimer(props){
         return <></>
     } else {
         return(
-            <Timer 
-                nSeconds={120} 
-                handler={() => submitDraw(dispatch, socket, username, lobbyCode, props.draw.getSvgXML())} 
-            />
+            <>
+                <Timer
+                    nSeconds={120}
+                    handler={() => submitDraw(dispatch, socket, username, lobbyCode, props.draw.getSvgXML())}
+                />
+                <AudioPlay source={Audio}/>
+            </>
         )
     }
 
