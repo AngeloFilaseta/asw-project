@@ -1,4 +1,5 @@
 const Channels = require("../enum/channels");
+const {storeGame} = require("../../controller/resources");
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {getLobby} = require("../util/lobbiesUtil");
 const {indexOfNextInputUser} = require("../util/gameLogicUtil");
@@ -12,7 +13,11 @@ function drawHandler(socket, json){
     if(lobby.nSubmitted === lobby.orderedUsers.length){
         lobby.nTurns += 1
         if(lobby.nTurns === lobby.nTurnsMax){
-            broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, createReportsToSend(lobby.orderedUsers))
+            let reports = createReportsToSend(lobby.orderedUsers)
+            broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, reports)
+            storeGame(new Date(), new Date(), reports)
+                .then(() => console.log("Game saved successfully"))
+                .catch((err) => console.log("Error: " + err))
         } else {
             resetSubmittedAndSwapPhase(lobby)
             lobby.orderedUsers.forEach((user) => {
@@ -30,7 +35,8 @@ function addDrawToReport(lobby, json) {
 
 function createReportsToSend(orderedUsers){
     let reports = []
-    orderedUsers.forEach((user) => reports.push({username: user.username,
+    orderedUsers.forEach((user) => reports.push({id_user: user.id,
+                                                 username: user.username,
                                                  sentences: user.report.sentences,
                                                  draws: user.report.images}))
     return reports

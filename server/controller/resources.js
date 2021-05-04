@@ -54,21 +54,21 @@ PDFDocument.prototype.addSVG = function(svg, x, y, options) {
     return SVGtoPDF(this, svg, x, y, options);
 };
 
-async function storeGame(req, res) {
-    let newGame = GameFactory.createGame(req.body.time_start, req.body.time_end);
-    await newGame.save(function(err, game){
-        if(err){
-            Errors.ServerError(res, err.message)
+async function storeGame(time_start, time_end, reports) {
+    let newGame = GameFactory.createGame(time_start, time_end);
+    await newGame.save(function(err, game) {
+        if(err) {
+            console.log("Error in saving game")
         }
         let newGameId = game._id;
-        req.body["players"].forEach((player) => {
-            let pdfName = storePDF( player.username, player["sentences"], player["drawings"])
-            let newUserInGame = UserInGameFactory.createUserInGame(player.id_user, newGameId, pdfName);
+        reports.forEach((report) => {
+
+            let pdfName = storePDF( report.username, report.sentences, report.draws)
+            let newUserInGame = UserInGameFactory.createUserInGame(report.id_user, newGameId, pdfName);
             newUserInGame.save().catch(err => {
-                Errors.ServerError(res, {message: err.message});
+                console.log("Error in saving user in game")
             });
         });
-        Responses.OKResponse(res, newGame);
     });
 }
 
