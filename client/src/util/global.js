@@ -9,3 +9,5 @@ export const DEFAULT_LANGUAGE = "English"
 export const DEFAULT_N_TURNS = 3
 
 export const DEFAULT_IS_PUBLIC = false
+
+export const CRITICAL_TIME = 15

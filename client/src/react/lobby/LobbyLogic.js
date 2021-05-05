@@ -31,13 +31,14 @@ export function submitDraw(dispatch, socket, id_user, id_report, lobbyCode, svgS
 export function submitSentence(dispatch, socket, id_user, id_report, lobbyCode, sentence) {
     let msgBody = {
         id_user: id_user,
-        id_report: id_report == undefined || id_report == null || id_report === "" ? id_user : id_report,
+        id_report: id_report === undefined || id_report === null || id_report === "" ? id_user : id_report,
         lobbyCode: lobbyCode,
         sentence: sentence
     }
     $("#submitDraw").prop("disabled", true)
     $("#submittedDraw").append("You submitted your Draw. Wait for other players.")
     dispatch(addSentence(msgBody))
+    console.log(msgBody)
     socket.emit("sentence", msgBody)
 }
 

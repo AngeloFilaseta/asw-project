@@ -1,13 +1,13 @@
+const Channels = require("../enum/channels");
 const SocketUtil = require("../util/general");
-const StoreSingleton = require("../../redux/storeSingleton");
 const {getLobby} = require("../util/lobbiesUtil");
 const PlayerTypes = require("../../model/enum/playerType");
 const PhaseTypes = require("../../model/enum/phaseType");
+const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {lobbyExists} = require("../util/lobbiesUtil");
 const {removeFromArrayByAttr} = require("../../util/Structures");
 const {broadcastMessageOnLobbyPlayersChanged} = require("../util/broadcastUtil");
 const {deleteLobbyAndDisconnectEveryone} = require("../util/lobbiesUtil");
-const MIN_PLAYERS = require("../../conf/conf").min_player;
 
 function disconnectHandler(socket) {
     let lobbyAndUser = SocketUtil.getUserFromSocket(socket);
@@ -22,17 +22,13 @@ function disconnectFromLobby(socket, lobbyAndUser){
             return;
         }
         let player = lobbyAndUser.player;
-        removeFromArrayByAttr(StoreSingleton.getInstance().getState().lobbies.get(code).orderedUsers, 'username', player.username);
-        if(player.type === PlayerTypes.ADMIN){
-            StoreSingleton.getInstance().getState().lobbies.get(code).orderedUsers[0].type = PlayerTypes.ADMIN;
-        }
         let phase = getLobby(code).phase
-        if( phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){
-            if(getLobby(code).orderedUsers < MIN_PLAYERS) {
-                deleteLobbyAndDisconnectEveryone(code);
-            } else {
-                // TODO REMOVE REPORT
-            }
+        removeFromArrayByAttr(getLobby(code).orderedUsers, 'username', player.username);
+        if(player.type === PlayerTypes.ADMIN){ //if the player was the admin assign a new admin
+            getLobby(code).orderedUsers[0].type = PlayerTypes.ADMIN;
+        }
+        if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
+            broadcastMessageOnLobby(getLobby(code), Channels.SHOW_REPORT, null)
         }
         broadcastMessageOnLobbyPlayersChanged(code)
     }

@@ -40,7 +40,7 @@ export function assignHandlers(socket, dispatch, id_user, token){
 
     socket.on(Channels.PLAYERS, (players) => {
         dispatch(setUsers(players))
-        let reportsArray = new Array()
+        let reportsArray = []
         players.forEach((player) => {
             reportsArray.push(
                 {

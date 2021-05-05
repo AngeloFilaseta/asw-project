@@ -8,11 +8,12 @@ import AudioPlay from "../../common/AudioPlay"
 
 export default function DrawTimer(props){
 
-    const dispatch = useDispatch()
+    let dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
-    let username = useSelector(state => state.userInfo.username)
+    let id_user = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
     let waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
+    let report_to_id = useSelector(state => state.lobby.receivedData)
 
     if(waitingAllSubmit){
         return <AudioPlay source={AudioWaiting}/>
@@ -21,7 +22,7 @@ export default function DrawTimer(props){
             <>
                 <Timer
                     nSeconds={120}
-                    handler={() => submitDraw(dispatch, socket, username, lobbyCode, props.draw.getSvgXML())}
+                    handler={() => submitDraw(dispatch, socket, id_user, report_to_id, lobbyCode, props.draw.getSvgXML())}
                 />
                 <AudioPlay source={Audio}/>
             </>
