@@ -1,21 +1,32 @@
 import Button from "react-bootstrap/Button"
 import trashIcon from "../../img/trash.png"
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import React, {useState} from "react";
+import ConfirmationModal from "../common/ConfirmationModal";
+import {deleteNotificationRequest} from "./NotificationLogic";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function DeleteButton(props) {
+
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.userInfo.token)
 
     const [show, setShow] = useState(false)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleConfirmButton= () => deleteNotificationRequest(dispatch, token, props.idNotification)
 
     return (<>
                 <Button className=" btn-danger"
                      onClick={handleShow}>
                     <img alt="Delete" style={{ width: "30px", height: "30px" }} src={trashIcon}/>
                 </Button>
-                <DeleteConfirmationModal show={show} handleClose={handleClose} idNotification={props.idNotification}/>
+                <ConfirmationModal show={show}
+                                   handleClose={handleClose}
+                                   handleConfirm={handleConfirmButton}
+                                   modalTitle={"Are you sure?"}
+                                   modalBody={"Do you really want to delete this notification?"}
+                                   confirmButtonName={"Delete"}/>
             </>
         )
 }
