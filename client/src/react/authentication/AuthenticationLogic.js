@@ -1,9 +1,10 @@
 import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
-import {setUsername, setId, setToken} from "../../redux/userInfo/actions"
+import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
 import {PASSWORD_LENGTH_MIN, SERVER_ADDRESS, USERNAME_LENGTH_MIN} from "../../util/global"
 import {loadNotifications} from "../notifications/NotificationLogic";
+import {sleep} from "../../util/sleep";
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
@@ -57,13 +58,18 @@ export function signup(inputUsername, inputPassword, dispatch) {
     }
 }
 
+ export async function logout(dispatch) {
+    dispatch(setUsername(null))
+    dispatch(setToken(null))
+    dispatch(setNotifications([]))
+    await sleep(1000).then(() => NotificationManager.success('See you soon :)', 'Logout was successful'))
+}
 function createUserObj(inputUsername, inputPassword) {
     return JSON.stringify({
         username: inputUsername,
         password: inputPassword
     });
 }
-
 
 function isUsernameValid(str){
     return isStringLongEnough(str, USERNAME_LENGTH_MIN)
