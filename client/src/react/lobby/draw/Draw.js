@@ -1,29 +1,37 @@
-import { useSelector } from "react-redux"
-
 import { useSvgDrawing } from "react-hooks-svgdrawing"
 import { drawPenSize } from "./DrawUtil"
-
 import LoadingOverlay from "react-loading-overlay"
 import ReceivedSentence from "./ReceivedSentence"
 import Canvas from "./Canvas"
 import ColorPicker from "./ColorPicker"
-import DrawTimer from "./DrawTimer"
 import ClearButton from "./ClearButton"
 import EraserButton from "./EraserButton"
 import SubmitDrawButton from "./SubmitDrawButton"
+import GameTimer from "../../common/GameTimer";
+import {submitDraw} from "../LobbyLogic";
+import Avdol from "../../../sound/avdol.mp3"
+import {DRAW_MAX_TIME} from "../../../util/global";
+import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound";
 
-export default function Draw(){
+export default function Draw(props){
 
     const [renderRef, draw] = useSvgDrawing({penWidth: drawPenSize})
-    let waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
 
-    return(
-        <LoadingOverlay active={waitingAllSubmit} spinner text='Waiting for other users to submit their drawings...'>
+    let timeExpireHandler = () => submitDraw(props.dispatch, props.socket, props.id_user, props.report_to_id, props.lobbyCode, draw.getSvgXML())
+return(
+        <LoadingOverlay active={props.waitingAllSubmit} spinner text='Waiting for other users to submit their drawings...'>
             <ReceivedSentence />
             <Canvas renderRef={renderRef} />
             <div align="center">
                 <ColorPicker draw={draw} />
-                <DrawTimer draw={draw} />
+                {props.waitingAllSubmit
+                    ?
+                    <ElevatorWaitingSound/>
+                    :
+                    <GameTimer transitionAudio={Avdol}
+                               timeExpireHandler={timeExpireHandler}
+                               nSeconds={DRAW_MAX_TIME}/>
+                }
                 <SubmitDrawButton draw={draw} />
                 <EraserButton draw={draw} />
                 <ClearButton draw={draw} />

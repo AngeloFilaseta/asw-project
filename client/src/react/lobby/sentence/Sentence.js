@@ -1,22 +1,33 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import LoadingOverlay from "react-loading-overlay"
 import ReceivedDraw from "./ReceivedDraw"
 import SentenceInput from "./SentenceInput"
-import SentenceTimer from "./SentenceTimer"
 import SubmitSentenceButton from "./SubmitSentenceButton"
+import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound";
+import GameTimer from "../../common/GameTimer";
+import Avdol from "../../../sound/avdol.mp3";
+import {SENTENCE_MAX_TIME} from "../../../util/global";
+import {submitSentence} from "../LobbyLogic";
 
 export default function Sentence(props) {
 
     const [sentence, setSentence] = useState("")
-    let waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
+
+    let timeExpireHandler = () => submitSentence(props.dispatch, props.socket, props.id_user, props.report_to_id, props.lobbyCode, sentence)
 
     return (
-        <LoadingOverlay active={waitingAllSubmit} spinner text="Waiting for other users to submit their sentences...">
+        <LoadingOverlay active={props.waitingAllSubmit} spinner text="Waiting for other users to submit their sentences...">
             <ReceivedDraw />
             <SentenceInput sentence={sentence} onChange={e => setSentence(e.target.value)} />
             <div align="center">
-                <SentenceTimer sentence={sentence} />
+                {props.waitingAllSubmit
+                    ?
+                    <ElevatorWaitingSound/>
+                    :
+                    <GameTimer transitionAudio={Avdol}
+                               timeExpireHandler={timeExpireHandler}
+                               nSeconds={SENTENCE_MAX_TIME}/>
+                }
                 <SubmitSentenceButton sentence={sentence} />
             </div>
         </LoadingOverlay>

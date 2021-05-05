@@ -10,4 +10,8 @@ export const DEFAULT_N_TURNS = 3
 
 export const DEFAULT_IS_PUBLIC = false
 
+export const DRAW_MAX_TIME = 120
+
+export const SENTENCE_MAX_TIME = 60
+
 export const CRITICAL_TIME = 15

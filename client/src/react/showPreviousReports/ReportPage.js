@@ -11,7 +11,7 @@ import {setIsLoading} from "../../redux/util/actions";
 
 export default function ReportPage() {
 
-    const dispatch = useDispatch()
+    let dispatch = useDispatch()
     let token = useSelector(state => state.userInfo.token)
     let reportList = useSelector(state => state.previousReports)
 

@@ -10,8 +10,8 @@ export default function ColorPicker(props){
                 props.draw.changePenWidth(drawPenSize); 
             }} 
             className={"py-3"} 
-            width={"378px"} 
-            colors={["black", "red", "orange", "yellow", "green", "blue", "cyan", "purple", "brown"]} 
+            width={"378px"}
+            colors={["black", "red", "orange", "yellow", "green", "blue", "cyan", "pink", "brown"]}
         />
     )
 }
