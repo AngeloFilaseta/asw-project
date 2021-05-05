@@ -1,13 +1,21 @@
 import Button from "react-bootstrap/Button"
-
 import trashIcon from "../../img/trash.png"
-import {useDispatch, useSelector} from "react-redux";
-import {deleteNotificationRequest} from "./NotificationLogic";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import React, {useState} from "react";
 
 export default function DeleteButton(props) {
-    const dispatch = useDispatch()
-    const token= useSelector(state => state.userInfo.token)
-    return ( <Button className=" btn-danger" onClick={() => deleteNotificationRequest(dispatch,token, props.idNotification)}>
-                <img alt="Delete" style={{ width: "30px", height: "30px" }} src={trashIcon} />
-            </Button>)
+
+    const [show, setShow] = useState(false)
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    return (<>
+                <Button className=" btn-danger"
+                     onClick={handleShow}>
+                    <img alt="Delete" style={{ width: "30px", height: "30px" }} src={trashIcon}/>
+                </Button>
+                <DeleteConfirmationModal show={show} handleClose={handleClose} idNotification={props.idNotification}/>
+            </>
+        )
 }
