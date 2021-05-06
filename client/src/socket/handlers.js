@@ -13,11 +13,13 @@ import {
     setWaitingAllSubmitted,
     addSentence,
     addDraw
-} from "../redux/lobby/actions";
-import {setIsLoading, setSocket} from "../redux/util/actions";
-import PhaseTypes from "../util/phaseType";
-import {Channels} from "./enum/channels";
-import {createNotificationRequest} from "../react/notifications/NotificationLogic";
+} from "../redux/lobby/actions"
+import {setIsLoading, setSocket} from "../redux/util/actions"
+import PhaseTypes from "../util/phaseType"
+import {Channels} from "./enum/channels"
+import {createNotificationRequest} from "../react/notifications/NotificationLogic"
+
+import NewMsgSound from "../sound/new_msg.mp3"
 
 export function assignHandlers(socket, dispatch, state){
     dispatch(setIsLoading(true))
@@ -60,6 +62,10 @@ export function assignHandlers(socket, dispatch, state){
     })
 
     socket.on(Channels.CHAT, (messages) => {
+        if(messages[messages.length - 1].username !== state.userInfo.username){
+            console.log(state.userInfo.username)
+            new Audio(NewMsgSound).play()
+        }
         dispatch(setMessages(messages))
     })
 
