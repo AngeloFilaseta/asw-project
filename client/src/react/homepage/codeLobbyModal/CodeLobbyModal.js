@@ -11,10 +11,8 @@ export default function CodeLobbyModal(props){
 
     const dispatch = useDispatch()
     const [code, setCode] = useState("")
-    let username = useSelector(state => state.userInfo.username)
-    let token = useSelector(state => state.userInfo.token)
-    let userId = useSelector(state => state.userInfo.id)
     let isLoading = useSelector(state => state.util.isLoading)
+    let state = useSelector(state => state)
 
     return (
         <Modal show={props.isShowing} onHide={props.onHide}>
@@ -34,7 +32,7 @@ export default function CodeLobbyModal(props){
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => searchCodeLobby(dispatch, props.onSuccess, code, username, userId, token)}>
+                    <Button variant="primary" onClick={() => searchCodeLobby(dispatch, state, code)}>
                         Search
                     </Button>
                 </Modal.Footer>

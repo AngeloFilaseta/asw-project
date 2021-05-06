@@ -44,7 +44,7 @@ function getControls(isMyRoleAdmin, setGoHomepage, dispatch, username, socket, l
 
 
 function startGame(dispatch, socket, username, lobbyCode, userList){
-    if(userList.length <= MIN_PLAYER_FOR_PLAYING) { //TODO CHANGE THIS TO 3
+    if(userList.length < MIN_PLAYER_FOR_PLAYING) { //TODO CHANGE THIS TO 3
         NotificationManager.error("At least "+ MIN_PLAYER_FOR_PLAYING + " players are needed to play.", "Not enough player in the Lobby", 3000);
     } else {
         beginGame(dispatch, socket, username, lobbyCode)

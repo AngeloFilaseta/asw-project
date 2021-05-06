@@ -19,7 +19,7 @@ import PhaseTypes from "../util/phaseType";
 import {Channels} from "./enum/channels";
 import {createNotificationRequest} from "../react/notifications/NotificationLogic";
 
-export function assignHandlers(socket, dispatch, id_user, token){
+export function assignHandlers(socket, dispatch, state){
     dispatch(setIsLoading(true))
     socket.on(Channels.JOINED, (json) => {
         if(json.hasOwnProperty("error")){
@@ -81,9 +81,13 @@ export function assignHandlers(socket, dispatch, id_user, token){
 
     socket.on(Channels.SHOW_REPORT, () => {
         dispatch(setStatus(PhaseTypes.SHOWING_REPORT))
-        createNotificationRequest(dispatch, id_user, token,
-                             "New reports are available!",
-                        "Check the Previous report section.")
+        createNotificationRequest(
+            dispatch, 
+            state.userInfo.id, 
+            state.userInfo.token,
+            "New reports are available!",
+            "Check the Previous report section."
+        )
     })
 
     socket.on(Channels.BACK_TO_LOBBY, () => {
