@@ -7,11 +7,10 @@ import ColorPicker from "./ColorPicker"
 import ClearButton from "./ClearButton"
 import EraserButton from "./EraserButton"
 import SubmitDrawButton from "./SubmitDrawButton"
-import GameTimer from "../../common/GameTimer";
-import {submitDraw} from "../LobbyLogic";
-import Avdol from "../../../sound/avdol.mp3"
-import {DRAW_MAX_TIME} from "../../../util/global";
-import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound";
+import GameTimer from "../../common/GameTimer"
+import {submitDraw} from "../LobbyLogic"
+import {DRAW_MAX_TIME} from "../../../util/global"
+import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound"
 
 export default function Draw(props){
 
@@ -24,14 +23,7 @@ return(
             <Canvas renderRef={renderRef} />
             <div align="center">
                 <ColorPicker draw={draw} />
-                {props.waitingAllSubmit
-                    ?
-                    <ElevatorWaitingSound/>
-                    :
-                    <GameTimer transitionAudio={Avdol}
-                               timeExpireHandler={timeExpireHandler}
-                               nSeconds={DRAW_MAX_TIME}/>
-                }
+                {props.waitingAllSubmit ? <ElevatorWaitingSound/> : <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME}/>}
                 <SubmitDrawButton draw={draw} />
                 <EraserButton draw={draw} />
                 <ClearButton draw={draw} />

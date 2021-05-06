@@ -3,11 +3,10 @@ import LoadingOverlay from "react-loading-overlay"
 import ReceivedDraw from "./ReceivedDraw"
 import SentenceInput from "./SentenceInput"
 import SubmitSentenceButton from "./SubmitSentenceButton"
-import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound";
-import GameTimer from "../../common/GameTimer";
-import Avdol from "../../../sound/avdol.mp3";
-import {SENTENCE_MAX_TIME} from "../../../util/global";
-import {submitSentence} from "../LobbyLogic";
+import ElevatorWaitingSound from "../../common/audio/ElevatorWaitingSound"
+import GameTimer from "../../common/GameTimer"
+import {SENTENCE_MAX_TIME} from "../../../util/global"
+import {submitSentence} from "../LobbyLogic"
 
 export default function Sentence(props) {
 
@@ -20,14 +19,7 @@ export default function Sentence(props) {
             <ReceivedDraw />
             <SentenceInput sentence={sentence} onChange={e => setSentence(e.target.value)} />
             <div align="center">
-                {props.waitingAllSubmit
-                    ?
-                    <ElevatorWaitingSound/>
-                    :
-                    <GameTimer transitionAudio={Avdol}
-                               timeExpireHandler={timeExpireHandler}
-                               nSeconds={SENTENCE_MAX_TIME}/>
-                }
+                {props.waitingAllSubmit ? <ElevatorWaitingSound/> : <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>}
                 <SubmitSentenceButton sentence={sentence} />
             </div>
         </LoadingOverlay>

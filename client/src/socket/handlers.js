@@ -22,6 +22,7 @@ import {createNotificationRequest} from "../react/notifications/NotificationLogi
 import NewMsgSound from "../sound/new_msg.mp3"
 import JoinSound from "../sound/join.mp3"
 import LeftSound from "../sound/left.mp3"
+import SubmissionSound from "../sound/submission.mp3"
 
 export function assignHandlers(socket, dispatch, state){
     dispatch(setIsLoading(true))
@@ -57,7 +58,7 @@ export function assignHandlers(socket, dispatch, state){
             }
         }
         dispatch(setUsers(players))
-        
+
         let reportsArray = []
             players.forEach((player) => {
                 if(player.id === state.userInfo.id){
@@ -98,6 +99,11 @@ export function assignHandlers(socket, dispatch, state){
     })
 
     socket.on(Channels.FORWARD_DATA, (msg) => {
+        let sender = state.lobby.info.users.filter(u => u.id === msg.id_user)
+        if(sender.length > 0){
+            new Audio(SubmissionSound).play()
+            NotificationManager.info(sender[0].username + " has submitted", '', 1500)
+        }
         if(msg.sentence !== undefined){
             dispatch(addSentence(msg))
         } else {
