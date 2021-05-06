@@ -1,4 +1,4 @@
-import {NotificationManager} from "react-notifications";
+import {NotificationManager} from "react-notifications"
 import {
     setIsPublic,
     setLanguage,
@@ -20,6 +20,8 @@ import {Channels} from "./enum/channels"
 import {createNotificationRequest} from "../react/notifications/NotificationLogic"
 
 import NewMsgSound from "../sound/new_msg.mp3"
+import JoinSound from "../sound/join.mp3"
+import LeftSound from "../sound/left.mp3"
 
 export function assignHandlers(socket, dispatch, state){
     dispatch(setIsLoading(true))
@@ -41,7 +43,21 @@ export function assignHandlers(socket, dispatch, state){
     })
 
     socket.on(Channels.PLAYERS, (players) => {
+
+        let currentPlayers = Array.from(state.lobby.info.users.map(p => {return p.username}))
+        let updatedPlayers = Array.from(players.map(p => {return p.username}))
+        if(updatedPlayers.length > currentPlayers.length){
+            new Audio(JoinSound).play()
+            NotificationManager.info(updatedPlayers[updatedPlayers.length-1] + " joined the lobby", '', 2000)
+        } else if(updatedPlayers.length < currentPlayers.length){
+            let diff = currentPlayers.filter(p => !updatedPlayers.includes(p))
+            if(diff.length > 0){
+                new Audio(LeftSound).play()
+                NotificationManager.info(diff[0] + " left the lobby", '', 2000)
+            }
+        }
         dispatch(setUsers(players))
+        
         let reportsArray = []
             players.forEach((player) => {
                 if(player.id === state.userInfo.id){
