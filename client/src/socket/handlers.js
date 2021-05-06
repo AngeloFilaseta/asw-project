@@ -23,6 +23,8 @@ import NewMsgSound from "../sound/new_msg.mp3"
 import JoinSound from "../sound/join.mp3"
 import LeftSound from "../sound/left.mp3"
 import SubmissionSound from "../sound/submission.mp3"
+import NextPhaseSound from "../sound/next_phase.mp3"
+import ReportSounds from "../sound/reports.mp3"
 
 export function assignHandlers(socket, dispatch, state){
     dispatch(setIsLoading(true))
@@ -88,32 +90,40 @@ export function assignHandlers(socket, dispatch, state){
 
     socket.on(Channels.SENTENCE, (id_next_user) => {
         dispatch(setReceivedData(id_next_user))
+        new Audio(NextPhaseSound).play()
+        NotificationManager.info("Draw time!", '', 1500)
         dispatch(setStatus(PhaseTypes.DRAW))
         dispatch(setWaitingAllSubmitted(false))
     })
 
     socket.on(Channels.DRAW, (id_next_user) => {
         dispatch(setReceivedData(id_next_user))
+        new Audio(NextPhaseSound).play()
+        NotificationManager.info("Sentence time!", '', 1500)
         dispatch(setStatus(PhaseTypes.SENTENCE))
         dispatch(setWaitingAllSubmitted(false))
     })
 
     socket.on(Channels.FORWARD_DATA, (msg) => {
         let sender = state.lobby.info.users.filter(u => u.id === msg.id_user)
-        if(sender.length > 0){
-            new Audio(SubmissionSound).play()
-            NotificationManager.info(sender[0].username + " has submitted", '', 1500)
-        }
+        let areAllDataForwarded = false
         if(msg.sentence !== undefined){
             dispatch(addSentence(msg))
+            areAllDataForwarded = state.lobby.reports.filter(r => r.sentence.length !== r.draw.length).length === state.lobby.reports.length
         } else {
             dispatch(addDraw(msg))
+            areAllDataForwarded = state.lobby.reports.filter(r => r.sentence.length === r.draw.length).length === state.lobby.reports.length
+        }
+        if(sender.length && !areAllDataForwarded> 0){
+            new Audio(SubmissionSound).play()
+            NotificationManager.info(sender[0].username + " has submitted", '', 1500)
         }
         socket.emit(Channels.FORWARD_DATA, msg.lobbyCode)
     })
 
     socket.on(Channels.SHOW_REPORT, () => {
         dispatch(setStatus(PhaseTypes.SHOWING_REPORT))
+        new Audio(ReportSounds).play()
         createNotificationRequest(
             dispatch, 
             state.userInfo.id, 

@@ -1,5 +1,4 @@
 import {useEffect} from "react"
-import GuessrNavbar from "../common/navbar/GuessrNavbar"
 import ReportCard from "./ReportCard"
 import { Row } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
@@ -7,7 +6,9 @@ import {useDispatch, useSelector} from "react-redux"
 import BackButton from "../common/BackButton"
 import { NotificationContainer } from "react-notifications"
 import {downloadFile, loadPreviousReports} from "./ReportLogic"
-import {setIsLoading} from "../../redux/util/actions";
+import {setIsLoading} from "../../redux/util/actions"
+
+import GuessrNavbar from "../common/navbar/GuessrNavbar"
 
 export default function ReportPage() {
 
