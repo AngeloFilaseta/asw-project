@@ -40,9 +40,11 @@ export function assignHandlers(socket, dispatch, state){
 
     socket.on(Channels.PLAYERS, (players) => {
         dispatch(setUsers(players))
-        if(PhaseTypes.INSIDE_LOBBY === state.lobby.status){
-            let reportsArray = []
+        let reportsArray = []
             players.forEach((player) => {
+                if(player.id === state.userInfo.id){
+                    dispatch(setMyRoleAdmin(player.type))
+                }
                 reportsArray.push(
                     {
                         id: player.id,
@@ -52,6 +54,7 @@ export function assignHandlers(socket, dispatch, state){
                     }
                 )
             })
+        if(PhaseTypes.INSIDE_LOBBY === state.lobby.status){
             dispatch(setReports(reportsArray))
         }
     })
