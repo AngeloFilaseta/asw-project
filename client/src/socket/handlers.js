@@ -40,18 +40,20 @@ export function assignHandlers(socket, dispatch, state){
 
     socket.on(Channels.PLAYERS, (players) => {
         dispatch(setUsers(players))
-        let reportsArray = []
-        players.forEach((player) => {
-            reportsArray.push(
-                {
-                    id: player.id,
-                    username: player.username,
-                    sentence: [],
-                    draw: []
-                }
-            )
-        })
-        dispatch(setReports(reportsArray))
+        if(PhaseTypes.INSIDE_LOBBY === state.lobby.status){
+            let reportsArray = []
+            players.forEach((player) => {
+                reportsArray.push(
+                    {
+                        id: player.id,
+                        username: player.username,
+                        sentence: [],
+                        draw: []
+                    }
+                )
+            })
+            dispatch(setReports(reportsArray))
+        }
     })
 
     socket.on(Channels.CHAT, (messages) => {
@@ -92,6 +94,18 @@ export function assignHandlers(socket, dispatch, state){
 
     socket.on(Channels.BACK_TO_LOBBY, () => {
         dispatch(setStatus(PhaseTypes.INSIDE_LOBBY))
+        let reportsArray = []
+        state.lobby.info.users.forEach((player) => {
+            reportsArray.push(
+                {
+                    id: player.id,
+                    username: player.username,
+                    sentence: [],
+                    draw: []
+                }
+            )
+        })
+        dispatch(setReports(reportsArray))
     })
 
 }
