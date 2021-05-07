@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
-
+import {ResponsiveSVG} from "@cutting/svg"
 import SVG from "react-inlinesvg"
+import SVGContainer from "../../common/SVGContainer";
 
 export default function ReceivedDraw(){
     let user_draw_id = useSelector(state => state.lobby.receivedData)
@@ -18,12 +19,6 @@ function content(receivedDraw){
     if(receivedDraw === "" || receivedDraw === null || receivedDraw === undefined){
         return <h2>Write something! Be creative!</h2>
     } else {
-        return(
-            <>
-                <h3>You received this draw:</h3>
-                <SVG src={receivedDraw}/>
-                <p>What do you see?</p>
-            </>
-        )
+        return<SVGContainer svgString={receivedDraw}/>
     }
 }
