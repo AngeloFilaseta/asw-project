@@ -1,6 +1,4 @@
 import { useSelector } from "react-redux"
-import {ResponsiveSVG} from "@cutting/svg"
-import SVG from "react-inlinesvg"
 import SVGContainer from "../../common/SVGContainer";
 
 export default function ReceivedDraw(){

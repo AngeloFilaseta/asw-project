@@ -11,27 +11,26 @@ import {MIN_PLAYER_FOR_PLAYING} from "../../../util/global";
 
 export default function Controls(){
 
-    const dispatch = useDispatch()
-    const [goHomepage, setGoHomepage] = useState(false)
+    let dispatch = useDispatch()
+    let [goHomepage, setGoHomepage] = useState(false)
     let username = useSelector(state => state.userInfo.username)
     let isMyRoleAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
     let socket = useSelector(state => state.util.socket)
     let lobbyCode = useSelector(state => state.lobby.info.code)
     let userList = useSelector(state => state.lobby.info.users)
 
-    return goHomepage ? <RedirectHome /> : getControls(isMyRoleAdmin, setGoHomepage, dispatch, username, socket, lobbyCode, userList)
-}
-
-function getControls(isMyRoleAdmin, setGoHomepage, dispatch, username, socket, lobbyCode, userList){
+    if(goHomepage){
+        return <RedirectHome />
+    }else{
         return(
             <>
                 <NotificationContainer />
                 {(isMyRoleAdmin === UserTypes.ADMIN) &&
-                    (<Col className="col-md-6 my-2">
-                        <Button block size="lg" onClick={() => startGame(dispatch, socket, username, lobbyCode, userList)}>
-                            <b>Start game</b>
-                        </Button>
-                    </Col>)
+                (<Col className="col-md-6 my-2">
+                    <Button block size="lg" onClick={() => startGame(dispatch, socket, username, lobbyCode, userList)}>
+                        <b>Start game</b>
+                    </Button>
+                </Col>)
                 }
                 <Col className="col-md-6 my-2">
                     <Button block size="lg" variant="secondary" onClick={() => setGoHomepage(true)}>
@@ -40,8 +39,8 @@ function getControls(isMyRoleAdmin, setGoHomepage, dispatch, username, socket, l
                 </Col>
             </>
         )
+    }
 }
-
 
 function startGame(dispatch, socket, username, lobbyCode, userList){
     if(userList.length < MIN_PLAYER_FOR_PLAYING) { //TODO CHANGE THIS TO 3

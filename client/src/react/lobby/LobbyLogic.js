@@ -8,7 +8,9 @@ export function sendMsg(dispatch, socket, username, lobbyCode, message) {
         message: message
     }
     $("#chatSendButton").val(''); // reset buffer
-    socket.emit("chat", msgBody)
+    if(socket !== undefined && socket !== null){
+        socket.emit("chat", msgBody)
+    }
 }
 
 export function beginGame(dispatch, socket, username, lobbyCode){
