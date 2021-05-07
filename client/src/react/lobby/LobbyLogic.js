@@ -38,7 +38,6 @@ export function submitSentence(dispatch, socket, id_user, id_report, lobbyCode, 
     $("#submitDraw").prop("disabled", true)
     $("#submittedDraw").append("You submitted your Draw. Wait for other players.")
     dispatch(addSentence(msgBody))
-    console.log(msgBody)
     socket.emit("sentence", msgBody)
 }
 

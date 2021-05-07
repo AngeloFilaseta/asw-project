@@ -89,7 +89,6 @@ export function assignHandlers(socket, dispatch, state){
     })
 
     socket.on(Channels.SENTENCE, (id_next_user) => {
-        console.log("Diocane")
         dispatch(setReceivedData(id_next_user))
         new Audio(NextPhaseSound).play()
         NotificationManager.info("Draw time!", '', 1500)
@@ -98,7 +97,6 @@ export function assignHandlers(socket, dispatch, state){
     })
 
     socket.on(Channels.DRAW, (id_next_user) => {
-        console.log("Porcodio")
         dispatch(setReceivedData(id_next_user))
         new Audio(NextPhaseSound).play()
         NotificationManager.info("Sentence time!", '', 1500)

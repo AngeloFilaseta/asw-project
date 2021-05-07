@@ -6,19 +6,11 @@ import { DEFAULT_LANGUAGE } from "../../util/global"
 
 export default function LanguageForm(props){
     return(
-        <Form.Control size="lg" as="select" onChange={props.onChange} >
+        <Form.Control size="lg" as="select" onChange={props.onChange} defaultValue={DEFAULT_LANGUAGE}>
             {getLanguages(useSelector(state => state.util.languages))}
         </Form.Control>)
 }
 
 function getLanguages(languageList){
-    return (
-        <>
-            {languageList.map(item => (
-                item !== DEFAULT_LANGUAGE ?
-                    <option key={item}>{item}</option> :
-                    <option key={item} selected>{item}</option>
-            ))}
-        </>
-    )
+    return languageList.map(item => <option key={item}>{item}</option>)
 } 
