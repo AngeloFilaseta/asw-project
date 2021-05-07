@@ -21,11 +21,15 @@ export default function Draw(props){
             <ReceivedSentence />
             <Canvas renderRef={renderRef} />
             <div align="center">
-                <ColorPicker draw={draw} />
-                <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME}/>
-                <SubmitDrawButton draw={draw} />
-                <EraserButton draw={draw} />
-                <ClearButton draw={draw} />
+                {!props.waitingAllSubmit &&
+                <>
+                    <ColorPicker draw={draw}/>
+                    <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME}/>
+                    <SubmitDrawButton draw={draw}/>
+                    <EraserButton draw={draw}/>
+                    <ClearButton draw={draw}/>
+                </>
+                }
             </div>
         </LoadingOverlay>
     )

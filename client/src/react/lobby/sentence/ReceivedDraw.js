@@ -19,11 +19,11 @@ function content(receivedDraw){
         return <h2>Write something! Be creative!</h2>
     } else {
         return(
-            <div>
+            <>
                 <h3>You received this draw:</h3>
-                <SVG src={receivedDraw} />
+                <SVG src={receivedDraw}/>
                 <p>What do you see?</p>
-            </div>
+            </>
         )
     }
 }

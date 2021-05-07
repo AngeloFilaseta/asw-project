@@ -18,8 +18,11 @@ export default function Sentence(props) {
             <ReceivedDraw />
             <SentenceInput sentence={sentence} onChange={e => setSentence(e.target.value)} />
             <div align="center">
-                <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>
-                <SubmitSentenceButton sentence={sentence} />
+                {!props.waitingAllSubmit &&
+                    <>
+                    <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>
+                    <SubmitSentenceButton sentence={sentence}/>
+                    </>}
             </div>
         </LoadingOverlay>
     )
