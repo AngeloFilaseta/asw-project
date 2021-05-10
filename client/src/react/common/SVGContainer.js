@@ -11,16 +11,26 @@ export default class SVGContainer extends Component{
                        height: 0,
                        svgInitialWidth: svgInitialWidth,
                        svgInitialHeight: svgInitialWidth / 2}
+        this.updateSVGContainerSize = this.updateSVGContainerSize.bind(this);
     }
 
+
     componentDidMount() {
+        window.addEventListener("resize", this.updateSVGContainerSize);
+        this.updateSVGContainerSize();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateSVGContainerSize);
+    }
+
+    updateSVGContainerSize() {
         const svgContainer = document.getElementById('svg-container');
         const width = svgContainer.clientWidth;
         const height = width/2
         this.setState({ width: width,
-                              height : height});
+            height : height});
     }
-
 
     render(){
         let viewBoxWidth = this.getViewBoxWidth(this.state.svgInitialWidth, this.state.width)

@@ -6,11 +6,20 @@ export default class Canvas extends Component {
     constructor(props) {
         super(props)
         this.state = {height: 0}
+        this.updateCanvasSize = this.updateCanvasSize.bind(this);
     }
 
     componentDidMount() {
-        const height = document.getElementById("canvas-container").clientWidth / 2;
-        this.setState({ height : height });
+        window.addEventListener("resize", this.updateCanvasSize);
+        this.updateCanvasSize();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateCanvasSize);
+    }
+
+    updateCanvasSize() {
+        this.setState({height : document.getElementById('canvas-container').clientWidth / 2});
     }
 
     render(){
