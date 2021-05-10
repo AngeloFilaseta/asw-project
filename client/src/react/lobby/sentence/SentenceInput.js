@@ -9,7 +9,7 @@ export default function SentenceInput(props){
 
     const dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
-    let username = useSelector(state => state.userInfo.username)
+    let id_username = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
     let report_to_id = useSelector(state => state.lobby.receivedData)
 
@@ -19,7 +19,7 @@ export default function SentenceInput(props){
             onSubmit={s => { 
                 s.preventDefault()
                 dispatch(setWaitingAllSubmitted(true))
-                submitSentence(dispatch, socket, username, lobbyCode, report_to_id, props.sentence)
+                submitSentence(dispatch, socket, id_username, report_to_id, lobbyCode, props.sentence)
         }}>
             <h5 className={"pt-5"} align="center">What do you see?</h5>
             <Form.Control type="text" placeholder="Sentence" onChange={props.onChange} />
