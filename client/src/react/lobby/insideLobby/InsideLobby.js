@@ -1,7 +1,7 @@
 import GameRules from "./GameRules"
 import Controls from "./Controls"
 
-export default function InsideLobby(){
+export default function InsideLobby() {
     return (
         <>
             <GameRules />

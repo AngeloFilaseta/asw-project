@@ -13,8 +13,8 @@ import PasswordInput from "./credentialsFormComponents/input/PasswordInput"
 import LoginButton from "./credentialsFormComponents/buttons/LoginButton"
 import SignupButton from "./credentialsFormComponents/buttons/SignupButton"
 
-export default function CredentialsForm(){
-    
+export default function CredentialsForm() {
+
     let isLoading = useSelector(state => state.util.isLoading)
     const [inputUsername, setInputUsername] = useState(undefined)
     const [inputPassword, setInputPassword] = useState(undefined)
@@ -24,11 +24,11 @@ export default function CredentialsForm(){
             <NotificationContainer />
             <GuessrNavbar />
             <Row className="d-flex justify-content-center">
-                <div className="my-5 container col-lg-3 col-9 border border-primary rounded" style={{ position: "absolute", top: "30%" }}>
+                <div className="my-5 container col-lg-3 col-9 border border-primary rounded">
                     <LoadingOverlay active={isLoading} spinner text='Loading...'>
                         <Form className="mt-1 mb-3">
-                            <UsernameInput username={inputUsername} password={inputPassword} onChange={input => setInputUsername(input)}/>
-                            <PasswordInput username={inputUsername} password={inputPassword} onChange={input => setInputPassword(input)}/>
+                            <UsernameInput username={inputUsername} password={inputPassword} onChange={input => setInputUsername(input)} />
+                            <PasswordInput username={inputUsername} password={inputPassword} onChange={input => setInputPassword(input)} />
                             <div className="mt-lg-3">
                                 <LoginButton username={inputUsername} password={inputPassword} />
                                 <SignupButton username={inputUsername} password={inputPassword} />
