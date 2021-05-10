@@ -18,9 +18,8 @@ function content(receivedSentence){
     } else {
         return(
             <>
-                <h3>You received this sentence:</h3>
-                <h2>"{receivedSentence}"</h2>
-                <p>Draw the content of this sentence!</p>
+                <h3>You received this sentence, draw its content!</h3>
+                <h4>"{receivedSentence}"</h4>
             </>
         )
     }
