@@ -17,6 +17,6 @@ function content(receivedDraw){
     if(receivedDraw === "" || receivedDraw === null || receivedDraw === undefined){
         return <h2>Write something! Be creative!</h2>
     } else {
-        return<SVGContainer svgString={receivedDraw}/>
+        return<SVGContainer containerID={"svg-container"} svgString={receivedDraw}/>
     }
 }

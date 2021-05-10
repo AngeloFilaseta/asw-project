@@ -1,25 +1,28 @@
 import { Card } from "react-bootstrap"
 import {Component} from "react";
+import {DRAW_WIDTH_HEIGHT_RATIO} from "../../../util/global";
 
 export default class Canvas extends Component {
 
     constructor(props) {
         super(props)
         this.state = {height: 0}
-        this.updateCanvasSize = this.updateCanvasSize.bind(this);
+        this.updateSVGContainerSize = this.updateSVGContainerSize.bind(this);
     }
 
     componentDidMount() {
-        window.addEventListener("resize", this.updateCanvasSize);
-        this.updateCanvasSize();
+        window.addEventListener("resize", this.updateSVGContainerSize);
+        this.updateSVGContainerSize();
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateCanvasSize);
+        window.removeEventListener("resize", this.updateSVGContainerSize);
     }
 
-    updateCanvasSize() {
-        this.setState({height : document.getElementById('canvas-container').clientWidth / 2});
+    updateSVGContainerSize() {
+        let svgContainer = document.getElementById('canvas-container');
+        let height = svgContainer.clientWidth * DRAW_WIDTH_HEIGHT_RATIO
+        this.setState({height : height});
     }
 
     render(){
