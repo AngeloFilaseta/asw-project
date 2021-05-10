@@ -82,7 +82,6 @@ export function assignHandlers(socket, dispatch, state){
 
     socket.on(Channels.CHAT, (messages) => {
         if(messages[messages.length - 1].username !== state.userInfo.username){
-            console.log(state.userInfo.username)
             new Audio(NewMsgSound).play()
         }
         dispatch(setMessages(messages))
