@@ -15,6 +15,8 @@ const Channels = {
 
     CHAT: "chat",
 
+    FORWARD_DATA: "forwardData",
+
     END_GAME: "endGameCommand",
 
     DISCONNECT: "disconnect",

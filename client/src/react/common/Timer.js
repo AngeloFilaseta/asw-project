@@ -1,4 +1,6 @@
 import React from "react"
+import TimeExpiring from "../../sound/time-expiring.mp3"
+import {CRITICAL_TIME} from "../../util/global";
 
 class Timer extends React.Component {
 
@@ -22,6 +24,11 @@ class Timer extends React.Component {
         this.setState((state, props) => ({
             seconds: state.seconds - 1
         }))
+        if (this.state.seconds === CRITICAL_TIME){
+            let audio = new Audio(TimeExpiring);
+            audio.play().then( /* does nothing */)
+        }
+
         if (this.state.seconds === 0) {
             clearInterval(this.timerID)
             this.props.handler()
@@ -31,7 +38,7 @@ class Timer extends React.Component {
     render() {
         return (
             <div>
-                <h2>You have {this.state.seconds} seconds left.</h2>
+                <h2>You have  <span className={this.state.seconds <= CRITICAL_TIME && "text-danger"}>{this.state.seconds}</span> seconds left.</h2>
             </div>
         )
     }

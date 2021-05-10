@@ -29,8 +29,8 @@ function reportShow(reports) {
     return (reports.map((report, index) => (
                 <div className={"py-1"} key={"report " + index}>
                     <ReportEntry username={report.username}
-                                 sentences={report.sentences}
-                                 draws={report.draws}/>
+                                 sentences={report.sentence}
+                                 draws={report.draw}/>
                 </div>
             )));
 }

@@ -10,6 +10,7 @@ export default function SubmitDrawButton(props){
     let socket = useSelector(state => state.util.socket)
     let id_user = useSelector(state => state.userInfo.id)
     let lobbyCode = useSelector(state => state.lobby.info.code)
+    let report_to_id = useSelector(state => state.lobby.receivedData)
 
     return(
         <Button 
@@ -17,7 +18,7 @@ export default function SubmitDrawButton(props){
             className="mx-3"
             onClick={() => {
                 dispatch(setWaitingAllSubmitted(true));
-                submitDraw(dispatch, socket, id_user, lobbyCode, props.draw.getSvgXML());
+                submitDraw(dispatch, socket, id_user, report_to_id, lobbyCode, props.draw.getSvgXML());
             }}>
             Submit
         </Button>

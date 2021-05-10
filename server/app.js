@@ -12,7 +12,7 @@ const DB_ADDRESS = require("./conf/conf").dbAddress
 const PORT = require("./conf/conf").port
 const CLIENT_ADDRESS = require("./conf/conf").clientAddress
 const ASCII_ART = require("./conf/conf").asciiArt
-const corsOptions = {origin: CLIENT_ADDRESS, credentials: true}
+const corsOptions = {origin: "*", credentials: true}
 
 // add cors policy
 app.use(cors(corsOptions));

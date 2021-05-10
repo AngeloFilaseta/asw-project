@@ -1,12 +1,14 @@
 import React from 'react';
-
-import { Row } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import { useSelector } from 'react-redux';
-import { NotificationContainer } from 'react-notifications';
-import NotificationCard from "./NotificationCard";
+import {useSelector} from 'react-redux';
+import {RedirectHome} from "../common/GuessrRedirect";
 import GuessrNavbar from "../common/navbar/GuessrNavbar";
-import BackButton from "../common/BackButton"
+import BackButton from "../common/BackButton";
+import Container from "react-bootstrap/Container";
+import DeleteAllButton from "./DeleteAllButton";
+import Row from "react-bootstrap/Row";
+import {NotificationContainer} from "react-notifications"
+import NotificationCard from "./NotificationCard";
+import {Col} from "react-bootstrap";
 
 function ReportPage(props) {
 
@@ -14,7 +16,7 @@ function ReportPage(props) {
     let notificationList = useSelector(state => state.userInfo.notifications);
 
     if (username === null) {
-        return null; //TODO add redirect to login page
+        return <RedirectHome />
     } else {
         return (
             <>
@@ -26,8 +28,11 @@ function ReportPage(props) {
                     </div>
                 </div>
                 <Container fluid >
+                    {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)}/>}
                     <Row>
-                          {updateList(notificationList)}
+                        {notificationList.length > 0 ?
+                            updateList(notificationList) :
+                            <Col><h3 className={"text-center"}> You're clear! 0 new notifications.</h3></Col>}
                     </Row>
                 </Container>
             </>

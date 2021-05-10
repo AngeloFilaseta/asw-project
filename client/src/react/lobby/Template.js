@@ -1,4 +1,5 @@
 import { Row, Col } from "react-bootstrap"
+import { NotificationContainer } from "react-notifications"
 
 import AdaptiveNavbar from "./AdaptiveNavbar"
 import MobileBar from "./MobileBar"
@@ -11,6 +12,7 @@ export default function Template() {
 
     return (
         <div style={{ overflowX: "hidden" }}>
+            <NotificationContainer />
             <AdaptiveNavbar />
             <MobileBar />
             <Row style={{ overflow: "hidden" }}>

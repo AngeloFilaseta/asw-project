@@ -31,3 +31,7 @@ export function loadNotifications(dispatch, token){
         dispatch(setNotifications(notifications));
     });
 }
+
+export function deleteAllNotifications(dispatch, token, idNotificationArray){
+    idNotificationArray.forEach(id => deleteNotificationRequest(dispatch, token, id))
+}

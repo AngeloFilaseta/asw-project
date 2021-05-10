@@ -32,6 +32,8 @@ const lobbyReducer = (state = initialState, action) => {
         case 'ADD_MESSAGE': state.messages.push(action.payload); state.messages = Array.from(state.messages); return state;
         case 'SET_RECEIVED_DATA': state.receivedData = action.payload; return state;
         case 'SET_REPORTS': state.reports = action.payload; return state;
+        case 'ADD_SENTENCE': state.reports.forEach((report) => {if(report.id === action.payload.id_report) report.sentence.push(action.payload.sentence)}); return state;
+        case 'ADD_DRAW': state.reports.forEach((report) => {if(report.id === action.payload.id_report) report.draw.push(action.payload.draw)}); return state;
         default: return state;
     }
 }

@@ -13,6 +13,8 @@ export const Channels = {
 
     DRAW: "draw",
 
+    FORWARD_DATA: "forwardData",
+
     CHAT: "chat",
 
     END_GAME: "endGameCommand",

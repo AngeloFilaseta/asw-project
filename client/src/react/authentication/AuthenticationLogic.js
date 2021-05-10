@@ -1,50 +1,69 @@
 import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
-import {setUsername, setId, setToken} from "../../redux/userInfo/actions"
+import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
-import { SERVER_ADDRESS, USERNAME_LENGTH_MIN } from "../../util/global"
+import {PASSWORD_LENGTH_MIN, SERVER_ADDRESS, USERNAME_LENGTH_MIN} from "../../util/global"
 import {loadNotifications} from "../notifications/NotificationLogic";
+import {sleep} from "../../util/sleep";
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
 });
 
 export function login(inputUsername, inputPassword, dispatch) {
-        if(isUsernameValid(inputUsername, "Login failed")){
-        dispatch(setIsLoading(true))
-        $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
-            .done(function (result) {
-                let token = result.token;
-                dispatch(setToken(token))
-                loadUserIDAndUsernameFromToken(dispatch, token);
-                loadLanguages(dispatch, token);
-                loadNotifications(dispatch, token);
-            })
-            .fail(function (result) {
-                NotificationManager.error(result.responseJSON.message, 'Error', 3000);
-            })
-            .always(function () {
-                dispatch(setIsLoading(false));
-            });
+    if(isUsernameValid(inputUsername)) {
+        if (isPasswordValid(inputPassword)) {
+            dispatch(setIsLoading(true))
+            $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
+                .done(function (result) {
+                    let token = result.token;
+                    dispatch(setToken(token))
+                    loadUserIDAndUsernameFromToken(dispatch, token);
+                    loadLanguages(dispatch, token);
+                    loadNotifications(dispatch, token);
+                })
+                .fail(function (result) {
+                    NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+                })
+                .always(function () {
+                    dispatch(setIsLoading(false));
+                });
+        } else {
+            NotificationManager.error("Something is wrong with the password, please try again.", 'Invalid Password', 3000);
+        }
+    } else {
+        NotificationManager.error("Something is wrong with the username, please try again.", 'Invalid Username', 3000);
     }
 }
 
 export function signup(inputUsername, inputPassword, dispatch) {
-    if(isUsernameValid(inputUsername, "Signup failed") /*check password*/){
-        dispatch(setIsLoading(true));
-        $.post(SERVER_ADDRESS + "/auth/signup", createUserObj(inputUsername.trim(), inputPassword.trim()))
-            .done(function () {
-                login(inputUsername,inputPassword, dispatch);
-            })
-            .fail(function (result) {
-                NotificationManager.error(result.responseJSON.message, 'Error', 3000);
-            })
-            .always(function () {
-                dispatch(setIsLoading(false));
-            });
+    if(isUsernameValid(inputUsername)) {
+       if(isPasswordValid(inputPassword)) {
+           dispatch(setIsLoading(true));
+           $.post(SERVER_ADDRESS + "/auth/signup", createUserObj(inputUsername.trim(), inputPassword.trim()))
+               .done(function () {
+                   login(inputUsername,inputPassword, dispatch);
+               })
+               .fail(function (result) {
+                   NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+               })
+               .always(function () {
+                   dispatch(setIsLoading(false));
+               });
+       } else {
+           NotificationManager.error("Password is not long enough, at least " + PASSWORD_LENGTH_MIN + " characters needed.", 'Invalid Password', 3000);
+       }
+    }else {
+        NotificationManager.error("Username is not long enough, at least " + USERNAME_LENGTH_MIN + " characters needed.", 'Invalid Username', 3000);
     }
 }
 
+ export async function logout(dispatch) {
+    dispatch(setUsername(null))
+    dispatch(setToken(null))
+    dispatch(setNotifications([]))
+    await sleep(1000).then(() => NotificationManager.success('See you soon :)', 'Logout was successful'))
+}
 function createUserObj(inputUsername, inputPassword) {
     return JSON.stringify({
         username: inputUsername,
@@ -52,16 +71,17 @@ function createUserObj(inputUsername, inputPassword) {
     });
 }
 
-function isUsernameValid(username, notificationTitle){
-    return isStringLongEnough(username, USERNAME_LENGTH_MIN, notificationTitle, "Username must be at least " + USERNAME_LENGTH_MIN + " characters long")
+function isUsernameValid(str){
+    return isStringLongEnough(str, USERNAME_LENGTH_MIN)
 }
 
-function isStringLongEnough(str, len, notificationTitle, notificationText){
-    if(str === undefined || str === null || str.trim().length < len){
-        NotificationManager.warning(notificationText, notificationTitle, 3000);
-        return false
-    }
-    return true
+function isPasswordValid(str){
+    return isStringLongEnough(str, PASSWORD_LENGTH_MIN)
+}
+
+function isStringLongEnough(str, len){
+    return !(str === undefined || str === null || str.trim().length < len);
+
 }
 
 function loadUserIDAndUsernameFromToken(dispatch, token){

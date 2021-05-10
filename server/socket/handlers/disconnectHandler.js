@@ -1,13 +1,13 @@
+const Channels = require("../enum/channels");
 const SocketUtil = require("../util/general");
-const StoreSingleton = require("../../redux/storeSingleton");
 const {getLobby} = require("../util/lobbiesUtil");
 const PlayerTypes = require("../../model/enum/playerType");
 const PhaseTypes = require("../../model/enum/phaseType");
+const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {lobbyExists} = require("../util/lobbiesUtil");
 const {removeFromArrayByAttr} = require("../../util/Structures");
 const {broadcastMessageOnLobbyPlayersChanged} = require("../util/broadcastUtil");
 const {deleteLobbyAndDisconnectEveryone} = require("../util/lobbiesUtil");
-const MIN_PLAYERS = require("../../conf/conf").min_player;
 
 function disconnectHandler(socket) {
     let lobbyAndUser = SocketUtil.getUserFromSocket(socket);
@@ -15,26 +15,26 @@ function disconnectHandler(socket) {
 }
 
 function disconnectFromLobby(socket, lobbyAndUser){
-    let code = lobbyAndUser.lobbyCode;
-    if(lobbyExists(code)){
-        if(getLobby(code).orderedUsers.length === 1){
-            deleteLobbyAndDisconnectEveryone(code);
-            return;
-        }
-        let player = lobbyAndUser.player;
-        removeFromArrayByAttr(StoreSingleton.getInstance().getState().lobbies.get(code).orderedUsers, 'username', player.username);
-        if(player.type === PlayerTypes.ADMIN){
-            StoreSingleton.getInstance().getState().lobbies.get(code).orderedUsers[0].type = PlayerTypes.ADMIN;
-        }
-        let phase = getLobby(code).phase
-        if( phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){
-            if(getLobby(code).orderedUsers < MIN_PLAYERS) {
+    try {
+        let code = lobbyAndUser.lobbyCode;
+        if(lobbyExists(code)){
+            if(getLobby(code).orderedUsers.length === 1){
                 deleteLobbyAndDisconnectEveryone(code);
-            } else {
-                // TODO REMOVE REPORT
+                return;
             }
-        }
-        broadcastMessageOnLobbyPlayersChanged(code)
+            let player = lobbyAndUser.player;
+            let phase = getLobby(code).phase
+            removeFromArrayByAttr(getLobby(code).orderedUsers, 'username', player.username);
+            if(player.type === PlayerTypes.ADMIN && getLobby(code).orderedUsers.length > 0){ //if the player was the admin assign a new admin
+                getLobby(code).orderedUsers[0].type = PlayerTypes.ADMIN;
+            }
+            if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
+                broadcastMessageOnLobby(getLobby(code), Channels.SHOW_REPORT, null)
+            }
+            broadcastMessageOnLobbyPlayersChanged(code)
+    }
+    } catch (error) {
+        console.log("ERROR CATCHED ON DISCONNECT FROM LOBBY:\n" + error)
     }
 }
 

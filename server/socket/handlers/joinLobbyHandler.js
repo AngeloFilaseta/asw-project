@@ -46,9 +46,14 @@ function joinByLanguage(socket, json){
 
 
 function joinLobby(socket, json, code){
+    let lobby = getLobby(code);
+    if(isAlreadyInLobby(json.username, lobby)){
+        socket.emit(Channels.JOINED, {error: "User already in Lobby"});
+        return;
+    }
     let userType = (getLobby(code).orderedUsers < 1) ? PlayerTypes.ADMIN : PlayerTypes.USER;
     let player = PlayerFactory.createPlayer(json.idUser, json.username, userType, socket);
-    getLobby(code).orderedUsers.push(player)
+    lobby.orderedUsers.push(player)
     let jsonToEmit = {
         lobbyCode: code,
         isAdmin: player.type,
@@ -62,4 +67,8 @@ function joinLobby(socket, json, code){
     broadcastMessageOnLobbyPlayersChanged(code)
 }
 
+
+function isAlreadyInLobby(username, lobby){
+    return lobby.orderedUsers.find(u => u.username === username) !== undefined
+}
 module.exports = joinLobbyHandler;
