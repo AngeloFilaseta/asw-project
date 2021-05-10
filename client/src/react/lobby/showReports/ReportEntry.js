@@ -1,26 +1,14 @@
-import { Button, Collapse } from "react-bootstrap";
-import SVG from "react-inlinesvg";
-import { useState } from "react";
+import SVGContainer from "../../common/SVGContainer";
 
 export default function ReportEntry(props) {
 
-    const [open, setOpen] = useState(false);
-
     return (
         <>
-            <Button block size="lg" variant="success"
-                style={{ fontWeight: "bold" }}
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}>
-                Show {props.username}'s report
-        </Button>
-            <Collapse in={open}>
-                <div className="border border-info rounded" align="center">
-                    {alternateListsElements(props.sentences, props.draws)
-                        .map((entry, index) => renderContent(entry, index))}
-                </div>
-            </Collapse>
+            <h1 className={"text-center"}>{props.username}'s report</h1>
+            <div align="center">
+                        {alternateListsElements(props.sentences, props.draws)
+                            .map((entry, index) => renderContent(entry, index))}
+            </div>
         </>
     )
 
@@ -40,11 +28,11 @@ export default function ReportEntry(props) {
         return newArr;
     }
 
-    function renderContent(entry, index) {
-        if (index % 2 === 0) {
-            return <h2 key={"entry " + index}>"{entry}"</h2>
+    function renderContent(entry, index){
+        if(index % 2 === 0){
+            return <h3 className={"pt-2"} key={index}>"{entry}"</h3>
         } else {
-            return <SVG src={entry} key={"entry " + index} />
+            return <SVGContainer containerID={"svg-container-"+ index} svgString={entry} key={index}/>
         }
     }
 

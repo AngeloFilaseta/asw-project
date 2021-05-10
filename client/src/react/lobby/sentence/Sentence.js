@@ -20,8 +20,8 @@ export default function Sentence(props) {
             <div align="center">
                 {!props.waitingAllSubmit &&
                     <>
-                    <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>
-                    <SubmitSentenceButton sentence={sentence}/>
+                        <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>
+                        <SubmitSentenceButton sentence={sentence}/>
                     </>}
             </div>
         </LoadingOverlay>
