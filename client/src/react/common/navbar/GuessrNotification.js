@@ -12,7 +12,7 @@ export default function GuessrNotification() {
     return useSelector(state => state.userInfo.username) === null ? (<></>) :
         (goToNotifications ?
             <RedirectNotifications/> :
-            (<Button onClick={() => setGoToNotifications(true)}>
+            (<Button variant="btn-primary-outline" onClick={() => setGoToNotifications(true)}>
                 <img alt="Alerts" style={{ width: "30px", height: "30px" }} src={bellIcon} />
                 <span className="badge badge-danger">{notifications.length}</span>
             </Button>))
