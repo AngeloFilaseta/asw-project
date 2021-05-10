@@ -21,7 +21,7 @@ export default function SentenceInput(props){
                 dispatch(setWaitingAllSubmitted(true))
                 submitSentence(dispatch, socket, username, lobbyCode, report_to_id, props.sentence)
         }}>
-            <h5 align="center">Write your sentence:</h5>
+            <h5 className={"pt-5"} align="center">What do you see?</h5>
             <Form.Control type="text" placeholder="Sentence" onChange={props.onChange} />
             <h1 id="submittedSentence">{""}</h1>
         </Form>

@@ -31,10 +31,10 @@ function disconnectFromLobby(socket, lobbyAndUser){
             if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
                 broadcastMessageOnLobby(getLobby(code), Channels.SHOW_REPORT, null)
             }
-            broadcastMessageOnLobbyPlayersChanged(code)
-    }
+            broadcastMessageOnLobbyPlayersChanged(code);
+        }
     } catch (error) {
-        console.log("ERROR CATCHED ON DISCONNECT FROM LOBBY:\n" + error)
+        console.log("ERROR CAUGHT ON DISCONNECT FROM LOBBY:\n" + error)
     }
 }
 

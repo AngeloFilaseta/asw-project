@@ -1,12 +1,10 @@
 import { Row, Col } from "react-bootstrap"
 import { NotificationContainer } from "react-notifications"
-
 import AdaptiveNavbar from "./AdaptiveNavbar"
 import MobileBar from "./MobileBar"
 import MainContent from "./MainContent"
 import Chat from "./Chat"
 import UserList from "./userList/UserList"
-
 
 export default function Template() {
 

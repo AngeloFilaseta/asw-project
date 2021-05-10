@@ -62,16 +62,11 @@ function resetUserInfo(dispatch){
 }
 
 function resetUtil(dispatch, socket){
-    console.log("test1")
     if (socket !== null && socket !== undefined) {
-        console.log("test2")
         //TODO CONTROLLARE
         socket.close()
-        console.log("test3")
         dispatch(setSocket(null))
-        console.log("test4")
     }
-    console.log("test5")
     dispatch(setIsLoading(false))
 }
 

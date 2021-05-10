@@ -14,7 +14,15 @@ function deleteLobbyAndDisconnectEveryone(lobbyCode){
     StoreSingleton.getInstance().dispatch(LobbiesAction.remove(lobbyCode));
 }
 
+function printLobbyInfo(code){
+    console.log(getLobby(code))
+}
+
+function printLobbiesInfo(){
+    console.log(StoreSingleton.getInstance().getState().lobbies)
+}
+
 
 module.exports = {
-    getLobby, lobbyExists, deleteLobbyAndDisconnectEveryone
+    getLobby, lobbyExists, deleteLobbyAndDisconnectEveryone, printLobbyInfo, printLobbiesInfo
 }
