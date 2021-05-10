@@ -6,7 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  
+  background-image: url('./img/background.svg');
+  background-size: 100%;
 }
 
 ::-webkit-scrollbar {

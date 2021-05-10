@@ -39,10 +39,10 @@ export default function GuessrButtonGroup() {
                 <Container fluid className="mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded" style={{ background: "rgba(255,255,255,0.2)" }}>
                     <Row align="center">
                         <Col>
-                            <AwesomeButton onPress={() => setGoToLobbyCreation(true)} className="mb-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Create lobby</AwesomeButton>
-                            <AwesomeButton onPress={() => setShowRandomLobbyModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Join Random Game</AwesomeButton>
-                            <AwesomeButton onPress={() => setShowLobbyCodeModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Join Specific Game</AwesomeButton>
-                            <AwesomeButton onPress={() => setGoToShowReportPage(true)} className="mt-2" style={{ display: 'block', width: '100%', fontSize: 22 }} size="large" ripple="true">Show Previous Reports</AwesomeButton>
+                            <AwesomeButton onPress={() => setGoToLobbyCreation(true)} className="mb-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple={true}>Create lobby</AwesomeButton>
+                            <AwesomeButton onPress={() => setShowRandomLobbyModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple={true}>Join Random Game</AwesomeButton>
+                            <AwesomeButton onPress={() => setShowLobbyCodeModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple={true}>Join Specific Game</AwesomeButton>
+                            <AwesomeButton onPress={() => setGoToShowReportPage(true)} className="mt-2" style={{ display: 'block', width: '100%', fontSize: 22 }} size="large" ripple={true}>Show Previous Reports</AwesomeButton>
                         </Col>
                     </Row>
                 </Container>

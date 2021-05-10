@@ -1,6 +1,6 @@
 import SVGContainer from "../../common/SVGContainer";
 
-export default function ReportEntry(props){
+export default function ReportEntry(props) {
 
     return (
         <>
@@ -35,4 +35,5 @@ export default function ReportEntry(props){
             return <SVGContainer containerID={"svg-container-"+ index} svgString={entry} key={index}/>
         }
     }
+
 }

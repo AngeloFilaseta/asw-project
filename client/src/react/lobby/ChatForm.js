@@ -18,11 +18,16 @@ export default function ChatForm() {
     let lobbyCode = useSelector(state => state.lobby.info.code)
 
     let changeMsgHandler = e => setMsg(e.target.value)
-    let sendMsgHandler = () => sendMsg(dispatch, socket, username, lobbyCode, msg);
+    let sendMsgHandler = () => {
+        if(msg.trim() !== ""){
+            sendMsg(dispatch, socket, username, lobbyCode, msg.trim())
+            setMsg("")
+        }
+    }
 
     return (<Row className='mt-5 ml-md-3 ml-1'>
             <Col className="col-8">
-                <Form onSubmit={s => {s.preventDefault()}}>
+                <Form onSubmit={s => {s.preventDefault(); sendMsgHandler()}}>
                     <Form.Group>
                         <Form.Control
                             id="chatSendButton"

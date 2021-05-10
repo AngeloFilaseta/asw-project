@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useLocation } from 'react-router-dom'
 
 import { Col } from "react-bootstrap"
 import Navbar from "react-bootstrap/Navbar"
@@ -11,6 +12,7 @@ import { RedirectHome } from "../GuessrRedirect"
 export default function GuessrNavbar(props) {
 
     let [isRedirectHome, setRedirectHome] = useState(false)
+    let currentLocation = useLocation()
 
     if(isRedirectHome){
         return <RedirectHome />
@@ -18,7 +20,7 @@ export default function GuessrNavbar(props) {
         return (
             <Navbar bg="dark" variant="dark" id="navbar">
                 <Col className="col-4 col-sm-3">
-                    <Navbar.Brand onClick={() => setRedirectHome(true)}>
+                    <Navbar.Brand onClick={() => (currentLocation.pathname !== "/home") ? setRedirectHome(true) : setRedirectHome(false)}>
                         <h2 className="border border-primary p-1 rounded" >
                             <div className="d-none d-md-inline ">GuessR</div>
                             <div className="d-md-none d-inline ">GR</div>
