@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Button from "react-bootstrap/Button";
 import ConfirmationModal from "../common/ConfirmationModal";
 import {deleteAllNotifications} from "./NotificationLogic";
+
+import { AwesomeButton } from "react-awesome-button";
 
 export default function DeleteAllButton(props) {
 
@@ -16,10 +17,8 @@ export default function DeleteAllButton(props) {
 
     return (
         <>
-            <Button className=" btn-danger"
-                        onClick={handleShow}>
-                    Delete all notifications
-                </Button>
+
+<AwesomeButton type="pinterest" onPress={handleShow} className="mt-2" style={{width:'25%',fontSize: 22}} size="large" ripple="true">Delete all notifications</AwesomeButton>
                 <ConfirmationModal show={modalShow}
                                    handleClose={handleClose}
                                    handleConfirm={handleConfirmButton}

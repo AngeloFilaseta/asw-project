@@ -17,7 +17,7 @@ export default function GuessrLogout() {
         (<></>)
         :
         <>
-            <Button onClick={handleShow}>
+            <Button variant="outline-primary" onClick={handleShow} >
                 <div className="d-none d-md-inline ">
                     <b>Logout</b>
                 </div>
