@@ -1,14 +1,16 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {RedirectHome} from "../common/GuessrRedirect";
+import { useSelector } from 'react-redux';
+import { RedirectHome } from "../common/GuessrRedirect";
 import GuessrNavbar from "../common/navbar/GuessrNavbar";
 import BackButton from "../common/BackButton";
 import Container from "react-bootstrap/Container";
 import DeleteAllButton from "./DeleteAllButton";
 import Row from "react-bootstrap/Row";
-import {NotificationContainer} from "react-notifications"
+import { NotificationContainer } from "react-notifications"
 import NotificationCard from "./NotificationCard";
-import {Col} from "react-bootstrap";
+import { Col } from "react-bootstrap";
+
+import back from "../../img/background.svg"
 
 function ReportPage(props) {
 
@@ -20,21 +22,35 @@ function ReportPage(props) {
     } else {
         return (
             <>
-                <NotificationContainer/>
-                <GuessrNavbar title={"Notification center"} />
-                <div align="center">
-                    <div className="col-lg-2  col-6 my-3">
-                        <BackButton destination={"home"} buttonName={"Go back"}/>
+                <div style={{
+                    backgroundImage: `url(${back})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    width: '100vw',
+                    height: '100vh'
+                }}>
+                    <NotificationContainer />
+                    <GuessrNavbar title={"Notification center"} />
+
+                    <div align="center">
+                        <div className="col-lg-2  col-6 my-3">
+                            {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)} />}
+                        </div>
+                    </div>
+
+                    <Container fluid >
+                        <Row>
+                            {notificationList.length > 0 ?
+                                updateList(notificationList) :
+                                <Col><h3 className={"text-center"}> You're clear! 0 new notifications.</h3></Col>}
+                        </Row>
+                    </Container>
+                    <div align="center">
+                        <div className="col-lg-2  col-6 my-3">
+                            <BackButton destination={"home"} buttonName={"Go back"} />
+                        </div>
                     </div>
                 </div>
-                <Container fluid >
-                    {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)}/>}
-                    <Row>
-                        {notificationList.length > 0 ?
-                            updateList(notificationList) :
-                            <Col><h3 className={"text-center"}> You're clear! 0 new notifications.</h3></Col>}
-                    </Row>
-                </Container>
             </>
         );
     }

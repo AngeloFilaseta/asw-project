@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Col, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import RandomLobbyModal from "./randomLobbyModal/RandomLobbyModal"
 import CodeLobbyModal from "./codeLobbyModal/CodeLobbyModal"
-import { 
-    RedirectLobbyCreation, 
+import {
+    RedirectLobbyCreation,
     RedirectPreviousReports,
     RedirectLobby
 } from "../common/GuessrRedirect"
+
+import { AwesomeButton } from "react-awesome-button";
 
 export default function GuessrButtonGroup() {
 
@@ -22,26 +23,26 @@ export default function GuessrButtonGroup() {
     const [goToLobbyCreation, setGoToLobbyCreation] = useState(false)
     const [goToShowReportPage, setGoToShowReportPage] = useState(false)
 
-    if(goToLobbyCreation){
+    if (goToLobbyCreation) {
         return <RedirectLobbyCreation />
-    } else if (goToShowReportPage){
+    } else if (goToShowReportPage) {
         return <RedirectPreviousReports />
-    } else if (goToLobby || lobbyCode !== null){
+    } else if (goToLobby || lobbyCode !== null) {
         return <RedirectLobby />
-    } else if (goToLobbyCreation){
+    } else if (goToLobbyCreation) {
         return <RedirectLobbyCreation />
     } else {
         return (
             <div>
-                <RandomLobbyModal isShowing={showRandomLobbyModal} onHide={() => {if(!isLoading) setShowRandomLobbyModal(false)}} onSuccess={() => setGoToLobby(true)} />
-                <CodeLobbyModal isShowing={showLobbyCodeModal} onHide={() => {if(!isLoading) setShowLobbyCodeModal(false)}} onSuccess={() => setGoToLobby(true)} />
-                <Container fluid className="mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded">
+                <RandomLobbyModal isShowing={showRandomLobbyModal} onHide={() => { if (!isLoading) setShowRandomLobbyModal(false) }} onSuccess={() => setGoToLobby(true)} />
+                <CodeLobbyModal isShowing={showLobbyCodeModal} onHide={() => { if (!isLoading) setShowLobbyCodeModal(false) }} onSuccess={() => setGoToLobby(true)} />
+                <Container fluid className="mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded" style={{ background: "rgba(255,255,255,0.2)" }}>
                     <Row align="center">
                         <Col>
-                            <Button block size="lg" onClick={() => setGoToLobbyCreation(true)}>Create Lobby </Button>
-                            <Button block size="lg" onClick={() => setShowRandomLobbyModal(true)}>Join Random Game</Button>
-                            <Button block size="lg" onClick={() => setShowLobbyCodeModal(true)}>Join Specific Game</Button>
-                            <Button block size="lg" onClick={() => setGoToShowReportPage(true)}>Show Previous Reports </Button>
+                            <AwesomeButton onPress={() => setGoToLobbyCreation(true)} className="mb-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Create lobby</AwesomeButton>
+                            <AwesomeButton onPress={() => setShowRandomLobbyModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Join Random Game</AwesomeButton>
+                            <AwesomeButton onPress={() => setShowLobbyCodeModal(true)} className="my-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple="true">Join Specific Game</AwesomeButton>
+                            <AwesomeButton onPress={() => setGoToShowReportPage(true)} className="mt-2" style={{ display: 'block', width: '100%', fontSize: 22 }} size="large" ripple="true">Show Previous Reports</AwesomeButton>
                         </Col>
                     </Row>
                 </Container>
