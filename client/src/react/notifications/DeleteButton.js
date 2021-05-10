@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button"
 import trashIcon from "../../img/trash.png"
 import React, { useState } from "react";
 import ConfirmationModal from "../common/ConfirmationModal";
