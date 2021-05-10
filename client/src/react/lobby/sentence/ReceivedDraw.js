@@ -15,8 +15,12 @@ export default function ReceivedDraw(){
 
 function content(receivedDraw){
     if(receivedDraw === "" || receivedDraw === null || receivedDraw === undefined){
-        return <h2>Write something! Be creative!</h2>
+        return <h3>Write something! Be creative!</h3>
     } else {
-        return<SVGContainer svgString={receivedDraw}/>
+        return (<>
+                    <h3>You received this draw.</h3>
+                    <h5>What do you see?</h5>
+                    <SVGContainer containerID={"svg-container"} svgString={receivedDraw}/>
+                </>)
     }
 }
