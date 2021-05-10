@@ -8,11 +8,10 @@ function NotificationCard(props) {
     return (
         <>
             <Col className="col-lg-3 col-12 col-md-6 mt-3">
-                <Card>
+                <Card className="border-dark" style={{ background: "rgba(255,255,255, 0.4)" }}>
                     <Card.Header>
-                        <Card.Title align="center">
+                        <Card.Title align="center" style={{fontSize: 22}}>
                             {props.title}
-                            <DeleteButton idNotification={props.id}/>
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -21,6 +20,9 @@ function NotificationCard(props) {
                         </div>
                         <div>
                             {props.date}
+                        </div>
+                        <div className="text-right">
+                            <DeleteButton idNotification={props.id} />
                         </div>
                     </Card.Body>
                 </Card>
