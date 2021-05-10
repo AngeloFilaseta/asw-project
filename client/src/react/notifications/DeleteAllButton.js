@@ -18,7 +18,7 @@ export default function DeleteAllButton(props) {
     return (
         <>
 
-<AwesomeButton type="pinterest" onPress={handleShow} className="mt-2" style={{width:'25%',fontSize: 22}} size="large" ripple="true">Delete all notifications</AwesomeButton>
+<AwesomeButton type="pinterest" onPress={handleShow} className="mt-2" style={{width:'100%',fontSize: 15}} size="large" ripple="true">Delete all notifications</AwesomeButton>
                 <ConfirmationModal show={modalShow}
                                    handleClose={handleClose}
                                    handleConfirm={handleConfirmButton}
