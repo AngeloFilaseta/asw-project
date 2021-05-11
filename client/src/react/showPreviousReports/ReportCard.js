@@ -1,6 +1,5 @@
 import { Card } from "react-bootstrap"
 import { Col } from "react-bootstrap"
-
 import { AwesomeButton } from "react-awesome-button";
 
 export default function ReportCard(props) {
@@ -15,14 +14,12 @@ export default function ReportCard(props) {
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
-
                         <AwesomeButton onPress={() => props.handler()}
                             className="mb-2"
                             style={{ display: 'block', width: '100%', fontSize: 18 }}
                             type="primary" ripple="true">
                             Download PDF
                         </AwesomeButton>
-
                     </Card.Body>
                 </Card>
             </Col>
