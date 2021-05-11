@@ -1,13 +1,11 @@
 import { CirclePicker } from "react-color"
 
-import { drawPenSize } from "./DrawUtil"
-
 export default function ColorPicker(props){
     return (
         <CirclePicker 
             onChange={(color) => { 
                 props.draw.changePenColor(color.hex); 
-                props.draw.changePenWidth(drawPenSize); 
+                props.draw.changePenWidth(props.penWidth); 
             }} 
             className={"py-3"} 
             width={"378px"}

@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Button } from "react-bootstrap"
 import PlayerTypes from "../../../util/playerType"
-import {sendEndReport} from "../LobbyLogic"
+import { sendEndReport } from "../LobbyLogic"
 import ReportEntry from "./ReportEntry";
 
-export default function ShowReports(){
-    
+export default function ShowReports() {
+
     const dispatch = useDispatch()
     let socket = useSelector(state => state.util.socket)
     let id_user = useSelector(state => state.userInfo.id)
@@ -14,23 +14,23 @@ export default function ShowReports(){
     let isAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
 
     return (
-            <div className="mx-3">
-                {isAdmin === PlayerTypes.ADMIN &&
-                    <Button block className="mt-3" size="lg"
-                            onClick={() => sendEndReport(dispatch, socket, id_user, lobbyCode)}>
-                        Back to Lobby
+        <div className="mx-3" style={{ overflow: "scroll", overflowY: "none", height: "80vh" }}>
+            {isAdmin === PlayerTypes.ADMIN &&
+                <Button block className="mt-3" size="lg"
+                    onClick={() => sendEndReport(dispatch, socket, id_user, lobbyCode)}>
+                    Back to Lobby
                     </Button>
-                }
-                {reportShow(reports)}
-            </div>)
+            }
+            {reportShow(reports)}
+        </div>)
 }
 
 function reportShow(reports) {
     return (reports.map((report, index) => (
-                <div className={"py-1"} key={"report " + index}>
-                    <ReportEntry username={report.username}
-                                 sentences={report.sentence}
-                                 draws={report.draw}/>
-                </div>
-            )));
+        <div className={"py-1"} key={"report " + index}>
+            <ReportEntry username={report.username}
+                sentences={report.sentence}
+                draws={report.draw} />
+        </div>
+    )));
 }

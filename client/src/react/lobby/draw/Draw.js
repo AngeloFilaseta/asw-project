@@ -11,9 +11,14 @@ import GameTimer from "../../common/GameTimer"
 import {submitDraw} from "../LobbyLogic"
 import {DRAW_MAX_TIME} from "../../../util/global"
 
+import Slider from "rc-slider"
+import "rc-slider/assets/index.css"
+import { useState } from "react"
+
 export default function Draw(props){
 
     const [renderRef, draw] = useSvgDrawing({penWidth: drawPenSize})
+    const [penWidth, setPenWidth] = useState(drawPenSize)
 
     let timeExpireHandler = () => submitDraw(props.dispatch, props.socket, props.id_user, props.report_to_id, props.lobbyCode, draw.getSvgXML())
     return(
@@ -23,7 +28,8 @@ export default function Draw(props){
             <div align="center">
                 {!props.waitingAllSubmit &&
                 <>
-                    <ColorPicker draw={draw}/>
+                    <ColorPicker draw={draw} penWidth={penWidth}/>
+                    <Slider min={1} max={50} defaultValue={drawPenSize} onChange={v => {draw.changePenWidth(v); setPenWidth(v);}}/>
                     <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME}/>
                     <SubmitDrawButton draw={draw}/>
                     <EraserButton draw={draw}/>
