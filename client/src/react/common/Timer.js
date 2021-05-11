@@ -2,6 +2,9 @@ import React from "react"
 import TimeExpiring from "../../sound/time-expiring.mp3"
 import {CRITICAL_TIME} from "../../util/global";
 
+import "./TimerCSS.css"
+import ReactCountdownClock from "react-countdown-clock"
+
 class Timer extends React.Component {
 
     constructor(props) {
@@ -37,13 +40,14 @@ class Timer extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>
-                    You have <span className={this.state.seconds <= CRITICAL_TIME ? "text-danger" : ""}>
-                        {this.state.seconds}
-                    </span> seconds left.
-                </h2>
-            </div>
+            <ReactCountdownClock 
+                seconds={this.props.nSeconds}
+                color={this.state.seconds > CRITICAL_TIME ? "#000000" : "#FF0000"}
+                alpha={0.9}
+                size={75}
+                weight={10}
+                showMilliseconds={true}
+            />      
         )
     }
 }
