@@ -38,7 +38,13 @@ class Timer extends React.Component {
     render() {
         return (
             <div>
-                <h2>You have  <span className={this.state.seconds <= CRITICAL_TIME ? "text-success" : "text-danger"}>{this.state.seconds}</span> seconds left.</h2>
+                <h2>
+                    You have
+                    <span className={this.state.seconds <= CRITICAL_TIME ? "text-danger" : ""}>
+                        {this.state.seconds}
+                    </span>
+                    seconds left.
+                </h2>
             </div>
         )
     }
