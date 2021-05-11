@@ -105,7 +105,3 @@ function loadLanguages(dispatch, token){
         dispatch(setIsLoading(false));      
     });
 }
-
-
-
-

@@ -1,17 +1,20 @@
 import {Channels} from "./enum/channels"
 import {setIsLoading} from "../redux/util/actions"
-import {joinHandler} from "./handlers/joinedHandler";
-import {playersHandler} from "./handlers/playersHandler";
-import {chatHandler} from "./handlers/chatHandler";
-import {drawHandler} from "./handlers/drawHandler";
-import {sentenceHandler} from "./handlers/sentenceHandler";
-import {forwardDataHandler} from "./handlers/forwardDataHandler";
-import {showReportHandler} from "./handlers/showReportHandler";
-import {backToLobbyHandler} from "./handlers/bakToLobbyHandler";
+import {joinHandler} from "./handlers/joinedHandler"
+import {playersHandler} from "./handlers/playersHandler"
+import {chatHandler} from "./handlers/chatHandler"
+import {drawHandler} from "./handlers/drawHandler"
+import {sentenceHandler} from "./handlers/sentenceHandler"
+import {forwardDataHandler} from "./handlers/forwardDataHandler"
+import {showReportHandler} from "./handlers/showReportHandler"
+import {backToLobbyHandler} from "./handlers/bakToLobbyHandler"
+import {connectionErrorHandler} from "./handlers/connectionErrorHandler"
 
 export function assignHandlers(socket, dispatch, state){
 
     dispatch(setIsLoading(true))
+
+    socket.on("connect_error", (error) => connectionErrorHandler(error, socket, dispatch))
 
     socket.on(Channels.JOINED, (json) => joinHandler(json, dispatch, socket))
 
