@@ -21,7 +21,7 @@ export default function GuessrLogout() {
                 <div className="d-none d-md-inline ">
                     <b>Logout</b>
                 </div>
-                <img alt="Logout" style={{ width: "30px", height: "30px" }} src={logoutIcon} />
+                <img alt="Logout icon" style={{ width: "30px", height: "30px" }} src={logoutIcon} />
             </Button>
             <ConfirmationModal show={show}
                                handleClose={handleClose}
