@@ -24,10 +24,8 @@ export function login(inputUsername, inputPassword, dispatch) {
                 })
                 .fail(function (result) {
                     NotificationManager.error(result.responseJSON.message, 'Error', 3000);
-                })
-                .always(function () {
                     dispatch(setIsLoading(false));
-                });
+                })
         } else {
             NotificationManager.error("Something is wrong with the password, please try again.", 'Invalid Password', 3000);
         }
@@ -102,6 +100,9 @@ function loadLanguages(dispatch, token){
         headers: {"Authorization": token}
     }).done(function (result) {
         dispatch(setLanguages(result));
+    })
+    .always(function () {
+        dispatch(setIsLoading(false));      
     });
 }
 
