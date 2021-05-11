@@ -17,7 +17,7 @@ export default function Sentence(props) {
         <LoadingOverlay active={props.waitingAllSubmit} spinner text="Waiting for other users to submit their sentences...">
             <ReceivedDraw />
             <SentenceInput sentence={sentence} onChange={e => setSentence(e.target.value)} />
-            <div align="center">
+            <div align="center" style={{ overflow: "scroll" }}>
                 {!props.waitingAllSubmit &&
                     <>
                         <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={SENTENCE_MAX_TIME}/>
