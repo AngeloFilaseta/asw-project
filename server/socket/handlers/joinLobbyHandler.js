@@ -26,21 +26,17 @@ function joinByCode(socket, json){
 }
 
 function joinByLanguage(socket, json){
-    let lobbies = StoreSingleton.getInstance().getState().lobbies.entries();
-    let nextLobby = lobbies.next();
-    let lobbyCode;
-    let lobby;
-    do{
-        if(!nextLobby.done){
-            lobbyCode = nextLobby.value[0]
-            lobby = nextLobby.value[1];
-            if(lobby.language === json.language && lobby.phase === PhaseTypes.INSIDE_LOBBY && lobby.isPublic){
-                joinLobby(socket, json, lobbyCode)
-                return;
-            }
-            nextLobby = lobbies.next();
+    let lobbies = Array.from(StoreSingleton.getInstance().getState().lobbies.entries());
+    lobbies = lobbies.filter(l => l[1].isPublic === true && l[1].language === json.language);
+    while(lobbies.length > 0){
+        let lobbyEntry = lobbies.splice(Math.floor(Math.random() * lobbies.length), 1)[0];
+        let lobby = lobbyEntry[1];
+        let lobbyCode = lobbyEntry[0];
+        if(lobby.phase === PhaseTypes.INSIDE_LOBBY){
+            joinLobby(socket, json, lobbyCode);
+            return;
         }
-    }while(!nextLobby.done)
+    }
     socket.emit(Channels.JOINED, {error: "No Lobby found"});
 }
 

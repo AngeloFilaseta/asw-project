@@ -18,18 +18,20 @@ function disconnectFromLobby(socket, lobbyAndUser){
     try {
         let code = lobbyAndUser.lobbyCode;
         if(lobbyExists(code)){
-            if(getLobby(code).orderedUsers.length === 1){
+            let lobby = getLobby(code);
+            if(lobby.orderedUsers.length === 1){
                 deleteLobbyAndDisconnectEveryone(code);
                 return;
             }
             let player = lobbyAndUser.player;
-            let phase = getLobby(code).phase
-            removeFromArrayByAttr(getLobby(code).orderedUsers, 'username', player.username);
-            if(player.type === PlayerTypes.ADMIN && getLobby(code).orderedUsers.length > 0){ //if the player was the admin assign a new admin
-                getLobby(code).orderedUsers[0].type = PlayerTypes.ADMIN;
+            let phase = lobby.phase
+            removeFromArrayByAttr(lobby.orderedUsers, 'username', player.username);
+            if(player.type === PlayerTypes.ADMIN && lobby.orderedUsers.length > 0){ //if the player was the admin assign a new admin
+                lobby.orderedUsers[0].type = PlayerTypes.ADMIN;
             }
             if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
-                broadcastMessageOnLobby(getLobby(code), Channels.SHOW_REPORT, null)
+                lobby.phase = PhaseTypes.SHOWING_REPORT
+                broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, null)
             }
             broadcastMessageOnLobbyPlayersChanged(code);
         }
