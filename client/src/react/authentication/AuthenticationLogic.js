@@ -23,7 +23,11 @@ export function login(inputUsername, inputPassword, dispatch) {
                     loadNotifications(dispatch, token);
                 })
                 .fail(function (result) {
-                    NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+                    if(result.responseJSON !== undefined){
+                        NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+                    } else {
+                        NotificationManager.error("Server unreachable", 'Error', 3000);
+                    }
                     dispatch(setIsLoading(false));
                 })
         } else {
@@ -43,11 +47,13 @@ export function signup(inputUsername, inputPassword, dispatch) {
                    login(inputUsername,inputPassword, dispatch);
                })
                .fail(function (result) {
-                   NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+                    if(result.responseJSON !== undefined){
+                        NotificationManager.error(result.responseJSON.message, 'Error', 3000);
+                    } else {
+                        NotificationManager.error("Server unreachable", 'Error', 3000);
+                    }
+                    dispatch(setIsLoading(false));
                })
-               .always(function () {
-                   dispatch(setIsLoading(false));
-               });
        } else {
            NotificationManager.error("Password is not long enough, at least " + PASSWORD_LENGTH_MIN + " characters needed.", 'Invalid Password', 3000);
        }
