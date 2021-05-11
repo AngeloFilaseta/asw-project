@@ -16,9 +16,9 @@ export default function GuessrNavbar(props) {
             </Col>
             <Col className="col-4 col-sm-6">
                 <div className="text-white  text-center py-3" >
-                    <h3 className="d-none d-sm-inline">{props.title}</h3>
+                    <h3 className="d-none d-sm-inline" title="title">{props.title}</h3>
                     <h6 className="d-sm-none d-inline">{props.title}</h6>
-                    <h4>{props.subtitle}</h4>
+                    <h4 title="subtitle">{props.subtitle}</h4>
                 </div>
             </Col>
             <Col className="col-4 col-sm-3 d-flex justify-content-end">

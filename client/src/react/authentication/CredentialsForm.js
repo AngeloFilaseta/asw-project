@@ -20,7 +20,7 @@ export default function CredentialsForm() {
     const [inputPassword, setInputPassword] = useState(undefined)
 
     return (
-        <div style={{ overflowX: "hidden" }}>
+        <div role="main" style={{ overflowX: "hidden" }}>
             <NotificationContainer />
             <GuessrNavbar />
             <Row className="d-flex justify-content-center">

@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form"
 export default function CredentialsFormButton(props){
     return (
         <>
-            <h2>{props.text}</h2>
+            <h1>{props.text}</h1>
             <Form.Control
                 style={useSelector(state => state.util.isLoading) ? { pointerEvents: "none", opacity: "0.4" } : {}}
                 type={props.type}
