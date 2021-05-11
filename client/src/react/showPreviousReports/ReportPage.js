@@ -27,11 +27,11 @@ export default function ReportPage() {
             <NotificationContainer/>
             <GuessrNavbar title={"Report Collection"} />
             <div align="center">
-                <div className="col-lg-2  col-6 my-3">
+                <div role="region" className="col-lg-2  col-6 my-3">
                     <BackButton destination={"home"} buttonName={"Go back"} />
                 </div>
             </div>
-            <Container fluid >
+            <Container fluid role="main">
                 <Row>
                     {updateList(reportList, token)}
                 </Row>
