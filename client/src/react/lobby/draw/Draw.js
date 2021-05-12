@@ -11,8 +11,7 @@ import GameTimer from "../../common/GameTimer"
 import {submitDraw} from "../LobbyLogic"
 import {DRAW_MAX_TIME} from "../../../util/global"
 
-import Slider from "rc-slider"
-import "rc-slider/assets/index.css"
+import { AwesomeButton } from "react-awesome-button"
 import { useState } from "react"
 
 export default function Draw(props){
@@ -28,12 +27,34 @@ export default function Draw(props){
             <div align="center">
                 {!props.waitingAllSubmit &&
                 <>
+                    <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <EraserButton draw={draw}/>
+                        <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME} />
+                        <ClearButton draw={draw}/>
+                    </div>
                     <ColorPicker draw={draw} penWidth={penWidth}/>
-                    <Slider min={1} max={50} defaultValue={drawPenSize} onChange={v => {draw.changePenWidth(v); setPenWidth(v);}}/>
-                    <GameTimer timeExpireHandler={timeExpireHandler} nSeconds={DRAW_MAX_TIME}/>
+                    <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <AwesomeButton 
+                            onPress={() => {setPenWidth(penWidth - 1); draw.changePenWidth(penWidth);}} 
+                            className="mb-2" 
+                            style={{ display: 'inline', fontSize: 22}} 
+                            type="primary" 
+                            ripple={true}
+                            size="small"
+                            disabled={penWidth === 1 ? true : false}
+                        >-</AwesomeButton>
+                        <h3 style={{ display: 'inline', marginLeft:"3px", marginRight:"3px" }}> Width: {penWidth} </h3>
+                        <AwesomeButton 
+                            onPress={() => {setPenWidth(penWidth + 1); draw.changePenWidth(penWidth);}} 
+                            className="mb-2" 
+                            style={{ display: 'inline', fontSize: 22}} 
+                            type="primary" 
+                            ripple={true}
+                            size="small"
+                            disabled={penWidth === 50 ? true : false}
+                        >+</AwesomeButton>
+                    </div>
                     <SubmitDrawButton draw={draw}/>
-                    <EraserButton draw={draw}/>
-                    <ClearButton draw={draw}/>
                 </>
                 }
             </div>
