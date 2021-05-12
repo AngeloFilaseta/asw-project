@@ -11,7 +11,7 @@ import {
     RedirectLobby
 } from "../common/GuessrRedirect"
 
-import { AwesomeButton } from "react-awesome-button";
+import { AwesomeButton } from "react-awesome-button"
 
 export default function GuessrButtonGroup() {
 
