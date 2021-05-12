@@ -50,8 +50,8 @@ async function downloadReport(req, res) {
     })
 }
 
-PDFDocument.prototype.addSVG = function(svg, x, y, options) {
-    return SVGtoPDF(this, svg, x, y, options);
+PDFDocument.prototype.addSVG = function(svg, x, y) {
+    return SVGtoPDF(this, svg, x, y, undefined);
 };
 
 async function storeGame(time_start, time_end, reports) {
@@ -62,7 +62,6 @@ async function storeGame(time_start, time_end, reports) {
         }
         let newGameId = game._id;
         reports.forEach((report) => {
-
             let pdfName = storePDF( report.username, report.sentences, report.draws)
             let newUserInGame = UserInGameFactory.createUserInGame(report.id_user, newGameId, pdfName);
             newUserInGame.save().catch(err => {
@@ -84,14 +83,15 @@ function generatePDF(fileName, sentenceIterator, drawingIterator){
     let nextSent;
     let doc = new PDFDocument();
     doc.pipe(fs.createWriteStream(DOCUMENT_FOLDER + fileName));
-    do {
-        nextSent = sentenceIterator.next();
+    nextSent = sentenceIterator.next();
+    while(!nextSent.done){
         doc.text(nextSent.value, 50, 100);
         doc.addSVG(drawingIterator.next().value, 50, 200);
+        nextSent = sentenceIterator.next();
         if(!nextSent.done){
             doc.addPage();
         }
-    } while(!nextSent.done)
+    }
     doc.end();
 }
 

@@ -2,8 +2,6 @@ const Channels = require("../enum/channels");
 const {resetSubmittedAndSwapPhase} = require("../util/gameLogicUtil");
 const {indexOfNextInputUser} = require("../util/gameLogicUtil");
 const {getLobby} = require("../util/lobbiesUtil");
-const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
-const {storeGame} = require("../../controller/resources");
 const PhaseTypes = require("../../model/enum/phaseType");
 const {goToShowReportAndStoreGame} = require("../util/gameLogicUtil");
 
