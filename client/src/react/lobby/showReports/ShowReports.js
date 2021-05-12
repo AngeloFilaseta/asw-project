@@ -15,13 +15,13 @@ export default function ShowReports() {
 
     return (
         <div className="mx-3" style={{ overflow: "scroll", overflowY: "none", height: "80vh" }}>
+            {reportShow(reports)}
             {isAdmin === PlayerTypes.ADMIN &&
                 <Button block className="mt-3" size="lg"
                     onClick={() => sendEndReport(dispatch, socket, id_user, lobbyCode)}>
                     Back to Lobby
                     </Button>
             }
-            {reportShow(reports)}
         </div>)
 }
 

@@ -15,7 +15,8 @@ export default function SubmitDrawButton(props){
     return(
         <Button 
             id="submitDraw"
-            className="mx-3"
+            className="mt-3 col-6"
+            size="lg"
             onClick={() => {
                 dispatch(setWaitingAllSubmitted(true));
                 submitDraw(dispatch, socket, id_user, report_to_id, lobbyCode, props.draw.getSvgXML());
