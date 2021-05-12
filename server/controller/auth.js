@@ -9,7 +9,7 @@ const NotificationFactory = require("../mongoose/model/factory/notification");
 
 async function signup(req, res) {
     let newUser = UserFactory.createUser(req.body.username, req.body.password);
-    await User.findOne({ username: newUser["username"] }).then(async profile => {
+    await User.findOne({ username: newUser["username"]}).then(async profile => {
         if (!profile) {
             newUser.save().then(() => {
                 createWelcomeNotification(newUser.id)

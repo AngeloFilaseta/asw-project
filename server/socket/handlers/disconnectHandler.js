@@ -3,6 +3,7 @@ const SocketUtil = require("../util/general");
 const {getLobby} = require("../util/lobbiesUtil");
 const PlayerTypes = require("../../model/enum/playerType");
 const PhaseTypes = require("../../model/enum/phaseType");
+const {goToShowReportAndStoreGame} = require("../util/gameLogicUtil");
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {lobbyExists} = require("../util/lobbiesUtil");
 const {removeFromArrayByAttr} = require("../../util/Structures");
@@ -25,13 +26,13 @@ function disconnectFromLobby(socket, lobbyAndUser){
             }
             let player = lobbyAndUser.player;
             let phase = lobby.phase
+            if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
+                goToShowReportAndStoreGame(lobby)
+                broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, null)
+            }
             removeFromArrayByAttr(lobby.orderedUsers, 'username', player.username);
             if(player.type === PlayerTypes.ADMIN && lobby.orderedUsers.length > 0){ //if the player was the admin assign a new admin
                 lobby.orderedUsers[0].type = PlayerTypes.ADMIN;
-            }
-            if(phase === PhaseTypes.DRAW || phase === PhaseTypes.SENTENCE){ //we are in game
-                lobby.phase = PhaseTypes.SHOWING_REPORT
-                broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, null)
             }
             broadcastMessageOnLobbyPlayersChanged(code);
         }

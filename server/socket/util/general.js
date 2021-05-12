@@ -23,8 +23,5 @@ function getLobbyAndUserFromSocket(socket){
     }while(!nextLobby.done)
 }
 
-function getNextInputUser(){
-
-}
 
 module.exports = {getUserFromSocket: getLobbyAndUserFromSocket}

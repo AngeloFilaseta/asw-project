@@ -1,5 +1,9 @@
 const ReportFactory = require("../../model/factory/report");
 const PhaseType = require("../../model/enum/phaseType");
+const PhaseTypes = require("../../model/enum/phaseType");
+const Channels = require("../enum/channels");
+const {storeGame} = require("../../controller/resources");
+const {broadcastMessageOnLobby} = require("./broadcastUtil");
 
 const {getLobby} = require("./lobbiesUtil");
 
@@ -36,8 +40,27 @@ function resetSubmittedAndSwapPhase(lobby){
     lobby.phase = lobby.phase === PhaseType.DRAW ? PhaseType.SENTENCE : PhaseType.DRAW
 }
 
+function goToShowReportAndStoreGame(lobby) {
+    let reports = createReportsToSend(lobby.orderedUsers)
+    lobby.phase = PhaseTypes.SHOWING_REPORT
+    broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, "")
+    storeGame(new Date(), new Date(), reports)
+        .then(() => console.log("Game saved successfully"))
+        .catch((err) => console.log("Error: " + err))
+}
+
+function createReportsToSend(orderedUsers){
+    let reports = []
+    orderedUsers.forEach((user) => reports.push({id_user: user.id,
+        username: user.username,
+        sentences: user.report.sentences,
+        draws: user.report.images}))
+    return reports
+}
+
 module.exports = {initializeNextInputUsers,
                   createInitialReport,
                   findUserToUpdateReport,
+                  goToShowReportAndStoreGame,
                   indexOfNextInputUser,
                   resetSubmittedAndSwapPhase}

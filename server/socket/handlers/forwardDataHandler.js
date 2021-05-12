@@ -5,6 +5,7 @@ const {getLobby} = require("../util/lobbiesUtil");
 const {broadcastMessageOnLobby} = require("../util/broadcastUtil");
 const {storeGame} = require("../../controller/resources");
 const PhaseTypes = require("../../model/enum/phaseType");
+const {goToShowReportAndStoreGame} = require("../util/gameLogicUtil");
 
 function forwardDataHandler(socket, json){
     let lobby = getLobby(json)
@@ -18,12 +19,7 @@ function forwardDataHandler(socket, json){
         } else {
             lobby.nTurns += 1
             if(lobby.nTurns === lobby.nTurnsMax){
-                let reports = createReportsToSend(lobby.orderedUsers)
-                lobby.phase = PhaseTypes.SHOWING_REPORT
-                broadcastMessageOnLobby(lobby, Channels.SHOW_REPORT, "")
-                storeGame(new Date(), new Date(), reports)
-                    .then(() => console.log("Game saved successfully"))
-                    .catch((err) => console.log("Error: " + err))
+                goToShowReportAndStoreGame(lobby)
             } else {
                 resetSubmittedAndSwapPhase(lobby)
                 lobby.orderedUsers.forEach((user) => {
@@ -34,15 +30,6 @@ function forwardDataHandler(socket, json){
         }
         
     }
-}
-
-function createReportsToSend(orderedUsers){
-    let reports = []
-    orderedUsers.forEach((user) => reports.push({id_user: user.id,
-                                                 username: user.username,
-                                                 sentences: user.report.sentences,
-                                                 draws: user.report.images}))
-    return reports
 }
 
 module.exports = forwardDataHandler
