@@ -10,7 +10,7 @@ export default function UserList(props) {
     let username = useSelector(state => state.userInfo.username)
     let users = useSelector(state => state.lobby.info.users)
     return (
-        <Card style={{ overflow: "hidden", height: props.height, background: "rgba(255,255,255, 0.4)" }} className={"mt-3"}>
+        <Card style={{ overflow: "hidden", height: props.height, background: "rgba(255,255,255, 0.7)" }} className={"mt-3"}>
             <Card.Title className="pt-3 pl-3">Players</Card.Title>
             <Card.Body style={{ overflowY: "scroll", height: props.height }}>
                 <ListGroup>

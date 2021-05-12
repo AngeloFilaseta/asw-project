@@ -36,7 +36,7 @@ export default function GuessrButtonGroup() {
             <div>
                 <RandomLobbyModal isShowing={showRandomLobbyModal} onHide={() => { if (!isLoading) setShowRandomLobbyModal(false) }} onSuccess={() => setGoToLobby(true)} />
                 <CodeLobbyModal isShowing={showLobbyCodeModal} onHide={() => { if (!isLoading) setShowLobbyCodeModal(false) }} onSuccess={() => setGoToLobby(true)} />
-                <Container fluid className="mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded" style={{ background: "rgba(255,255,255,0.2)" }}>
+                <Container fluid className="mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded" style={{ background: "rgba(255,255,255,0.7)" }}>
                     <Row align="center">
                         <Col>
                             <AwesomeButton onPress={() => setGoToLobbyCreation(true)} className="mb-2" style={{ display: 'block', width: '100%', fontSize: 22 }} type="primary" size="large" ripple={true}>Create lobby</AwesomeButton>
