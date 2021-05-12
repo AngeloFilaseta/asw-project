@@ -14,7 +14,7 @@ export default function ShowReports() {
     let isAdmin = useSelector(state => state.lobby.info.isMyRoleAdmin)
 
     return (
-        <div className="mx-3" style={{ overflow: "scroll", overflowY: "none", height: "80vh" }}>
+        <div className="mx-3" style={{ overflowY: "scroll", height: "80vh" }}>
             {reportShow(reports)}
             {isAdmin === PlayerTypes.ADMIN &&
                 <Button block className="mt-3" size="lg"

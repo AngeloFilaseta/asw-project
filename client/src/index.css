@@ -19,6 +19,9 @@ body {
     border-radius:10px;
 }
 
+::-webkit-scrollbar:horizontal {
+  display: none;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
