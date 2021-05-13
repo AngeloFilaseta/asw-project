@@ -1,13 +1,12 @@
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-import { RedirectHome } from "../common/GuessrRedirect"
 import PhaseTypes from "../../util/phaseType"
 import Sentence from "./sentence/Sentence"
 import Draw from "./draw/Draw"
 import InsideLobby from "./insideLobby/InsideLobby"
 import ShowReports from "./showReports/ShowReports"
 
-export default function MainContent(){
+export default function MainContent() {
 
     let dispatch = useDispatch()
     let waitingAllSubmit = useSelector(state => state.lobby.waitingAllSubmit)
@@ -20,18 +19,18 @@ export default function MainContent(){
     switch (status) {
         case PhaseTypes.SENTENCE:
             return <Sentence dispatch={dispatch}
-                             waitingAllSubmit={waitingAllSubmit}
-                             socket={socket}
-                             id_user={id_user}
-                             lobbyCode={lobbyCode}
-                             report_to_id={report_to_id}/>
+                waitingAllSubmit={waitingAllSubmit}
+                socket={socket}
+                id_user={id_user}
+                lobbyCode={lobbyCode}
+                report_to_id={report_to_id} />
         case PhaseTypes.DRAW:
             return <Draw dispatch={dispatch}
-                         waitingAllSubmit={waitingAllSubmit}
-                         socket={socket}
-                         id_user={id_user}
-                         lobbyCode={lobbyCode}
-                         report_to_id={report_to_id}/>
+                waitingAllSubmit={waitingAllSubmit}
+                socket={socket}
+                id_user={id_user}
+                lobbyCode={lobbyCode}
+                report_to_id={report_to_id} />
         case PhaseTypes.INSIDE_LOBBY:
             return <InsideLobby />
         case PhaseTypes.SHOWING_REPORT:
