@@ -17,9 +17,19 @@ export default function GuessrLogout() {
         (<></>)
         :
         <>
-            <Button variant="btn-primary-outline" style={{ border: "none", hover: "none" }} onClick={handleShow} >
-                <img alt="Logout icon" style={{ width: "30px", height: "30px" }} src={logoutIcon} />
-            </Button>
+            <div className="d-none d-md-inline">
+                <Button variant="btn-primary-outline" style={{ border: "none", hover: "none" }} onClick={handleShow} >
+                    <img alt="Logout icon" style={{ width: "30px", height: "30px" }} src={logoutIcon} />
+                </Button>
+            </div>
+
+            <div className="d-md-none d-inline">
+                <Button block variant="btn-primary-outline" style={{ textAlign: "right", color: "#FFFFFF", marginTop: 10, border: "none", hover: "none" }} onClick={handleShow} >
+                    Logout
+                    <img alt="Logout " style={{ marginLeft: 25, width: "30px", height: "30px" }} src={logoutIcon} />
+                </Button>
+            </div>
+
             <ConfirmationModal show={show}
                 handleClose={handleClose}
                 handleConfirm={handleConfirmButton}

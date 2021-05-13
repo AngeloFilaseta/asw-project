@@ -13,25 +13,25 @@ export default function GuessrBrand() {
     const [modalShow, setModalShow] = useState(false)
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
-    const handleConfirmButton= () => (currentLocation.pathname !== "/home") ? setRedirectHome(true) : setRedirectHome(false)
+    const handleConfirmButton = () => (currentLocation.pathname !== "/home") ? setRedirectHome(true) : setRedirectHome(false)
 
-    if(isRedirectHome){
+    if (isRedirectHome) {
         return <RedirectHome />
     } else {
         return (
             <>
-                <Navbar.Brand onClick={ currentLocation.pathname === "/lobby" ? handleShow : handleConfirmButton }>
+                <Navbar.Brand className="mr-0" onClick={currentLocation.pathname === "/lobby" ? handleShow : handleConfirmButton}>
                     <h2 className="border border-primary p-1 rounded" >
                         <div className="d-none d-md-inline ">GuessR</div>
                         <div className="d-md-none d-inline ">GR</div>
                     </h2>
                 </Navbar.Brand>
                 <ConfirmationModal show={modalShow}
-                                   handleClose={handleClose}
-                                   handleConfirm={handleConfirmButton}
-                                   modalTitle={"Are you sure?"}
-                                   modalBody={"Do you really want to go back to the HomePage?"}
-                                   confirmButtonName={"Go Back"}/>
+                    handleClose={handleClose}
+                    handleConfirm={handleConfirmButton}
+                    modalTitle={"Are you sure?"}
+                    modalBody={"Do you really want to go back to the HomePage?"}
+                    confirmButtonName={"Go Back"} />
             </>
         )
     }
