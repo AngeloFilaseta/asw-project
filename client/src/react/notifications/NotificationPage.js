@@ -12,7 +12,7 @@ import { Col } from "react-bootstrap";
 
 import back from "../../img/background.svg"
 
-function ReportPage(props) {
+function NotificationPage(props) {
 
     let username = useSelector(state => state.userInfo.username);
     let notificationList = useSelector(state => state.userInfo.notifications);
@@ -56,7 +56,7 @@ function ReportPage(props) {
     }
 }
 
-export default ReportPage;
+export default NotificationPage;
 
 function updateList(notificationList) {
     return (

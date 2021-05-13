@@ -37,7 +37,7 @@ export default function MainContent(){
         case PhaseTypes.SHOWING_REPORT:
             return <ShowReports />
         default:
-            return <RedirectHome />
+            return <></>
     }
 
 }
