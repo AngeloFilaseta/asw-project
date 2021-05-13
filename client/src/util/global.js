@@ -1,4 +1,4 @@
-export const SERVER_ADDRESS = "3.14.83.90:3000"
+export const SERVER_ADDRESS = "http://3.14.83.90:3000"
 
 export const USERNAME_LENGTH_MIN = 4
 

@@ -8,7 +8,7 @@ const UserInGameFactory = require("../mongoose/model/factory/userInGame")
 const DateUtil = require('../util/DateUtil')
 const Structures = require("../util/Structures");
 const PDFDocument = require('pdfkit');
-const SVGtoPDF = require('svg-to-pdfkit');
+const SVGtoPDF = require('svg-to-pdfkit')
 const DOCUMENT_FOLDER = require("../conf/conf").documentFolder;
 
 function getLanguages(req, res) {
@@ -50,9 +50,6 @@ async function downloadReport(req, res) {
     })
 }
 
-PDFDocument.prototype.addSVG = function(svg, x, y) {
-    return SVGtoPDF(this, svg, x, y, undefined);
-};
 
 async function storeGame(time_start, time_end, reports) {
     let newGame = GameFactory.createGame(time_start, time_end);
@@ -86,7 +83,11 @@ function generatePDF(fileName, sentenceIterator, drawingIterator){
     nextSent = sentenceIterator.next();
     while(!nextSent.done){
         doc.text(nextSent.value, 50, 100);
-        doc.addSVG(drawingIterator.next().value, 50, 200);
+        try {
+            SVGtoPDF(doc, drawingIterator.next().value, 100, 300);
+        }catch(e){
+            //console.log(e)
+        }
         nextSent = sentenceIterator.next();
         if(!nextSent.done){
             doc.addPage();
