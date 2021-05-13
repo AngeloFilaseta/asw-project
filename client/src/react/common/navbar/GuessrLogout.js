@@ -1,14 +1,14 @@
 import Button from "react-bootstrap/Button"
 import { useDispatch, useSelector } from "react-redux"
 import logoutIcon from "../../../img/logout.png"
-import ConfirmationModal from "../ConfirmationModal";
-import React, { useState } from "react";
-import { logout } from "../../authentication/AuthenticationLogic";
+import ConfirmationModal from "../ConfirmationModal"
+import React, { useState } from "react"
+import { logout } from "../../authentication/AuthenticationLogic"
 
 export default function GuessrLogout() {
     const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
     const handleConfirmButton = () => logout(dispatch)
 
     const dispatch = useDispatch()

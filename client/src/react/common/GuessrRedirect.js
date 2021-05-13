@@ -53,6 +53,9 @@ export function RedirectPreviousReports(){
 }
 
 export function RedirectNotifications(){
+    const dispatch = useDispatch()
+    resetUtil(dispatch, useSelector(state => state.util.socket))
+    resetLobby(dispatch)
     return RedirectTo("notifications")
 }
 
@@ -63,7 +66,6 @@ function resetUserInfo(dispatch){
 
 function resetUtil(dispatch, socket){
     if (socket !== null && socket !== undefined) {
-        //TODO CONTROLLARE
         socket.close()
         dispatch(setSocket(null))
     }
