@@ -13,7 +13,7 @@ import PasswordInput from "./credentialsFormComponents/input/PasswordInput"
 import LoginButton from "./credentialsFormComponents/buttons/LoginButton"
 import SignupButton from "./credentialsFormComponents/buttons/SignupButton"
 
-export default function CredentialsForm() {
+export default function CredentialsForm(props) {
 
     let isLoading = useSelector(state => state.util.isLoading)
     const [inputUsername, setInputUsername] = useState(undefined)

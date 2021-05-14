@@ -4,7 +4,13 @@ import CredentialsForm from "./CredentialsForm"
 import { RedirectHome } from "../common/GuessrRedirect"
 
 export default function Authentication() {
-    return useSelector(state => state.userInfo.username) === null ?
-        <CredentialsForm />
-        : <RedirectHome />
+
+    let username = useSelector(state => state.userInfo.username);
+
+    if (username === null) {
+        return <CredentialsForm />
+    } else {
+        return <RedirectHome />
+    }
+
 }

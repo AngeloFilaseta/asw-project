@@ -6,7 +6,7 @@ export const PASSWORD_LENGTH_MIN = 4
 
 export const DEFAULT_LANGUAGE = "English"
 
-export const MIN_PLAYER_FOR_PLAYING = 2 //TODO CHANGE THIS TO 3
+export const MIN_PLAYER_FOR_PLAYING = 3
 
 export const DEFAULT_N_TURNS = 3
 

@@ -33,10 +33,10 @@ export function RedirectTo(destination){
 
 export function RedirectAuthentication(){
     const dispatch = useDispatch()
+    resetPreviousReports(dispatch)
     resetUserInfo(dispatch)
     resetUtil(dispatch, useSelector(state => state.util.socket))
     resetLobby(dispatch)
-    resetPreviousReports(dispatch)
     return RedirectTo("")
 }
 
