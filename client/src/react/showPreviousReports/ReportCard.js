@@ -17,7 +17,7 @@ export default function ReportCard(props) {
                         <AwesomeButton onPress={() => props.handler()}
                             className="mb-2"
                             style={{ display: 'block', width: '100%', fontSize: 18 }}
-                            type="primary" ripple="true">
+                            type="primary" ripple={true}>
                             Download PDF
                         </AwesomeButton>
                     </Card.Body>

@@ -20,7 +20,7 @@ export default function DeleteButton(props) {
     return (<>
         <AwesomeButton onPress={handleShow}
             className="mb-2"
-            type="pinterest" ripple="true">
+            type="pinterest" ripple={true}>
             <img alt="Delete" style={{ width: "30px", height: "30px" }} src={trashIcon} />
         </AwesomeButton>
 
