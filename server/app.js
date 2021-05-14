@@ -11,8 +11,9 @@ const io = require('socket.io')(server, socketCorsPolicy)
 const DB_ADDRESS = require("./conf/conf").dbAddress
 const PORT = require("./conf/conf").port
 const CLIENT_ADDRESS = require("./conf/conf").clientAddress
+const CLIENT_PORT = require("./conf/conf").clientPort
 const ASCII_ART = require("./conf/conf").asciiArt
-const corsOptions = {origin: "*", credentials: true}
+const corsOptions = {origin: CLIENT_ADDRESS + ":" + CLIENT_PORT, credentials: true}
 
 // add cors policy
 app.use(cors(corsOptions));

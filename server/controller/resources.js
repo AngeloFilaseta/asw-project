@@ -84,7 +84,7 @@ function generatePDF(fileName, sentenceIterator, drawingIterator){
     while(!nextSent.done){
         doc.text(nextSent.value, 50, 100);
         try {
-            SVGtoPDF(doc, drawingIterator.next().value, 100, 300);
+            SVGtoPDF(doc, drawingIterator.next().value, 60, 300);
         }catch(e){
             //console.log(e)
         }
