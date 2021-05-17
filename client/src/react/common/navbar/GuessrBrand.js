@@ -5,6 +5,9 @@ import Navbar from "react-bootstrap/Navbar"
 import { RedirectHome } from "../GuessrRedirect"
 import ConfirmationModal from "../ConfirmationModal";
 
+import logo from "../../../img/logo.png"
+import logoMobile from "../../../img/logo_piccolo.png"
+
 export default function GuessrBrand() {
 
     let [isRedirectHome, setRedirectHome] = useState(false)
@@ -21,10 +24,8 @@ export default function GuessrBrand() {
         return (
             <>
                 <Navbar.Brand className="mr-0" onClick={currentLocation.pathname === "/lobby" ? handleShow : handleConfirmButton}>
-                    <h2 className="border border-primary p-1 rounded" >
-                        <div className="d-none d-md-inline ">GuessR</div>
-                        <div className="d-md-none d-inline ">GR</div>
-                    </h2>
+                        <img className="d-none d-md-inline" style={{height:50}} alt="logo" src={logo} />
+                        <img className="d-md-none d-inline " alt="logoMobile" src={logoMobile} />
                 </Navbar.Brand>
                 <ConfirmationModal show={modalShow}
                     handleClose={handleClose}

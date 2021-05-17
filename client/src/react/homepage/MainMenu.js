@@ -8,7 +8,6 @@ export default function MainMenu() {
         <div role="main">
             <NotificationContainer />
             <GuessrNavbar />
-            <h1 align="center" style={{ paddingTop: 40 }}>Welcome to GuessR!</h1>
             <GuessrButtonGroup />
         </div>
     )
