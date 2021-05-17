@@ -24,8 +24,8 @@ export default function GuessrBrand() {
         return (
             <>
                 <Navbar.Brand className="mr-0" onClick={currentLocation.pathname === "/lobby" ? handleShow : handleConfirmButton}>
-                        <img className="d-none d-md-inline" style={{height:50}} alt="logo" src={logo} />
-                        <img className="d-md-none d-inline " alt="logoMobile" src={logoMobile} />
+                    <img className="d-none d-md-inline" style={{ height: 50 }} alt="logo" src={logo} />
+                    <img className="d-md-none d-inline" alt="logoMobile" src={logoMobile} />
                 </Navbar.Brand>
                 <ConfirmationModal show={modalShow}
                     handleClose={handleClose}
