@@ -10,8 +10,6 @@ import { NotificationContainer } from "react-notifications"
 import NotificationCard from "./NotificationCard";
 import { Col } from "react-bootstrap";
 
-import back from "../../img/background.svg"
-
 function NotificationPage(props) {
 
     let username = useSelector(state => state.userInfo.username);
@@ -22,33 +20,25 @@ function NotificationPage(props) {
     } else {
         return (
             <>
-                <div style={{
-                    backgroundImage: `url(${back})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    width: '100vw',
-                    height: '100vh'
-                }}>
-                    <NotificationContainer />
-                    <GuessrNavbar title={"Notification center"} />
+                <NotificationContainer />
+                <GuessrNavbar title={"Notification center"} />
 
-                    <div align="center">
-                        <div className="col-lg-2  col-6 my-3">
-                            {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)} />}
-                        </div>
+                <div align="center">
+                    <div className="col-lg-2  col-6 my-3">
+                        {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)} />}
                     </div>
+                </div>
 
-                    <Container fluid >
-                        <Row>
-                            {notificationList.length > 0 ?
-                                updateList(notificationList) :
-                                <Col><h3 className={"text-center"}> You're clear! 0 new notifications.</h3></Col>}
-                        </Row>
-                    </Container>
-                    <div align="center">
-                        <div className="col-lg-2  col-6 my-3">
-                            <BackButton destination={"home"} buttonName={"Go back"} />
-                        </div>
+                <Container fluid >
+                    <Row>
+                        {notificationList.length > 0 ?
+                            updateList(notificationList) :
+                            <Col><h3 className={"text-center"}> You're clear! 0 new notifications.</h3></Col>}
+                    </Row>
+                </Container>
+                <div align="center">
+                    <div className="col-lg-2  col-6 my-3">
+                        <BackButton destination={"home"} buttonName={"Go back"} />
                     </div>
                 </div>
             </>
