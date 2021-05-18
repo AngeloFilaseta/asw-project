@@ -25,7 +25,7 @@ function NotificationPage(props) {
 
                 <div align="center">
                     <div className="col-lg-2  col-6 my-3">
-                        {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)} />}
+                        <BackButton destination={"home"} buttonName={"Go back"} />
                     </div>
                 </div>
 
@@ -38,7 +38,8 @@ function NotificationPage(props) {
                 </Container>
                 <div align="center">
                     <div className="col-lg-2  col-6 my-3">
-                        <BackButton destination={"home"} buttonName={"Go back"} />
+                        {notificationList.length > 0 && <DeleteAllButton notificationIdArray={notificationList.map(n => n._id)} />}
+
                     </div>
                 </div>
             </>
