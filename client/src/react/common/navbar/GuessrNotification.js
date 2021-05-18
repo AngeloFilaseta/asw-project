@@ -17,7 +17,7 @@ export default function GuessrNotification() {
         (goToNotifications ?
             <RedirectNotifications /> :
             (<>
-                <div className="d-none d-md-inline"><Button variant="btn-primary-outline" style={{ minWidth: "80px" }} onClick={() => {pathname !== "/lobby" ? setGoToNotifications(true) : setShow(true)}}>
+                <div className="d-none d-md-inline"><Button className="navElem" variant="btn-primary-outline" style={{ minWidth: "80px" }} onClick={() => {pathname !== "/lobby" ? setGoToNotifications(true) : setShow(true)}}>
                     <span className="badge badge-danger" style={{ position: "relative", right: -15, top: -2, display: "inline-block" }}>
                         {notifications.length}</span>
                     <img alt="Alerts" style={{ width: "30px", height: "30px" }} src={bellIcon} />

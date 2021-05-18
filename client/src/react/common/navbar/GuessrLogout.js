@@ -18,7 +18,7 @@ export default function GuessrLogout() {
         :
         <>
             <div className="d-none d-md-inline">
-                <Button variant="btn-primary-outline" style={{ border: "none", hover: "none" }} onClick={handleShow} >
+                <Button className="navElem" variant="btn-primary-outline" style={{ border: "none", hover: "none" }} onClick={handleShow} >
                     <img alt="Logout icon" style={{ width: "30px", height: "30px" }} src={logoutIcon} />
                 </Button>
             </div>

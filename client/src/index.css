@@ -10,6 +10,21 @@ body {
   background-size: 100%;
 }
 
+@media only screen and (min-width: 768px) {
+  .navBrand:hover{
+    background-image: url('./img/logoHover.png');
+    background-size: 100% 100%;
+  }
+  
+  .navBrand:hover img:first-child{
+    visibility: hidden;
+  }
+}
+
+.navElem:hover{
+  opacity: 0.7;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
