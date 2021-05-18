@@ -1,9 +1,5 @@
 export const SERVER_ADDRESS = "http://localhost:3000"
 
-export const USERNAME_LENGTH_MIN = 4
-
-export const PASSWORD_LENGTH_MIN = 4
-
 export const DEFAULT_LANGUAGE = "English"
 
 export const MIN_PLAYER_FOR_PLAYING = 3

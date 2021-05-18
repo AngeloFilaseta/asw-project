@@ -2,9 +2,22 @@ import { NotificationManager } from "react-notifications"
 import {setIsLoading, setLanguages} from "../../redux/util/actions"
 import {setUsername, setId, setToken, setNotifications} from "../../redux/userInfo/actions"
 import $ from 'jquery';
-import {PASSWORD_LENGTH_MIN, SERVER_ADDRESS, USERNAME_LENGTH_MIN} from "../../util/global"
+import {
+    PASSWORD_DIGITS_MIN,
+    PASSWORD_LENGTH_MIN, PASSWORD_VALIDATION_MESSAGES,
+    PASSWORDS_BLACKLIST,
+    USERNAME_LENGTH_MIN
+} from "./util"
 import {loadNotifications} from "../notifications/NotificationLogic";
 import {sleep} from "../../util/sleep";
+import PasswordValidator from "password-validator"
+import {SERVER_ADDRESS} from "../../util/global";
+const pwSchema = new PasswordValidator();
+pwSchema.is().min(PASSWORD_LENGTH_MIN)
+        .has().uppercase()
+        .has().lowercase()
+        .has().digits(PASSWORD_DIGITS_MIN)
+        .is().not().oneOf(PASSWORDS_BLACKLIST);
 
 $.ajaxSetup({
     contentType: "application/json; charset=utf-8"
@@ -12,7 +25,7 @@ $.ajaxSetup({
 
 export function login(inputUsername, inputPassword, dispatch) {
     if(isUsernameValid(inputUsername)) {
-        if (isPasswordValid(inputPassword)) {
+        if (inputPassword !== null && inputPassword !== undefined && inputPassword !== "" ) {
             dispatch(setIsLoading(true))
             $.post(SERVER_ADDRESS + "/auth/login", createUserObj(inputUsername.trim(), inputPassword.trim()))
                 .done(function (result) {
@@ -40,7 +53,8 @@ export function login(inputUsername, inputPassword, dispatch) {
 
 export function signup(inputUsername, inputPassword, dispatch) {
     if(isUsernameValid(inputUsername)) {
-       if(isPasswordValid(inputPassword)) {
+       let invalidPasswordParams = getPasswordInvalidParams(inputPassword)
+       if(invalidPasswordParams.length === 0) {
            dispatch(setIsLoading(true));
            $.post(SERVER_ADDRESS + "/auth/signup", createUserObj(inputUsername.trim(), inputPassword.trim()))
                .done(function () {
@@ -55,7 +69,7 @@ export function signup(inputUsername, inputPassword, dispatch) {
                     dispatch(setIsLoading(false));
                })
        } else {
-           NotificationManager.error("Password is not long enough, at least " + PASSWORD_LENGTH_MIN + " characters needed.", 'Invalid Password', 3000);
+           printPasswordValidationErrors(invalidPasswordParams)
        }
     }else {
         NotificationManager.error("Username is not long enough, at least " + USERNAME_LENGTH_MIN + " characters needed.", 'Invalid Username', 3000);
@@ -79,8 +93,8 @@ function isUsernameValid(str){
     return isStringLongEnough(str, USERNAME_LENGTH_MIN)
 }
 
-function isPasswordValid(str){
-    return isStringLongEnough(str, PASSWORD_LENGTH_MIN)
+function getPasswordInvalidParams(str){
+     return pwSchema.validate(str, { list: true })
 }
 
 function isStringLongEnough(str, len){
@@ -110,4 +124,9 @@ function loadLanguages(dispatch, token){
     .always(function () {
         dispatch(setIsLoading(false));      
     });
+}
+
+function printPasswordValidationErrors(invalidPasswordParams){
+    let messages = invalidPasswordParams.map(p => PASSWORD_VALIDATION_MESSAGES[p])
+    messages.forEach(m => NotificationManager.error(m, 'Invalid Password', 10000))
 }
