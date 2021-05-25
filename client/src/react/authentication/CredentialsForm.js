@@ -24,7 +24,7 @@ export default function CredentialsForm(props) {
             <NotificationContainer />
             <GuessrNavbar />
             <Row className="d-flex justify-content-center">
-                <div className="my-5 container col-lg-3 col-9 border border-primary rounded" style={{ background: "rgba(255,255,255, 0.7)" }}>
+                <div className="my-5 container col-lg-3 col-9 border border-primary rounded trnsp">
                     <LoadingOverlay active={isLoading} spinner text='Loading...'>
                         <Form className="mt-1 mb-3"  >
                             <UsernameInput username={inputUsername} password={inputPassword} onChange={input => setInputUsername(input)} />

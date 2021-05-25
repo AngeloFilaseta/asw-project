@@ -27,7 +27,7 @@ export default function ShowReports() {
 
 function reportShow(reports) {
     return (reports.map((report, index) => (
-        <div style={{ background: "rgba(255,255,255, 0.7)" }} className={"py-1"} key={"report " + index}>
+        <div className={"py-1"} key={"report " + index}>
             <ReportEntry username={report.username}
                 sentences={report.sentence}
                 draws={report.draw} />

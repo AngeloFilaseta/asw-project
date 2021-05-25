@@ -8,7 +8,7 @@ function NotificationCard(props) {
     return (
         <>
             <Col className="col-lg-3 col-12 col-md-6 mt-3">
-                <Card className="border-dark" style={{ background: "rgba(255,255,255, 0.7)" }}>
+                <Card className="border-dark" >
                     <Card.Header>
                         <Card.Title align="center" style={{ fontSize: 22 }}>
                             {props.title}

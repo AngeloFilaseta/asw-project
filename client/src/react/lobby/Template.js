@@ -19,7 +19,7 @@ export default function Template() {
                         <Chat height={'80vh'} />
                     </div>
                 </Col>
-                <Col className="col-md-6 mt-md-3" role="main">
+                <Col className="col-md-6 mt-md-3 trnsp" role="main" style={{ borderRadius: "3px", minHeight: "80vh" }}>
                     <MainContent />
                 </Col>
                 <Col className="d-none d-md-inline ">

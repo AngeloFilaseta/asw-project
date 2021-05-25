@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card"
 
 export default function GameRules() {
     return (
-        <Card className="m-3 m-md-0" style={{ background: "rgba(255,255,255, 0.7)" }}>
+        <Card className="m-3 m-md-0">
             <Card.Header align="center">Before the Game starts:</Card.Header>
             <Card.Body>
                 <Card.Title><h1>Rules of the game</h1></Card.Title>

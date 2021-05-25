@@ -12,7 +12,7 @@ export default function Chat(props) {
     let username = useSelector(state => state.userInfo.username)
 
     return (
-        <Card style={{ overflow: "hidden", height: props.height, background: "rgba(255,255,255, 0.7)" }} className={"mt-3"}>
+        <Card style={{ overflow: "hidden", height: props.height }} className={"mt-3"}>
             <Card.Title className="pt-3 pl-3">Chat</Card.Title>
             <Card.Body id={"scroll"} style={{ overflowY: "scroll", height: props.height }}>
                 <ListGroup >{updateChat(messages, username)}</ListGroup>
