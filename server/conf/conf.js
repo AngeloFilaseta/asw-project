@@ -1,7 +1,7 @@
 module.exports = {
     clientAddress: 'http://localhost',
     clientPort: 3001,
-    dbAddress: 'mongodb://localhost:27017/guessr',
+    dbAddress: 'mongodb://asw-project_mongodb_1.asw-project_internal:27017/guessr',
     token_secret: 'zawarudomudamudamudamuda',
     documentFolder: "./resources/pdf/",
     port: 3000,
