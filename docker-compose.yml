@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  guessr_server:
+  server:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: guessr_server
+    image: server
     ports:
       - 3000:3000
     networks:
@@ -23,6 +23,15 @@ services:
       - internal
     volumes:
       - ./data:/data
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    ports:
+      - 5000:5000
+    networks:
+      - internal
 
 networks:
   internal:
