@@ -11,7 +11,9 @@ services:
     networks:
       - internal
     volumes:
-      - ./resources:/resources
+      - type: volume
+        source: pdf
+        target: /app/resources/pdf
   mongodb:
     build:
       context: ./mongodb
@@ -22,7 +24,9 @@ services:
     networks:
       - internal
     volumes:
-      - ./data:/data
+      - type: volume
+        source: mongodb_data
+        target: /data/db
   client:
     build:
       context: ./client
@@ -38,4 +42,10 @@ networks:
     driver: bridge
     driver_opts:
        com.docker.network.bridge.name: "brinterna"
+       
+volumes:
+  pdf:
+    external: true
+  mongodb_data:
+    external: true
 

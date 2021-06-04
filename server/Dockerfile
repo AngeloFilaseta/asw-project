@@ -10,7 +10,7 @@ COPY . /app
 
 RUN mkdir resources && mkdir resources/pdf
 	
-VOLUME /resources/pdf/ 
+#VOLUME /resources/pdf/ 
 
 CMD node app.js
 
