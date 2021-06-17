@@ -21,7 +21,7 @@ export default function LobbyCreationForm() {
             <NotificationContainer />
             <GuessrNavbar title="" />
             <LoadingOverlay active={isLoading} spinner text='Loading...'>
-                <Container role="main" fluid className="rounded mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded trnsp">
+                <Container role="main" fluid className="rounded mt-5 p-3 col-11 col-md-6 col-lg-4 border border-primary rounded" style={{background:"rgba(255,255,255, 0.89)"}}>
                     <div align="center">
                         <VisibilitySwitch />
                         <TurnsInput />

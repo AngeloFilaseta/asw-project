@@ -30,7 +30,7 @@ function buttonIsLoading(buttonName) {
 
 function buttonLoaded(buttonName, setGoBack) {
     return (
-        <Button block variant="dark" size="lg" onClick={setGoBack}>
+        <Button block variant="primary" size="lg" onClick={setGoBack}>
             {buttonName}
         </Button>
     )
