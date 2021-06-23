@@ -8,7 +8,7 @@ RUN	npm install
 
 COPY . /app
 
-RUN mkdir resources && mkdir resources/pdf
+RUN mkdir -p resources/pdf
 	
 #VOLUME /resources/pdf/ 
 
